@@ -1,0 +1,83 @@
+\documentclass[14pt]{extarticle}
+\usepackage{changepage}
+\usepackage[left=1cm , right = 1cm, top=0.5cm]{geometry}
+\usepackage{helvet}
+\usepackage{parskip}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage[spanish]{babel}
+\usepackage{xcolor-material}
+\usepackage{tcolorbox}
+\usepackage{hyperref}
+\renewcommand{\sfdefault}{lmss}  % este activa la letra lmss
+\renewcommand{\familydefault}{\sfdefault} % este activa la letra lmss
+\sffamily % este activa la letra lmss
+\begin{document}
+
+@BritoAlv
+
+
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black, title = Enunciado]
+Demostrar que no existe una función $f: \mathbb{R} \to \mathbb{R}$ tal que:
+
+    $$\forall (x):  f(x) \geq 0 \, \, \textcolor{MaterialRed900}{\wedge} 
+    \lim_{x \to \textcolor{MaterialBlue900}{-}\infty}f(x) \textcolor{MaterialYellow900}{=} \textcolor{MaterialBlue900}{-}\infty$$
+    
+\end{tcolorbox}
+
+$$P1: \forall(x) \textcolor{MaterialYellow800}{\biggl[} f(x) \geq 0 \textcolor{MaterialYellow800}{\biggr]}$$
+La segunda condición se puede escribir de la  siguiente forma:
+
+$$P2: \forall (\epsilon)\textcolor{MaterialTeal500}{\Biggl[} \textcolor{MaterialCyan500}{[}\epsilon < 0\textcolor{MaterialCyan500}{]} \rightarrow  \exists(N_\epsilon) \textcolor{MaterialLightGreen800}{\biggl[}  \forall(x) \textcolor{MaterialYellow500}{\Bigl[}   \textcolor{MaterialLime500}{[}x < N_\epsilon\textcolor{MaterialLime500}{]} \rightarrow \textcolor{MaterialPurple500}{[}f(x) < \epsilon\textcolor{MaterialPurple500}{]} \textcolor{MaterialYellow500}{\Bigr]} \textcolor{MaterialLightGreen800}{\biggr]}   \textcolor{MaterialTeal500}{\Biggr]}$$
+
+Asumiendo que yo pueda demostrar que $P2 \rightarrow \lnot  P1 $ (esto es una premisa $*$). Esto es suficiente pués:
+\begin{align}
+    T, P1 \textcolor{MaterialRed900}{\wedge} P2, P2 \rightarrow \lnot  P1  \, \, &\textcolor{MaterialPurple900}{\vdash} \,  \, P1 \textcolor{MaterialRed900}{\wedge} P2 &&\text{Hipótesis} \\
+    T, P1 \textcolor{MaterialRed900}{\wedge} P2, P2 \rightarrow \lnot  P1 \, \, &\textcolor{MaterialPurple900}{\vdash} \,  \, P2 &&\text{RI4b (1)}\\
+    T, P1 \textcolor{MaterialRed900}{\wedge} P2, P2 \rightarrow \lnot  P1 \, \, &\textcolor{MaterialPurple900}{\vdash} \,  \, P1 &&\text{RI4a (1) }\\    
+    T, P1 \textcolor{MaterialRed900}{\wedge} P2, P2 \rightarrow \lnot  P1 \, \, &\textcolor{MaterialPurple900}{\vdash} \,  \, P2 \rightarrow \lnot  P1 &&\text{Hipótesis}\\
+    T, P1 \textcolor{MaterialRed900}{\wedge} P2, P2 \rightarrow \lnot  P1 \, \, &\textcolor{MaterialPurple900}{\vdash} \,  \, \lnot P1  &&\text{RI1 (2), (3)}\\
+    T, P1 \textcolor{MaterialRed900}{\wedge} P2, P2 \rightarrow \lnot  P1 \, \, &\textcolor{MaterialPurple900}{\vdash} \,  \, P1 \textcolor{MaterialRed900}{\wedge} \lnot  P1  &&\text{RI3 (3), (5)}\\
+    T, P1 \textcolor{MaterialRed900}{\wedge} P2 \, \, &\textcolor{MaterialPurple900}{\vdash} \,  \, \lnot\textcolor{MaterialDeepOrange500}{[}P2 \rightarrow \lnot P1\textcolor{MaterialDeepOrange500}{]}  &&\text{RI9b (6)}\\
+    T \, \, &\textcolor{MaterialPurple900}{\vdash} \,  \, P2 \rightarrow \lnot P1 &&\text{Premisa *}\\
+    T, P1 \textcolor{MaterialRed900}{\wedge} P2 \, \, &\textcolor{MaterialPurple900}{\vdash} \,  \, \textcolor{MaterialPurple800}{[}P2 \rightarrow \lnot P1\textcolor{MaterialPurple800}{]}  &&\text{Monotonía}\\
+    T, P1 \textcolor{MaterialRed900}{\wedge} P2 \, \, &\textcolor{MaterialPurple900}{\vdash} \,  \, \textcolor{MaterialPurple800}{[}P2 \rightarrow \lnot P1\textcolor{MaterialPurple800}{]} \textcolor{MaterialRed900}{\wedge} \lnot\textcolor{MaterialPink800}{[}P2 \rightarrow \lnot P1\textcolor{MaterialPink800}{]} &&\text{RI3 (9), (7)} \\
+    T  \, \, &\textcolor{MaterialPurple900}{\vdash} \,  \, \lnot \textcolor{MaterialIndigo800}{[}P1 \textcolor{MaterialRed900}{\wedge} P2\textcolor{MaterialIndigo800}{]} &&\text{RI9b (10)} \\
+\end{align}
+  
+Lo anterior demuestra que no se pueden cumplir simultaneamente $P1,P2$.
+
+\newpage
+\begin{adjustwidth}{-2.5cm}{0pt}
+\begin{align}
+    T, P2 \, \, &\textcolor{MaterialPurple900}{\vdash} \,  \, \forall (\epsilon)\textcolor{MaterialBlue500}{\Biggl[} \textcolor{MaterialYellow800}{[}\epsilon < 0\textcolor{MaterialYellow800}{]} \rightarrow  \exists(N_\epsilon) \textcolor{MaterialBlue500}{\biggl[}  \forall(x) \textcolor{MaterialIndigo800}{\Bigl[}   \textcolor{MaterialBlue500}{[}x < N_\epsilon\textcolor{MaterialBlue500}{]} \rightarrow \textcolor{MaterialBlueGrey800}{[}f(x) < \epsilon\textcolor{MaterialBlueGrey800}{]} \textcolor{MaterialIndigo800}{\Bigr]} \textcolor{MaterialBlue500}{\biggr]}   \textcolor{MaterialBlue500}{\Biggr]} &&\text{Hipótesis} \\
+    T, P2 \, \, &\textcolor{MaterialPurple900}{\vdash} \,  \, \textcolor{MaterialAmber800}{[}(\textcolor{MaterialBlue900}{-}1) < 0\textcolor{MaterialAmber800}{]} \rightarrow  \exists(N_\epsilon) \textcolor{MaterialTeal500}{\biggl[}  \forall(x) \textcolor{MaterialBrown800}{\Bigl[}   \textcolor{GoogleYellow}{[}x < N_\epsilon\textcolor{GoogleYellow}{]} \rightarrow \textcolor{MaterialLightGreen500}{[}f(x) < \textcolor{MaterialBlue900}{-}1\textcolor{MaterialLightGreen500}{]} \textcolor{MaterialBrown800}{\Bigr]} \textcolor{MaterialTeal500}{\biggr]} &&\text{RI14, $\epsilon \textcolor{MaterialYellow900}{=} \textcolor{MaterialBlue900}{-}1$ }   \\
+    T, P2 \, \, &\textcolor{MaterialPurple900}{\vdash} \,  \, \textcolor{MaterialBlueGrey800}{[}(\textcolor{MaterialBlue900}{-}1) < 0\textcolor{MaterialBlueGrey800}{]} &&\text{$<$} \\
+    T, P2 \, \, &\textcolor{MaterialPurple900}{\vdash} \,  \, \exists(N_\epsilon) \textcolor{MaterialTeal800}{\biggl[}  \forall(x) \textcolor{MaterialPink500}{\Bigl[}   \textcolor{MaterialRed800}{[}x < N_\epsilon\textcolor{MaterialRed800}{]} \rightarrow \textcolor{MaterialRed500}{[}f(x) < \textcolor{MaterialBlue900}{-}1\textcolor{MaterialRed500}{]} \textcolor{MaterialPink500}{\Bigr]} \textcolor{MaterialTeal800}{\biggr]}   &&\text{RI1 (15,14)} 
+\end{align}
+\end{adjustwidth}
+\begin{adjustwidth}{-1cm}{0pt}
+\begin{align}    
+    T, P2, \forall(x) \textcolor{MaterialLime500}{\Bigl[}   \textcolor{MaterialDeepOrange500}{[}x < a\textcolor{MaterialDeepOrange500}{]} \rightarrow \textcolor{MaterialBlueGrey800}{[}f(x) < \textcolor{MaterialBlue900}{-}1\textcolor{MaterialBlueGrey800}{]} \textcolor{MaterialLime500}{\Bigr]}  \, \, &\textcolor{MaterialPurple900}{\vdash} \,  \, \forall(x) \textcolor{MaterialCyan800}{\Bigl[}   \textcolor{MaterialDeepOrange800}{[}x < a\textcolor{MaterialDeepOrange800}{]} \rightarrow \textcolor{MaterialLightBlue500}{[}f(x) < \textcolor{MaterialBlue900}{-}1\textcolor{MaterialLightBlue500}{]} \textcolor{MaterialCyan800}{\Bigr]} &&\text{Hipotesis, $a$ cte} \\
+    T, P2, \forall(x) \textcolor{MaterialOrange800}{\Bigl[}   \textcolor{MaterialGrey500}{[}x < a\textcolor{MaterialGrey500}{]} \rightarrow \textcolor{MaterialGreen500}{[}f(x) < \textcolor{MaterialBlue900}{-}1\textcolor{MaterialGreen500}{]} \textcolor{MaterialOrange800}{\Bigr]} \, \, &\textcolor{MaterialPurple900}{\vdash} \,  \, \textcolor{MaterialTeal800}{\Bigl[}   \textcolor{MaterialRed800}{[}a\textcolor{MaterialBlue900}{-}1 < a\textcolor{MaterialRed800}{]} \rightarrow \textcolor{MaterialAmber800}{[}f(a\textcolor{MaterialBlue900}{-}1) < \textcolor{MaterialBlue900}{-}1\textcolor{MaterialAmber800}{]} \textcolor{MaterialTeal800}{\Bigr]} && \text{RI14 $x \textcolor{MaterialYellow900}{=} a\textcolor{MaterialBlue900}{-}1$ } \\
+    T, P2, \forall(x) \textcolor{MaterialLightGreen800}{\Bigl[}   \textcolor{MaterialOrange800}{[}x < a\textcolor{MaterialOrange800}{]} \rightarrow \textcolor{MaterialDeepOrange800}{[}f(x) < \textcolor{MaterialBlue900}{-}1\textcolor{MaterialDeepOrange800}{]} \textcolor{MaterialLightGreen800}{\Bigr]} \, \, &\textcolor{MaterialPurple900}{\vdash} \,  \, \textcolor{MaterialLightBlue500}{[}a\textcolor{MaterialBlue900}{-}1 < a\textcolor{MaterialLightBlue500}{]} &&\text{$<$} \\
+    T, P2, \forall(x) \textcolor{MaterialIndigo800}{\Bigl[}   \textcolor{MaterialGrey800}{[}x < a\textcolor{MaterialGrey800}{]} \rightarrow \textcolor{MaterialAmber500}{[}f(x) < \textcolor{MaterialBlue900}{-}1\textcolor{MaterialAmber500}{]} \textcolor{MaterialIndigo800}{\Bigr]} \, \, &\textcolor{MaterialPurple900}{\vdash} \,  \, f(a\textcolor{MaterialBlue900}{-}1) < \textcolor{MaterialBlue900}{-}1 &&\text{RI1 (19), (18)}\\
+    T, P2, \forall(x) \textcolor{MaterialOrange500}{\Bigl[}   \textcolor{MaterialPurple500}{[}x < a\textcolor{MaterialPurple500}{]} \rightarrow \textcolor{MaterialBlueGrey500}{[}f(x) < \textcolor{MaterialBlue900}{-}1\textcolor{MaterialBlueGrey500}{]} \textcolor{MaterialOrange500}{\Bigr]} \, \, &\textcolor{MaterialPurple900}{\vdash} \,  \, f(a\textcolor{MaterialBlue900}{-}1) < 0 &&\text{$<$} \\
+    T, P2, \forall(x) \textcolor{MaterialYellow500}{\Bigl[}   \textcolor{MaterialRed800}{[}x < a\textcolor{MaterialRed800}{]} \rightarrow \textcolor{MaterialBrown800}{[}f(x) < \textcolor{MaterialBlue900}{-}1\textcolor{MaterialBrown800}{]} \textcolor{MaterialYellow500}{\Bigr]} \, \, &\textcolor{MaterialPurple900}{\vdash} \,  \, \exists(x)\textcolor{MaterialBlue500}{[}f(x)<0\textcolor{MaterialBlue500}{]} &&\text{RI15 $x\textcolor{MaterialYellow900}{=} a\textcolor{MaterialBlue900}{-}1$}
+\end{align}
+\end{adjustwidth}
+\begin{adjustwidth}{-1.5cm}{0pt}
+\begin{align}
+    T, P2  \, \, &\textcolor{MaterialPurple900}{\vdash} \,  \, \forall(x) \textcolor{MaterialLime800}{\Bigl[}   \textcolor{MaterialYellow800}{[}x < a\textcolor{MaterialYellow800}{]} \rightarrow \textcolor{MaterialTeal500}{[}f(x) < \textcolor{MaterialBlue900}{-}1\textcolor{MaterialTeal500}{]} \textcolor{MaterialLime800}{\Bigr]} \rightarrow \exists(x)\textcolor{MaterialLime500}{[}f(x)<0\textcolor{MaterialLime500}{]} &&\text{RI2 (22)} \\
+    T, P2  \, \, &\textcolor{MaterialPurple900}{\vdash} \,  \, \exists(N_\epsilon) \textcolor{MaterialLightBlue800}{\biggl[}  \forall(x) \textcolor{MaterialGreen500}{\Bigl[}   \textcolor{MaterialYellow800}{[}x < N_\epsilon\textcolor{MaterialYellow800}{]} \rightarrow \textcolor{GoogleBlue}{[}f(x) < \textcolor{MaterialBlue900}{-}1\textcolor{GoogleBlue}{]} \textcolor{MaterialGreen500}{\Bigr]} \textcolor{MaterialLightBlue800}{\biggr]} \rightarrow \exists(x)\textcolor{MaterialGrey800}{[}f(x)<0\textcolor{MaterialGrey800}{]} &&\text{RI16, $a$, $N_\epsilon$} \\
+    T, P2 \, \, &\textcolor{MaterialPurple900}{\vdash} \,  \, \exists(x)\textcolor{MaterialLime800}{[}f(x)<0\textcolor{MaterialLime800}{]} &&\text{RI1 (16), (24)} \\
+    T, P2 \, \, &\textcolor{MaterialPurple900}{\vdash} \,  \, \lnot \forall(x)\lnot\textcolor{MaterialBlue800}{[}f(x) < 0\textcolor{MaterialBlue800}{]} &&\text{L45} \\
+    T, P2 \, \, &\textcolor{MaterialPurple900}{\vdash} \,  \, \lnot \forall(x)\textcolor{MaterialYellow800}{[}f(x) \geq 0\textcolor{MaterialYellow800}{]} &&\text{$<$} \\
+    T, P2 \, \, &\textcolor{MaterialPurple900}{\vdash} \,  \, \lnot P1 &&\text{Tautología} \\
+    T \, \, &\textcolor{MaterialPurple900}{\vdash} \,  \, P2 \rightarrow \lnot P1 &&\text{RI2} 
+\end{align}  
+\end{adjustwidth}
+\end{document}
+
+
