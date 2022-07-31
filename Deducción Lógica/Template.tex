@@ -1,0 +1,82 @@
+\documentclass[14pt]{extarticle}
+\usepackage{changepage}
+\usepackage[left=1cm , right = 1cm, top=0.5cm]{geometry}
+\usepackage{helvet}
+\usepackage{parskip}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage[spanish]{babel}
+\usepackage{xcolor-material}
+\usepackage{tcolorbox}
+\usepackage{hyperref}
+\renewcommand{\sfdefault}{lmss}  % este activa la letra lmss
+\renewcommand{\familydefault}{\sfdefault} % este activa la letra lmss
+\sffamily % este activa la letra lmss
+\begin{document}
+
+@BritoAlv
+
+
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black, title = Enunciado]
+Demostrar que no existe una función $f: \mathbb{R} \to \mathbb{R}$ tal que:
+
+    $$\forall (x):  f(x) \geq 0 \, \, \wedge 
+    \lim_{x \to -\infty}f(x) = -\infty$$
+    
+\end{tcolorbox}
+
+$$P1: \forall(x) \biggl[ f(x) \geq 0 \biggr]$$
+La segunda condición se puede escribir de la  siguiente forma:
+
+$$P2: \forall (\epsilon)\Biggl[ [\epsilon < 0] \rightarrow  \exists(N_\epsilon) \biggl[  \forall(x) \Bigl[   [x < N_\epsilon] \rightarrow [f(x) < \epsilon] \Bigr] \biggr]   \Biggr]$$
+
+Asumiendo que yo pueda demostrar que $P2 \rightarrow \lnot  P1 $ (esto es una premisa $*$). Esto es suficiente pués:
+\begin{align}
+    T, P1 \wedge P2, P2 \rightarrow \lnot  P1  \, \, &\vdash P1 \wedge P2 &&\text{Hipótesis} \\
+    T, P1 \wedge P2, P2 \rightarrow \lnot  P1 \, \, &\vdash P2 &&\text{RI4b (1)}\\
+    T, P1 \wedge P2, P2 \rightarrow \lnot  P1 \, \, &\vdash P1 &&\text{RI4a (1) }\\    
+    T, P1 \wedge P2, P2 \rightarrow \lnot  P1 \, \, &\vdash P2 \rightarrow \lnot  P1 &&\text{Hipótesis}\\
+    T, P1 \wedge P2, P2 \rightarrow \lnot  P1 \, \, &\vdash \lnot P1  &&\text{RI1 (2), (3)}\\
+    T, P1 \wedge P2, P2 \rightarrow \lnot  P1 \, \, &\vdash P1 \wedge \lnot  P1  &&\text{RI3 (3), (5)}\\
+    T, P1 \wedge P2 \, \, &\vdash \lnot[P2 \rightarrow \lnot P1]  &&\text{RI9b (6)}\\
+    T &\vdash P2 \rightarrow \lnot P1 &&\text{Premisa *}\\
+    T, P1 \wedge P2 \, \, &\vdash [P2 \rightarrow \lnot P1]  &&\text{Monotonía}\\
+    T, P1 \wedge P2 \, \, &\vdash [P2 \rightarrow \lnot P1] \wedge \lnot[P2 \rightarrow \lnot P1] &&\text{RI3 (9), (7)} \\
+    T  \, \, &\vdash \lnot [P1 \wedge P2] &&\text{RI9b (10)} \\
+\end{align}
+  
+Lo anterior demuestra que no se pueden cumplir simultaneamente $P1,P2$.
+
+\newpage
+\begin{adjustwidth}{-1cm}{0pt}
+\begin{align}
+    T, P2 \, \, &\vdash \forall (\epsilon)\Biggl[ [\epsilon < 0] \rightarrow  \exists(N_\epsilon) \biggl[  \forall(x) \Bigl[   [x < N_\epsilon] \rightarrow [f(x) < \epsilon] \Bigr] \biggr]   \Biggr] &&\text{Hipótesis} \\
+    T, P2 \, \, &\vdash [(-1) < 0] \rightarrow  \exists(N_\epsilon) \biggl[  \forall(x) \Bigl[   [x < N_\epsilon] \rightarrow [f(x) < -1] \Bigr] \biggr] &&\text{RI14, $\epsilon = -1$ }   \\
+    T, P2 \, \, &\vdash [(-1) < 0] &&\text{$<$} \\
+    T, P2 \, \, &\vdash \exists(N_\epsilon) \biggl[  \forall(x) \Bigl[   [x < N_\epsilon] \rightarrow [f(x) < -1] \Bigr] \biggr]   &&\text{RI1 (15,14)} 
+\end{align}
+\end{adjustwidth}
+\begin{adjustwidth}{-1cm}{0pt}
+\begin{align}    
+    T, P2, \forall(x) \Bigl[   [x < a] \rightarrow [f(x) < -1] \Bigr]  \, \, &\vdash \forall(x) \Bigl[   [x < a] \rightarrow [f(x) < -1] \Bigr] &&\text{Hipotesis, $a$ cte} \\
+    T, P2, \forall(x) \Bigl[   [x < a] \rightarrow [f(x) < -1] \Bigr] \, \, &\vdash \Bigl[   [a-1 < a] \rightarrow [f(a-1) < -1] \Bigr] && \text{RI14 $x = a-1$ } \\
+    T, P2, \forall(x) \Bigl[   [x < a] \rightarrow [f(x) < -1] \Bigr] \, \, &\vdash [a-1 < a] &&\text{$<$} \\
+    T, P2, \forall(x) \Bigl[   [x < a] \rightarrow [f(x) < -1] \Bigr] \, \, &\vdash f(a-1) < -1 &&\text{RI1 (19), (18)}\\
+    T, P2, \forall(x) \Bigl[   [x < a] \rightarrow [f(x) < -1] \Bigr] \, \, &\vdash f(a-1) < 0 &&\text{$<$} \\
+    T, P2, \forall(x) \Bigl[   [x < a] \rightarrow [f(x) < -1] \Bigr] \, \, &\vdash \exists(x)[f(x)<0] &&\text{RI15 $x= a-1$}
+\end{align}
+\end{adjustwidth}
+\begin{adjustwidth}{-1cm}{0pt}
+\begin{align}
+    T, P2  \, \, &\vdash \forall(x) \Bigl[   [x < a] \rightarrow [f(x) < -1] \Bigr] \rightarrow \exists(x)[f(x)<0] &&\text{RI2 (22)} \\
+    T, P2  \, \, &\vdash \exists(N_\epsilon) \biggl[  \forall(x) \Bigl[   [x < N_\epsilon] \rightarrow [f(x) < -1] \Bigr] \biggr] \rightarrow \exists(x)[f(x)<0] &&\text{RI16, $a$, $N_\epsilon$} \\
+    T, P2 \, \, &\vdash \exists(x)[f(x)<0] &&\text{RI1 (16), (24)} \\
+    T, P2 \, \, &\vdash \lnot \forall(x)\lnot[f(x) < 0] &&\text{L45} \\
+    T, P2 \, \, &\vdash \lnot \forall(x)[f(x) \geq 0] &&\text{$<$} \\
+    T, P2 \, \, &\vdash \lnot P1 &&\text{Tautología} \\
+    T \, \, &\vdash P2 \rightarrow \lnot P1 &&\text{RI2} 
+\end{align}  
+\end{adjustwidth}
+\end{document}
+
