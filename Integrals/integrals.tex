@@ -1,0 +1,171 @@
+% add --shell-escape to pdflatex arguments.
+% add following key to have keyboard shortcuts
+%{
+%    "key": "shift+b",
+%    "command": "commandId",
+%    "when": "editorTextFocus"
+%},
+%{
+%"key": "shift+B",
+%"command": "editor.action.insertSnippet",
+%"when": "editorLangId == latex && editorTextFocus",
+%"args": {
+%    "snippet": "\\textbf{${TM_SELECTED_TEXT}$0}"
+%}
+%}
+
+\documentclass[14pt]{extarticle}
+\usepackage[left=1cm , right = 1cm, top=2cm]{geometry}
+\usepackage{parskip}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\renewcommand{\sfdefault}{lmss}  % este activa la letra lmss
+\renewcommand{\familydefault}{\sfdefault} % este activa la letra lmss
+\sffamily % este activa la letra lmss
+%\hyperlink{page.2}{Go to page 2}
+%\newpage
+%text on page 2
+%\begin{figure}[htbp]
+%  \centering
+%  \includesvg{plot.svg}
+%  \caption{svg image}
+%\end{figure}
+
+%\begin{minted}{csharp}
+%    // single comment
+%    \end{minted}
+
+%\begin{align}
+%    \frac{d}{dx} \ln x &= \lim_{h\to 0} \frac{\ln(x+h) - \ln x}{h} \\
+%    &= \ln e^{1/x} &&\text{How this follows is left as an exercise.}\\
+%    &= \frac{1}{x} &&\text{Using the definition of ln as inverse function}
+%   \end{align}
+
+
+\begin{document}
+
+\begin{center}
+      @BritoAlv, Cristian Sanchez Olivera
+\end{center}
+
+    \textbf{---}   Integración por partes: la idea es separar la integral en dos partes, una que sabemos integrar y la restante que sabemos derivar. por ejemplo $\ln x$ no lo sabemos integrar directamente pero sin embargo si lo sabemos derivar.
+            \begin{align}
+                  \int \ln(x)dx
+                   & = x\ln(x) - \int x \frac{dx}{x} &  & \text{    $\ln x = u, du = \frac{dx}{x}, dv = dx, v = x$} \\
+                   & = x(\ln(x)-1) + C                                                                              \\
+            \end{align}
+
+    \textbf{---} La idea en la integral siguiente es transformar la expresión en una que sepamos integrar, por ejemplo de antemano conozco la integral: $$\int \frac{1}{x^2+1}dx = \arctan{x}$$
+            \begin{align}
+                  \int \frac{1}{x^2+x+1} dx
+                   & = \int \frac{1}{(x+\frac{1}{2})^2+\frac{3}{4}}dx                           &  & \text{Completamos el cuadrado }                             \\
+                   & = \int \frac{1}{u^2+\frac{3}{4}}du                                         &  & \text{Sustituimos la variable}                              \\
+                   & = \int \frac{1}{ \frac{3}{4} \left( (\frac{2u}{\sqrt 3})^2 + 1 \right) }du &  & \text{Sacando factor común}                                 \\
+                   & = \frac{4\sqrt{3}}{3*2} \int \frac{1}{t^2+1}dt                             &  & \text{$t = \frac{2u}{\sqrt{3}}, du = \frac{\sqrt{3}dt}{2}$} \\
+                   & = \frac{4\sqrt{3}}{3*2} \arctan(t)                                         &  & \text{Integral que conocemos}                               \\
+                   & = \frac{4\sqrt{3}}{3*2} \arctan(\frac{2u}{\sqrt{3}})                       &  & \text{Substituyendo lo anterior}                            \\
+                   & =  \frac{4\sqrt{3}}{3*2} \arctan(\frac{2(x+\frac{1}{2})}{\sqrt{3}}) + C    &  & \text{Substituyendo lo anterior}                            \\
+            \end{align}
+    \textbf{---} La idea de la siguiente integral es usar la linearidad de la integración separando una integral desconocida en la suma de dos integrales conocidas.
+            \begin{align}
+                  \int \frac{1}{e^x+1} dx
+                   & = \int dx - \int \frac{e^x}{(e^x+1)}dx &  & \text{ Separando la integral }  \\
+                   & = x - \int \frac{du}{u}                &  & \text{$e^x+1 = u, du = e^xdx$}  \\
+                   & = x - \ln{\vert u \vert }                                                   \\
+                   & = x -  \ln{\vert e^x+1     \vert} + C  &  & \text{Substituyendo para atrás} \\
+            \end{align}
+    \textbf{---} La idea es tener en cuenta las funciones que poseen las propiedades: $u = f(x)$ entonces podemos escribir la derivada de $f$ usando a $u$ también, ejemplo $u = e^x$, $du = udx$, en este caso usaremos $u = \sqrt{x},  du = \frac{1}{2}u^{-1}dx$.
+
+            \begin{align}
+                  \int \frac{1}{\sqrt{x}(x+1)} dx
+                   & = \int \frac{1}{u(u^2+1)}2udu &  & \text{ Tomando $u = \sqrt{x}, dx = \frac{2du}{u} $ } \\
+                   & =2 \int \frac{1}{u^2+1}du     &  & \text{derivada de $\arctan(u)$}                      \\
+                   & = 2\arctan(u) + C                                                                       \\
+                   & = 2\arctan(\sqrt{x}) + C
+            \end{align}
+
+    \textbf{---} La idea en la siguiente integral es hacer uso de las identidades trigonométricas, en este caso : $1+\tan^2{x} = \frac{1}{cos^2{x}}$, para poder transformar la expresión en una integrable:
+            \begin{align}
+                  \int \tan ^2xdx
+                   & = \int (1+\tan ^2x-1)dx       &  & \text{identidad} \\
+                   & = \int (1+\tan ^2x)dx-\int dx                       \\
+                   & =\int\dfrac{dx}{\cos ^2x}-xc                        \\
+                   & = \tan x-x+C
+            \end{align}
+    \textbf{---} La siguiente integral usa las funciones inversas de seno y coseno, antes resalto lo siguiente: Notemos que $-\arccos x = \arcsin x - \frac{\pi}{2}$, esto es debido a la identidad $\cos (x) = \sin(\frac{\pi}{2}-x)$. Lo que trae consigo que:
+
+            $$\int \frac{1}{\sqrt{1-x^2}} = \arcsin(x) + C, \arccos(x)+C$$
+            \begin{align}
+                  \int\dfrac{2x-\sqrt{\arcsin x}}{\sqrt{1-x^2}}dx
+                   & = 2\int\dfrac{xdx}{\sqrt{1-x^2}}-\int\dfrac{\sqrt{\arcsin x}}{\sqrt{1-x^2}}dx \\
+                   & =-\sqrt{1-x^2}-\int\dfrac{\sqrt{\arcsin x}}{\sqrt{1-x^2}}dx
+            \end{align}
+
+            Porque notemos que la función $f(x) = \sqrt{1-x^2}$ deriva como: $$\frac{x}{\sqrt{1-x^2}}$$
+
+            O sea la derivada contiene también a una parte de la función, la otra parte la tenemos en el numerador de la integral. Para acabar necesitamos calcular la integral restante, sabemos de antemano que:
+
+            $$(\arcsin x)' = \frac{1}{\sqrt{1-x^2}}$$
+
+            \begin{align}
+                  \int\dfrac{\sqrt{\arcsin x}}{\sqrt{1-x^2}}dx
+                   & = \int \sqrt{u}du                 &  & \text{$\arcsin x = u$}    \\
+                   & = \int u^\frac{1}{2}du            &  & \text{integral inmediata} \\
+                   & = \frac{2}{3}u^\frac{3}{2}                                       \\
+                   & = \frac{2}{3}\sqrt{(\arcsin x)^3}
+            \end{align}
+
+            El resultado final es: $$\int\dfrac{2x-\sqrt{\arcsin x}}{\sqrt{1-x^2}}dx = -\sqrt{1-x^2}- \frac{2}{3}\sqrt{(\arcsin x)^3} + C $$
+
+    \textbf{---} La idea en la siguiente integral es usar la relación entre las derivadas/integrales de $\sin x, \cos x$
+            \begin{align}
+                  \int \frac{1}{\cos x}
+                   & = \int \frac{\cos x}{\cos^2 x}                                                                                   \\
+                   & = \int \frac{\cos x}{1-\sin^2 x}                                                                                 \\
+                   & = \int \frac{du}{1-u^2}                                                 &  & \text{$u = \sin x, du = \cos x dx$} \\
+                   & = \frac{1}{2} \int  \Bigl(  \frac{1}{u-1} - \frac{1}{u+1}   \Bigr)du                                             \\
+                   & = \frac{1}{2} \Bigl( \int \frac{1}{u-1}du - \int \frac{1}{u+1}du \Bigr)                                          \\
+                   & =  \frac{1}{2} \Bigl(  \ln (u-1) - \ln (u+1) \Bigr)                                                              \\
+                   & = \frac{1}{2}\ln \Bigl( \frac{\sin x -1}{\sin x +1} \Bigr) + C
+            \end{align}
+
+    \textbf{---} Usar propiedades de la derivada de la raíz cuadrada:
+      \begin{align}
+            \int \frac{1}{x\sqrt{x^4+1}}dx 
+            &=  \int \frac{1}{2u\sqrt{u^2+1}}du  && \text{Tomando $u = x^2,  dx = \frac{du}{2u}$} \\ 
+            &= \frac{1}{2} \int \frac{\sqrt{u^2+1}}{u}du -  \frac{1}{2} \int  \frac{u}{\sqrt{u^2+1}}du && \text{Separando la fracción} \\
+            &= \frac{1}{2} \int \frac{\sqrt{u^2+1}}{u}du - \frac{1}{2}\sqrt{u^2+1} && \text{Integral Inmediata} \\
+            &= \frac{1}{2} \int \frac{\sqrt{\tan^2 m +1}}{\tan m}dm - \frac{1}{2}\sqrt{\tan^2 m+1} && \text{$u = \tan m$ } \\
+            &= \frac{1}{2} \int \frac{\sqrt{\frac{1}{\cos^2 m}}}{\tan m}dm - \frac{1}{2\cos m} && \text{Identidad } \\
+            &= \frac{1}{2} \int \frac{\frac{1}{\cos m}}{\tan m}dm - \frac{1}{2\cos m}  \\
+            &= \frac{1}{2} \int \frac{1}{\sin m}dm - \frac{1}{2\cos m}  
+      \end{align}      
+
+      En este punto el problema fue transformado en hallar la integral de $\frac{1}{\sin x}$, a diferencia de la del coseno está es más sencilla puesto que podemos usar
+      la fórmula del ángulo duplo, sería:
+      \begin{align}
+            \int \frac{1}{\sin m} dm 
+            &= \frac{1}{2} \int \frac{1}{\sin{\frac{m}{2}}\cos{\frac{m}{2}}}dm  && \text{ángulo duplo} \\
+            &= \frac{1}{2} \int \frac{\sin^2{\frac{m}{2}} + \cos^2{\frac{m}{2}}}{\sin{\frac{m}{2}}\cos{\frac{m}{2}}}dm  && \text{identidad trigonométrica} \\
+            &= \frac{1}{2} \int \frac{\cos{\frac{m}{2}}}{\sin{\frac{m}{2}}}dm + \frac{1}{2} \int \frac{\sin{\frac{m}{2}}}{\cos{\frac{m}{2}}}dm \\
+            &= \int \cot{a} da + \int \tan{a}da && \text{$\frac{m}{2} = a$} 
+      \end{align}
+      En este punto el problema es transformado en hallar la integral de la tangente y su recíproca:
+      $$\int \frac{1}{\tan a} da = \int \frac{\cos a}{\sin a} da \stackrel{r = \sin{a}}{=} \int \frac{1}{r}dr = \ln{r} = \ln{\sin a}+C$$
+
+      $$\int \tan a da = \int \frac{\sin a}{\cos a}da \stackrel{r = \cos{a}}{=} \int \frac{-1}{r}dr = -\ln{r} = -\ln{\cos a}+C$$
+      
+Entonces:
+
+$$\int \frac{1}{\sin m} dm =  $$ 
+
+       
+
+
+
+
+
+
+
+\end{document}
+
