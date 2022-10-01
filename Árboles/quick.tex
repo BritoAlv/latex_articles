@@ -1,0 +1,65 @@
+\documentclass[margin=3mm]{standalone}
+\usepackage[edges]{forest}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usetikzlibrary{shadows,arrows.meta}
+\tikzset{parent/.style={align=center,text width=3cm,fill=green!20,rounded corners=2pt},
+    child/.style={align=center,text width=2.8cm,fill=green!50,rounded corners=6pt},
+    grandchild/.style={fill=pink!50,text width=2.5cm}}
+\begin{document}
+\begin{forest}
+    arrow label/.style={
+        if level=1{
+          edge label={node [midway, font=\scriptsize\sffamily, sloped, above] {#1}},
+        }{
+          edge label={node [midway, font=\scriptsize\sffamily, anchor=south west] {#1}},
+        },
+      },
+    for tree={
+    grow=south,
+    draw, minimum size=3ex, inner sep=4pt,
+    s sep=10mm, thick,
+    drop shadow,
+    l sep=1.4cm,
+    s sep= 1cm,
+    node options={draw,font=\sffamily},
+    edge={semithick,-Latex}
+    }
+    [$n$ números a ordenar , name =L1
+        [$<$ que pivote $O(m)$, arrow label=$m \leq n-1$ 
+                [$<$ que pivote
+                []
+                [pivote]
+                []]
+                [pivote]
+                [$>$ que pivote
+                []
+                [pivote]
+                []
+                ]
+        ]
+        [pivote, , before computing xy={s/.average={s}{siblings}}]
+        [$>$ que pivote $O(t)$ , arrow label = $t \leq n-1$, name = L2 
+                [$<$ que pivote
+                []
+                [pivote]
+                []]
+                [pivote]
+                [$>$ que pivote, name = L3
+                []
+                [pivote]
+                [,name = L4]
+                ]
+        ]
+    ]
+    \node (a) [right=of L1 -| L2.east] {$O(n)$};
+    \node (b) [right=of L2.east]       {$m+t = n-1, O(m+t) = O(n)$};
+    \node (c) [right=of L3.east]      {$\sum = n-2, O(n)$};
+    \node (d) [right=of L4.east] {$\sum = n - CP , O(n)$};
+    \draw[dashed,->] (L1) -- (a);
+    \draw[dashed,->] (L2) -- (b);
+    \draw[dashed,->] (L3) -- (c);
+    \draw[dashed,->] (L4) -- (d);
+    \node[below = 0.5cm of current bounding box.south]{\textbf{$CP$ representa la cantidad de pivotes que fueron determinados, notemos que si alguno de $m,t$ es $0$, sucede que se poda esa rama del árbol, de ahí que el peor caso tenga complejidad $O(n^2)$}};       
+\end{forest} 
+\end{document}
