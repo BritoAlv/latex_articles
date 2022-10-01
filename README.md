@@ -5,3 +5,5 @@
 - Un resultado básico de Análisis Real demostrado con Lógica de Predicados.
 
 - Algunas Integrales Resueltas.
+
+- Algunos Árboles Para Representar recursión
