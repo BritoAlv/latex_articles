@@ -48,123 +48,123 @@
       @BritoAlv, Cristian Sanchez Olivera
 \end{center}
 
-    \textbf{---}   Integración por partes: la idea es separar la integral en dos partes, una que sabemos integrar y la restante que sabemos derivar. por ejemplo $\ln x$ no lo sabemos integrar directamente pero sin embargo si lo sabemos derivar.
-            \begin{align}
-                  \int \ln(x)dx
-                   & = x\ln(x) - \int x \frac{dx}{x} &  & \text{    $\ln x = u, du = \frac{dx}{x}, dv = dx, v = x$} \\
-                   & = x(\ln(x)-1) + C                                                                              \\
-            \end{align}
+\textbf{---}   Integración por partes: la idea es separar la integral en dos partes, una que sabemos integrar y la restante que sabemos derivar. por ejemplo $\ln x$ no lo sabemos integrar directamente pero sin embargo si lo sabemos derivar.
+\begin{align}
+      \int \ln(x)dx
+       & = x\ln(x) - \int x \frac{dx}{x} &  & \text{    $\ln x = u, du = \frac{dx}{x}, dv = dx, v = x$} \\
+       & = x(\ln(x)-1) + C                                                                              \\
+\end{align}
 
-    \textbf{---} La idea en la integral siguiente es transformar la expresión en una que sepamos integrar, por ejemplo de antemano conozco la integral: $$\int \frac{1}{x^2+1}dx = \arctan{x}$$
-            \begin{align}
-                  \int \frac{1}{x^2+x+1} dx
-                   & = \int \frac{1}{(x+\frac{1}{2})^2+\frac{3}{4}}dx                           &  & \text{Completamos el cuadrado }                             \\
-                   & = \int \frac{1}{u^2+\frac{3}{4}}du                                         &  & \text{Sustituimos la variable}                              \\
-                   & = \int \frac{1}{ \frac{3}{4} \left( (\frac{2u}{\sqrt 3})^2 + 1 \right) }du &  & \text{Sacando factor común}                                 \\
-                   & = \frac{4\sqrt{3}}{3*2} \int \frac{1}{t^2+1}dt                             &  & \text{$t = \frac{2u}{\sqrt{3}}, du = \frac{\sqrt{3}dt}{2}$} \\
-                   & = \frac{4\sqrt{3}}{3*2} \arctan(t)                                         &  & \text{Integral que conocemos}                               \\
-                   & = \frac{4\sqrt{3}}{3*2} \arctan(\frac{2u}{\sqrt{3}})                       &  & \text{Substituyendo lo anterior}                            \\
-                   & =  \frac{4\sqrt{3}}{3*2} \arctan(\frac{2(x+\frac{1}{2})}{\sqrt{3}}) + C    &  & \text{Substituyendo lo anterior}                            \\
-            \end{align}
-    \textbf{---} La idea de la siguiente integral es usar la linearidad de la integración separando una integral desconocida en la suma de dos integrales conocidas.
-            \begin{align}
-                  \int \frac{1}{e^x+1} dx
-                   & = \int dx - \int \frac{e^x}{(e^x+1)}dx &  & \text{ Separando la integral }  \\
-                   & = x - \int \frac{du}{u}                &  & \text{$e^x+1 = u, du = e^xdx$}  \\
-                   & = x - \ln{\vert u \vert }                                                   \\
-                   & = x -  \ln{\vert e^x+1     \vert} + C  &  & \text{Substituyendo para atrás} \\
-            \end{align}
-    \textbf{---} La idea es tener en cuenta las funciones que poseen las propiedades: $u = f(x)$ entonces podemos escribir la derivada de $f$ usando a $u$ también, ejemplo $u = e^x$, $du = udx$, en este caso usaremos $u = \sqrt{x},  du = \frac{1}{2}u^{-1}dx$.
+\textbf{---} La idea en la integral siguiente es transformar la expresión en una que sepamos integrar, por ejemplo de antemano conozco la integral: $$\int \frac{1}{x^2+1}dx = \arctan{x}$$
+\begin{align}
+      \int \frac{1}{x^2+x+1} dx
+       & = \int \frac{1}{(x+\frac{1}{2})^2+\frac{3}{4}}dx                           &  & \text{Completamos el cuadrado }                             \\
+       & = \int \frac{1}{u^2+\frac{3}{4}}du                                         &  & \text{Sustituimos la variable}                              \\
+       & = \int \frac{1}{ \frac{3}{4} \left( (\frac{2u}{\sqrt 3})^2 + 1 \right) }du &  & \text{Sacando factor común}                                 \\
+       & = \frac{4\sqrt{3}}{3*2} \int \frac{1}{t^2+1}dt                             &  & \text{$t = \frac{2u}{\sqrt{3}}, du = \frac{\sqrt{3}dt}{2}$} \\
+       & = \frac{4\sqrt{3}}{3*2} \arctan(t)                                         &  & \text{Integral que conocemos}                               \\
+       & = \frac{4\sqrt{3}}{3*2} \arctan(\frac{2u}{\sqrt{3}})                       &  & \text{Substituyendo lo anterior}                            \\
+       & =  \frac{4\sqrt{3}}{3*2} \arctan(\frac{2(x+\frac{1}{2})}{\sqrt{3}}) + C    &  & \text{Substituyendo lo anterior}                            \\
+\end{align}
+\textbf{---} La idea de la siguiente integral es usar la linearidad de la integración separando una integral desconocida en la suma de dos integrales conocidas.
+\begin{align}
+      \int \frac{1}{e^x+1} dx
+       & = \int dx - \int \frac{e^x}{(e^x+1)}dx &  & \text{ Separando la integral }  \\
+       & = x - \int \frac{du}{u}                &  & \text{$e^x+1 = u, du = e^xdx$}  \\
+       & = x - \ln{\vert u \vert }                                                   \\
+       & = x -  \ln{\vert e^x+1     \vert} + C  &  & \text{Substituyendo para atrás} \\
+\end{align}
+\textbf{---} La idea es tener en cuenta las funciones que poseen las propiedades: $u = f(x)$ entonces podemos escribir la derivada de $f$ usando a $u$ también, ejemplo $u = e^x$, $du = udx$, en este caso usaremos $u = \sqrt{x},  du = \frac{1}{2}u^{-1}dx$.
 
-            \begin{align}
-                  \int \frac{1}{\sqrt{x}(x+1)} dx
-                   & = \int \frac{1}{u(u^2+1)}2udu &  & \text{ Tomando $u = \sqrt{x}, dx = \frac{2du}{u} $ } \\
-                   & =2 \int \frac{1}{u^2+1}du     &  & \text{derivada de $\arctan(u)$}                      \\
-                   & = 2\arctan(u) + C                                                                       \\
-                   & = 2\arctan(\sqrt{x}) + C
-            \end{align}
+\begin{align}
+      \int \frac{1}{\sqrt{x}(x+1)} dx
+       & = \int \frac{1}{u(u^2+1)}2udu &  & \text{ Tomando $u = \sqrt{x}, dx = \frac{2du}{u} $ } \\
+       & =2 \int \frac{1}{u^2+1}du     &  & \text{derivada de $\arctan(u)$}                      \\
+       & = 2\arctan(u) + C                                                                       \\
+       & = 2\arctan(\sqrt{x}) + C
+\end{align}
 
-    \textbf{---} La idea en la siguiente integral es hacer uso de las identidades trigonométricas, en este caso : $1+\tan^2{x} = \frac{1}{cos^2{x}}$, para poder transformar la expresión en una integrable:
-            \begin{align}
-                  \int \tan ^2xdx
-                   & = \int (1+\tan ^2x-1)dx       &  & \text{identidad} \\
-                   & = \int (1+\tan ^2x)dx-\int dx                       \\
-                   & =\int\dfrac{dx}{\cos ^2x}-xc                        \\
-                   & = \tan x-x+C
-            \end{align}
-    \textbf{---} La siguiente integral usa las funciones inversas de seno y coseno, antes resalto lo siguiente: Notemos que $-\arccos x = \arcsin x - \frac{\pi}{2}$, esto es debido a la identidad $\cos (x) = \sin(\frac{\pi}{2}-x)$. Lo que trae consigo que:
+\textbf{---} La idea en la siguiente integral es hacer uso de las identidades trigonométricas, en este caso : $1+\tan^2{x} = \frac{1}{cos^2{x}}$, para poder transformar la expresión en una integrable:
+\begin{align}
+      \int \tan ^2xdx
+       & = \int (1+\tan ^2x-1)dx       &  & \text{identidad} \\
+       & = \int (1+\tan ^2x)dx-\int dx                       \\
+       & =\int\dfrac{dx}{\cos ^2x}-xc                        \\
+       & = \tan x-x+C
+\end{align}
+\textbf{---} La siguiente integral usa las funciones inversas de seno y coseno, antes resalto lo siguiente: Notemos que $-\arccos x = \arcsin x - \frac{\pi}{2}$, esto es debido a la identidad $\cos (x) = \sin(\frac{\pi}{2}-x)$. Lo que trae consigo que:
 
-            $$\int \frac{1}{\sqrt{1-x^2}} = \arcsin(x) + C, \arccos(x)+C$$
-            \begin{align}
-                  \int\dfrac{2x-\sqrt{\arcsin x}}{\sqrt{1-x^2}}dx
-                   & = 2\int\dfrac{xdx}{\sqrt{1-x^2}}-\int\dfrac{\sqrt{\arcsin x}}{\sqrt{1-x^2}}dx \\
-                   & =-\sqrt{1-x^2}-\int\dfrac{\sqrt{\arcsin x}}{\sqrt{1-x^2}}dx
-            \end{align}
+$$\int \frac{1}{\sqrt{1-x^2}} = \arcsin(x) + C, \arccos(x)+C$$
+\begin{align}
+      \int\dfrac{2x-\sqrt{\arcsin x}}{\sqrt{1-x^2}}dx
+       & = 2\int\dfrac{xdx}{\sqrt{1-x^2}}-\int\dfrac{\sqrt{\arcsin x}}{\sqrt{1-x^2}}dx \\
+       & =-\sqrt{1-x^2}-\int\dfrac{\sqrt{\arcsin x}}{\sqrt{1-x^2}}dx
+\end{align}
 
-            Porque notemos que la función $f(x) = \sqrt{1-x^2}$ deriva como: $$\frac{x}{\sqrt{1-x^2}}$$
+Porque notemos que la función $f(x) = \sqrt{1-x^2}$ deriva como: $$\frac{x}{\sqrt{1-x^2}}$$
 
-            O sea la derivada contiene también a una parte de la función, la otra parte la tenemos en el numerador de la integral. Para acabar necesitamos calcular la integral restante, sabemos de antemano que:
+O sea la derivada contiene también a una parte de la función, la otra parte la tenemos en el numerador de la integral. Para acabar necesitamos calcular la integral restante, sabemos de antemano que:
 
-            $$(\arcsin x)' = \frac{1}{\sqrt{1-x^2}}$$
+$$(\arcsin x)' = \frac{1}{\sqrt{1-x^2}}$$
 
-            \begin{align}
-                  \int\dfrac{\sqrt{\arcsin x}}{\sqrt{1-x^2}}dx
-                   & = \int \sqrt{u}du                 &  & \text{$\arcsin x = u$}    \\
-                   & = \int u^\frac{1}{2}du            &  & \text{integral inmediata} \\
-                   & = \frac{2}{3}u^\frac{3}{2}                                       \\
-                   & = \frac{2}{3}\sqrt{(\arcsin x)^3}
-            \end{align}
+\begin{align}
+      \int\dfrac{\sqrt{\arcsin x}}{\sqrt{1-x^2}}dx
+       & = \int \sqrt{u}du                 &  & \text{$\arcsin x = u$}    \\
+       & = \int u^\frac{1}{2}du            &  & \text{integral inmediata} \\
+       & = \frac{2}{3}u^\frac{3}{2}                                       \\
+       & = \frac{2}{3}\sqrt{(\arcsin x)^3}
+\end{align}
 
-            El resultado final es: $$\int\dfrac{2x-\sqrt{\arcsin x}}{\sqrt{1-x^2}}dx = -\sqrt{1-x^2}- \frac{2}{3}\sqrt{(\arcsin x)^3} + C $$
+El resultado final es: $$\int\dfrac{2x-\sqrt{\arcsin x}}{\sqrt{1-x^2}}dx = -\sqrt{1-x^2}- \frac{2}{3}\sqrt{(\arcsin x)^3} + C $$
 
-    \textbf{---} La idea en la siguiente integral es usar la relación entre las derivadas/integrales de $\sin x, \cos x$
-            \begin{align}
-                  \int \frac{1}{\cos x}
-                   & = \int \frac{\cos x}{\cos^2 x}                                                                                   \\
-                   & = \int \frac{\cos x}{1-\sin^2 x}                                                                                 \\
-                   & = \int \frac{du}{1-u^2}                                                 &  & \text{$u = \sin x, du = \cos x dx$} \\
-                   & = \frac{1}{2} \int  \Bigl(  \frac{1}{u-1} - \frac{1}{u+1}   \Bigr)du                                             \\
-                   & = \frac{1}{2} \Bigl( \int \frac{1}{u-1}du - \int \frac{1}{u+1}du \Bigr)                                          \\
-                   & =  \frac{1}{2} \Bigl(  \ln (u-1) - \ln (u+1) \Bigr)                                                              \\
-                   & = \frac{1}{2}\ln \Bigl( \frac{\sin x -1}{\sin x +1} \Bigr) + C
-            \end{align}
 
-    \textbf{---} Usar propiedades de la derivada de la raíz cuadrada:
-      \begin{align}
-            \int \frac{1}{x\sqrt{x^4+1}}dx 
-            &=  \int \frac{1}{2u\sqrt{u^2+1}}du  && \text{Tomando $u = x^2,  dx = \frac{du}{2u}$} \\ 
-            &= \frac{1}{2} \int \frac{\sqrt{u^2+1}}{u}du -  \frac{1}{2} \int  \frac{u}{\sqrt{u^2+1}}du && \text{Separando la fracción} \\
-            &= \frac{1}{2} \int \frac{\sqrt{u^2+1}}{u}du - \frac{1}{2}\sqrt{u^2+1} && \text{Integral Inmediata} \\
-            &= \frac{1}{2} \int \frac{\sqrt{\tan^2 m +1}}{\tan m}dm - \frac{1}{2}\sqrt{\tan^2 m+1} && \text{$u = \tan m$ } \\
-            &= \frac{1}{2} \int \frac{\sqrt{\frac{1}{\cos^2 m}}}{\tan m}dm - \frac{1}{2\cos m} && \text{Identidad } \\
-            &= \frac{1}{2} \int \frac{\frac{1}{\cos m}}{\tan m}dm - \frac{1}{2\cos m}  \\
-            &= \frac{1}{2} \int \frac{1}{\sin m}dm - \frac{1}{2\cos m}  
-      \end{align}      
 
-      En este punto el problema fue transformado en hallar la integral de $\frac{1}{\sin x}$, a diferencia de la del coseno está es más sencilla puesto que podemos usar
-      la fórmula del ángulo duplo, sería:
-      \begin{align}
-            \int \frac{1}{\sin m} dm 
-            &= \frac{1}{2} \int \frac{1}{\sin{\frac{m}{2}}\cos{\frac{m}{2}}}dm  && \text{ángulo duplo} \\
-            &= \frac{1}{2} \int \frac{\sin^2{\frac{m}{2}} + \cos^2{\frac{m}{2}}}{\sin{\frac{m}{2}}\cos{\frac{m}{2}}}dm  && \text{identidad trigonométrica} \\
-            &= \frac{1}{2} \int \frac{\cos{\frac{m}{2}}}{\sin{\frac{m}{2}}}dm + \frac{1}{2} \int \frac{\sin{\frac{m}{2}}}{\cos{\frac{m}{2}}}dm \\
-            &= \int \cot{a} da + \int \tan{a}da && \text{$\frac{m}{2} = a$} 
-      \end{align}
-      En este punto el problema es transformado en hallar la integral de la tangente y su recíproca:
-      $$\int \frac{1}{\tan a} da = \int \frac{\cos a}{\sin a} da \stackrel{r = \sin{a}}{=} \int \frac{1}{r}dr = \ln{r} = \ln{\sin a}+C$$
+\begin{align}
+      \int \frac{1}{x\sqrt{x^4+1}}dx
+       & =  \int \frac{1}{2u\sqrt{u^2+1}}du                                                               &  & \text{Tomando $u = x^2,  2xdx = du$}           \\
+       & = \frac{1}{2} \int \frac{\sqrt{u^2+1}}{u}du -  \frac{1}{2} \int  \frac{u}{\sqrt{u^2+1}}du        &  & \text{Separando la fracción}                   \\
+       & = \frac{1}{2} \int \frac{\sqrt{u^2+1}}{u}du - \frac{1}{2}\sqrt{u^2+1}                            &  & \text{Integral Inmediata}                      \\
+       & = \frac{1}{2} \int \frac{\sqrt{\tan^2 m +1}}{\tan{m}  \cos^2 m}dm - \frac{1}{2}\sqrt{\tan^2 m+1} &  & \text{$u = \tan m, du = \frac{dm}{\cos^2 m} $} \\
+       & = \frac{1}{2} \int \frac{1}{\sin m \cos^2m}dm - \frac{1}{2\cos m}                                &  & \text{Identidad}                               \\
+       & = \frac{1}{2} \int \left( \frac{\sin m}{cos^2 m} + \frac{1}{\sin m} \right) - \frac{1}{2\cos m}  &  & \text{Integral de $\sec{x}$}                   \\
+       & = \frac{1}{2}\ln{\left( \tan({\frac{m}{2}}) \right)}+C                                                                                               \\                                                                                        \\
+       & = \frac{1}{2}\ln{\left( \tan({\frac{\arctan{x^2}}{2}}) \right)}+C          \\                                                                          \\
+       & = \frac{1}{2}\ln{\left( \frac{1-\cos(\arctan x^2)}{\sin(\arctan x^2)}      \right)} + C  && \text{tangente ángulo mitad} \\ 
+       & = \frac{1}{2}\ln{\left( \frac{\sqrt{1+x^4}-1}{x^2} \right)} + C && \text{$\cos(\arctan(x)) = \frac{1}{\sqrt{1+x^2}}$ } \\
+       & = \frac{1}{2}\ln{(\sqrt{1+x^4}-1)} - \ln{x} + C && \text{Y esa es la integral}
+\end{align}
 
-      $$\int \tan a da = \int \frac{\sin a}{\cos a}da \stackrel{r = \cos{a}}{=} \int \frac{-1}{r}dr = -\ln{r} = -\ln{\cos a}+C$$
-      
+
+
+
+\textbf{---} La idea en la siguiente integral es usar la relación entre las derivadas/integrales de $\sin x, \cos x$
+\begin{align}
+      \int \frac{1}{\cos x}
+       & = \int \frac{\cos x}{\cos^2 x}                                                                                   \\
+       & = \int \frac{\cos x}{1-\sin^2 x}                                                                                 \\
+       & = \int \frac{du}{1-u^2}                                                 &  & \text{$u = \sin x, du = \cos x dx$} \\
+       & = \frac{1}{2} \int  \Bigl(  \frac{1}{u-1} - \frac{1}{u+1}   \Bigr)du                                             \\
+       & = \frac{1}{2} \Bigl( \int \frac{1}{u-1}du - \int \frac{1}{u+1}du \Bigr)                                          \\
+       & =  \frac{1}{2} \Bigl(  \ln (u-1) - \ln (u+1) \Bigr)                                                              \\
+       & = \frac{1}{2}\ln \Bigl( \frac{\sin x -1}{\sin x +1} \Bigr) + C
+\end{align}
+
+
+\begin{align}
+\int \frac{1}{\sin m} dm
+& = \frac{1}{2} \int \frac{1}{\sin{\frac{m}{2}}\cos{\frac{m}{2}}}dm                                                                 &  & \text{ángulo duplo}             \\
+& = \frac{1}{2} \int \frac{\sin^2{\frac{m}{2}} + \cos^2{\frac{m}{2}}}{\sin{\frac{m}{2}}\cos{\frac{m}{2}}}dm                         &  & \text{identidad trigonométrica} \\
+& = \frac{1}{2} \int \frac{\cos{\frac{m}{2}}}{\sin{\frac{m}{2}}}dm + \frac{1}{2} \int \frac{\sin{\frac{m}{2}}}{\cos{\frac{m}{2}}}dm                                      \\
+& = \int \cot{a} da + \int \tan{a}da                                                                                                &  & \text{$\frac{m}{2} = a$}
+\end{align}
+En este punto el problema es transformado en hallar la integral de la tangente y su recíproca:
+$$\int \frac{1}{\tan a} da = \int \frac{\cos a}{\sin a} da \stackrel{r = \sin{a}}{=} \int \frac{1}{r}dr = \ln{r} = \ln{\sin a}+C$$
+
+$$\int \tan a da = \int \frac{\sin a}{\cos a}da \stackrel{r = \cos{a}}{=} \int \frac{-1}{r}dr = -\ln{r} = -\ln{\cos a}+C$$
+
 Entonces:
 
-$$\int \frac{1}{\sin m} dm =  $$ 
-
-       
-
-
-
-
-
+$$\int \frac{1}{\sin m} dm = \ln(\sin \frac{m}{2}) - \ln(\cos \frac{m}{2}) + C = \ln{\tan{\frac{m}{2}}}+C$$
 
 
 \end{document}
