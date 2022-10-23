@@ -1,0 +1,155 @@
+% add --shell-escape to pdflatex arguments.
+% add following key to have keyboard shortcuts
+%{
+%    "key": "shift+b",
+%    "command": "commandId",
+%    "when": "editorTextFocus"
+%},
+%{
+%"key": "shift+B",
+%"command": "editor.action.insertSnippet",
+%"when": "editorLangId == latex && editorTextFocus",
+%"args": {
+%    "snippet": "\\textbf{${TM_SELECTED_TEXT}$0}"
+%}
+%}
+
+\documentclass[14pt]{extarticle}
+\usepackage[left=2cm , right = 2cm, top=2cm]{geometry}
+\usepackage{helvet}
+\usepackage{parskip}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage[spanish]{babel}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{tcolorbox} % above of the svg package
+\usepackage{svg} 
+\usepackage{hyperref}
+\usepackage{minted}
+\renewcommand{\sfdefault}{lmss}  % este activa la letra lmss
+\renewcommand{\familydefault}{\sfdefault} % este activa la letra lmss
+\sffamily % este activa la letra lmss
+%\hyperlink{page.2}{Go to page 2}
+%\newpage
+%text on page 2
+%\begin{figure}[htbp]
+%  \centering
+%  \includesvg{plot.svg}
+%  \caption{svg image}
+%\end{figure}
+
+%\begin{minted}{csharp}
+%    // single comment
+%    \end{minted}
+
+%\begin{align}
+%    \frac{d}{dx} \ln x &= \lim_{h\to 0} \frac{\ln(x+h) - \ln x}{h} \\
+%    &= \ln e^{1/x} &&\text{How this follows is left as an exercise.}\\
+%    &= \frac{1}{x} &&\text{Using the definition of ln as inverse function}
+%   \end{align}
+
+
+\begin{document}
+
+
+
+@BritoAlv
+
+
+
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black, title = Curvas de Segundo Grado]
+
+La ecuación general de una curva de segundo grado es de la forma: $$Ax^2+Bxy+Cy^2+Dx+Ey+F = 0$$
+\end{tcolorbox}
+
+\section{Rotación y Traslación}
+
+\subsection{Translación}
+
+Si sustituimos $x = x' + h$, $y = y'+k$, (trasladar el eje de coordenadas al punto $(h;k)$) obtenemos las siguientes relaciones dado que nuestro objetivo es eliminar los coeficientes $D,E$: 
+
+$$
+2Ah + Bk + D = 0  \, \, \, \, \, \, \, \, \, \, \, \, Bh + 2Ck + E = 0
+$$
+
+Esto es un $2*2$ con respecto a $h,k$, que se puede escribir de la siguiente forma: 
+
+$$
+\begin{bmatrix}
+    2A & B \\ B & 2C
+\end{bmatrix}
+    \begin{bmatrix}
+        h \\ k
+    \end{bmatrix} = 
+    \begin{bmatrix}
+        -D \\ -E
+    \end{bmatrix}
+$$ 
+
+Que significa que si $B^2 -4AC \neq 0$, podemos encontrar soluciones para $h,k$ y entonces cancelar los términos lineales, la nueva ecuación sería:
+
+$$Ax'^2 + Bx'y' + Cy'^2 + R = 0$$
+
+Con respecto a la ecuación que teníamos antes $D$ cambió, pero notemos que $A,B,C$ se mantienen invariantes. En el caso de que $B^2-4AC$ es $0$ no podemos eliminar ambos términos siempre, por lo que este método no es válido, sin embargo podemos realizar el siguiente razonamiento:
+
+Como $B^2 = 4AC$ $A,C$ han de tener el mismo signo, sin pérdida de generalidad asumamos que $A,C \geq 0$ , entonces podemos escribir la ecuación de la forma:
+
+$$(\sqrt{A}x + \sqrt{C}y)^2+Dx+Ey+F = 0$$
+
+Si exactamente uno de $A,C$ es $0$, entonces después de completar el cuadrado obtenemos la ecuación de una parabola, si ambos son $0$ tenemos la ecuación de una línea, en el caso en que ambos son distintos de $0$, lo dejaremos para cuando analize la rotación.
+
+\subsection{Rotación}
+
+El resultado final de la rotación es eliminar de la ecuación general el término mixto, $xy$, para aplicar una rotación de un ángulo $\theta$ hacemos lo siguiente:
+
+$$
+x = x'\cos(\theta) - y'\sin(\theta)  \, \, \, \, \, \, \, \, \, \, \, \,  y = x'\sin(\theta)+y'\cos(\theta)
+$$
+
+Que no es más que el resultado de aplicar la transformación lineal indicada por la matriz de rotación, el resultado final de esto es una ecuación general de la forma:
+
+$$Ax'^2+Cy'^2+Mx+Ny+F = 0$$
+
+Donde el ángulo de rotación es obtenido a partir de $\tan \theta = \frac{B}{A-C}$, si $A = C$ el ángulo es $45$,notemos si primero aplicamos una Translación y no fue posible eliminar ambos términos lineales, entonces la ecuación que nos queda después de rotarla no poseerá término mixto por lo que al menos uno de los $A', C'$ obtenido será $0$ y estaremos en presencia de un parábola, en cambio si fue posible eliminar ambos términos lineares y después aplicamos la rotación tendremos una ecuación general de la forma:
+
+$$Tx^2 + Py^2 + O = 0 $$, que en dependencia de los signos de $T,P,O$ representará una elipse  o  una hipérbola en el caso no-degenerado. Si $T,P$ tienen el mismo signo contrario al de $O$ es una elipse, si tienen distinto signo es una hiperbola.
+
+\subsection{Conclusión}
+
+A partir de rotaciones y translaciones fue posible llevar la ecuación general a las formas particulares de cada cónica dependiendo de los parámetros de la ecuación.
+
+\section{Asimptotas de una hiperbola}
+
+
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black, title = Motivación]
+
+    Demostrar que las rectas representadas por $$Ax^2 + 2Bxy + Cy^2 = 0$$ son asíntotas de la curva
+dada por la ecuación $$Ax^2 + 2Bxy + Cy^2 + F = 0$$
+
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=red!5!white,colframe=red!75!black, title = Solución]
+
+    Primero demostraré que la expresión $Ax^2 + 2Bxy + Cy^2 = 0$ representa a lo más rectas en el plano, si aplicamos una rotación a la expresión anterior tendremos una expresión de la forma: $A'x'2+C'y'^2 = 0$, que en dependencia de los signos de $A', C'$ representa un punto, una recta o dos rectas o nada.
+
+    Análogamente si aplicamos una rotación a la segunda expresión obtenemos $A'x'2+C'y'2 + F = 0$, por otro lado tenemos la siguiente invariante (propiedad de la rotación): 
+    $$
+        (2B)^2-4AC = (B')^2-4A'C' = -4A'C'
+    $$
+
+    Asumiré que $F \neq 0$, además notemos que si uno de $A', C'$ es $0$ el otro también lo es, consecuentemente $B^2 = AC$ y la segunda expresión no representa una curva, representa a lo más dos rectas. Por lo que asumiré que ninguno es $0$. Por otro lado si la curva es una elipse entonces se tiene que $A',C'$ tienen el mismo signo y por tanto la única solución en la ecuación de la asímptota es $(0,0)$ que no es una recta, por lo que concluyo que $A',C'$ tienen distinto signo y por tanto es una hiperbola. A partir de este momento el problema se reduce a demostrar que las asímptotas de una hiperbola con ecuación:
+    
+$$\frac{x^2}{a^2} - \frac{y^2}{b^2} = f$$ Son las rectas $y = \pm \frac{b}{a}x$
+\end{tcolorbox}
+
+\newpage
+
+Sin pérdida de generalidad puedo asumir que $f = 1$, para calcular las asímptotas de la hiperbola escribamos la ecuación de la forma:
+
+$$y = \pm \frac{b}{a}x \sqrt{1 - \frac{a^2}{x^2}}$$
+
+Cuando $x$ tiende a infinito los valores de la $y$ tienden a $\pm \frac{b}{a}x$, esto demuestra que los candidatos a ser asimptotas son las ecuaciones $y = \pm \frac{b}{a}x$ falta demostrar que $\lim_{x \to \infty} y \pm \frac{b}{a}x = $ constante, esta constante se puede demostrar que es $0$, por lo que ambas rectas son asímptotas de la hiperbola.
+
+\end{document}
+
