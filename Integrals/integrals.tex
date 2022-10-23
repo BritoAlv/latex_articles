@@ -47,7 +47,7 @@
 \begin{center}
       @BritoAlv, Cristian Sanchez Olivera
 \end{center}
-
+\section{Integrales Indefinidas}
 \textbf{---}   Integración por partes: la idea es separar la integral en dos partes, una que sabemos integrar y la restante que sabemos derivar. por ejemplo $\ln x$ no lo sabemos integrar directamente pero sin embargo si lo sabemos derivar.
 \begin{align}
       \int \ln(x)dx
@@ -165,6 +165,59 @@ $$\int \tan a da = \int \frac{\sin a}{\cos a}da \stackrel{r = \cos{a}}{=} \int \
 Entonces:
 
 $$\int \frac{1}{\sin m} dm = \ln(\sin \frac{m}{2}) - \ln(\cos \frac{m}{2}) + C = \ln{\tan{\frac{m}{2}}}+C$$
+
+
+\section{Integrales Definidas}
+
+Sea $F(x) = \int^x_a \sin x^2 dx $, entonces:
+
+\begin{align}
+      \frac{d}{dx} \int^b_a \sin x^2 dx 
+      & =   \frac{d}{dx} (F(b)- F(a)) \\
+      & = 0 && \text{derivada de una constante} 
+\end{align}
+
+\begin{align}
+      \frac{d}{da} \int^b_a \sin x^2 dx 
+      & =   \frac{d}{da} (F(b)- F(a)) \\
+      & = 0 - F'(a) \\
+      & = - \sin a^2 && \text{teorema cálculo integral} 
+\end{align}
+
+Sea $F(x) = \int^1_x \ln t dt$, entonces notemos que como el logaritmo está indefinido, para $x \leq 0$ y además la función presenta una discontinuidad de segunda especie en $x = 0$, en fin la función no es Rieman-Integrable en un intervalo que contenga al $0$ por lo que se cumple que $x > 0$. Entonces
+\begin{align}
+      \frac{d}{dx} \int^1_{x^2} \ln t dt 
+      & =   \frac{d}{dx} (F(x^2)- F(1)) \\
+      & = 2xF'(x^2) - 0  && \text{regla cadena} \\
+      & = - 2x(\ln x^2 ) && \text{teorema cálculo integral} 
+\end{align}
+
+Sea $ I(x) = \int^x_0 te^{-t^2}dt$, los extremos de la función son los valores que hacen cero la primera derivada y esta hace un cambio de signo en ella, la primera derivada de está función evaluada en un punto $t$ es $te^{-t^2}$, esta función tiene un cero solamente en $t = 0$, es fácil ver que es un cambio de signo , por lo que tiene un extremo en $t = 0$. Como cambia de negativo a positivo es un mínimo, y el valor de la función en ese punto es $I(0) = 0$. Como la función $I$ es continua por el primer teorema del cálculo integral ese límite es precisamente $I(1)$, para hallar el valor resolver la integral usando la sustitución $u = t^2$.
+
+Sea $F(x) = \int^x_0 \frac{\sin t}{t} dt$ , para $x> 0$, los extremos relativos serían los que hacen cero la función, o sea los ceros de $\sin x$, verificar en los que hay cambio de signo.
+
+\begin{align}
+      \lim_{x \to 0} \frac{\int^x_0 t^2 dt }{x - \sin x}
+      & =   \frac{x^2 - 0}{1 - \cos x}  && \text{L'Hospital} \\
+      & = \frac{x^2}{\frac{x^2}{2}} && \text{equivalente} \\
+      & = 2
+\end{align}
+
+Sea $F(x) = \int^x_0 \sin \sqrt{t} dt$, entonces $F(x^2) = \int^{x^2}_0 \sin \sqrt{t} dt$, por lo que:
+
+$$
+(F(x^2))' = 2xF'(x) = 2x\sin \sqrt{x^2} = 2x \sin \vert x \vert
+$$
+
+\begin{align}
+      \lim_{x \to 0} \frac{\int^{x^2}_0 \sin \sqrt{t} dt }{x^3}
+      & =   \frac{2x \sin \vert x \vert}{3x^2}  && \text{L'Hospital} \\
+      & = \frac{2\sin \vert x \vert}{3x} && \text{equivalente} \\
+      & = \pm \frac{2}{3}
+\end{align}
+
+O sea el límite no existe, porque cuando $x$ tiende a $0$ por la izquierda tiende a $\frac{-2}{3}$, distinto a cuando $x$ tiende a $0$ por la derecha.
+
 
 
 \end{document}
