@@ -6,4 +6,6 @@
 
 - Algunas Integrales Resueltas.
 
-- Algunos Árboles Para Representar recursión
+- Algunos Árboles Para Representar recursión.
+
+- Un análisis de la rotación y translación de las curvas de segundo grado en el plano.
