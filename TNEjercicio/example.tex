@@ -1,0 +1,138 @@
+% add --shell-escape to pdflatex arguments.
+% add following key to have keyboard shortcuts
+%{
+%    "key": "shift+b",
+%    "command": "commandId",
+%    "when": "editorTextFocus"
+%},
+%{
+%"key": "shift+B",
+%"command": "editor.action.insertSnippet",
+%"when": "editorLangId == latex && editorTextFocus",
+%"args": {
+%    "snippet": "\\textbf{${TM_SELECTED_TEXT}$0}"
+%}
+%}
+
+\documentclass[14pt]{extarticle}
+\usepackage[left=2cm , right = 2cm, top=2cm]{geometry}
+\usepackage{helvet}
+\usepackage{parskip}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage[spanish]{babel}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{tcolorbox} % above of the svg package
+\usepackage{svg} 
+\usepackage{hyperref}
+\usepackage{minted}
+\renewcommand{\sfdefault}{lmss}  % este activa la letra lmss
+\renewcommand{\familydefault}{\sfdefault} % este activa la letra lmss
+\sffamily % este activa la letra lmss
+%\hyperlink{page.2}{Go to page 2}
+%\newpage
+%text on page 2
+%\begin{figure}[htbp]
+%  \centering
+%  \includesvg{plot.svg}
+%  \caption{svg image}
+%\end{figure}
+
+%\begin{minted}{csharp}
+%    // single comment
+%    \end{minted}
+
+%\begin{align}
+%    \frac{d}{dx} \ln x &= \lim_{h\to 0} \frac{\ln(x+h) - \ln x}{h} \\
+%    &= \ln e^{1/x} &&\text{How this follows is left as an exercise.}\\
+%    &= \frac{1}{x} &&\text{Using the definition of ln as inverse function}
+%   \end{align}
+
+
+\begin{document}
+
+
+
+@BritoAlv
+
+
+
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black, title = NO-IDEA]
+
+Sea $n$ un entero mayor o igual que $2$. Demuestre que si $k^2+k+n$ es primo para todo $k$ con $0 \leq k \leq \sqrt{\frac{n}{3}}$ entonces $k^2+k+n$ es primo para todo $k$ tal que $0 \leq k \leq n-2$.    
+
+\end{tcolorbox}
+
+\textbf{Paso 1:} Voy a demostrar que se cumple para $n \leq 5$:
+
+En este caso es substituir $k = 1, k = 2, ...$ y comprobar que es primo, hacer manualmente. A partir de ahora considero $n \geq  6$
+
+\textbf{Paso 2:} Si $n$ cumple la condición deja resto $2$ al dividirlo entre $3$:
+
+Si es divisible por $3$ tomando $k = 3$, obtenemos un absurdo, si deja resto $1$ tomando $k = 1$ obtenemos un absurdo, en ambos casos el absurdo es porque el número $k^2+k+n$ es divisible por $3$ y es primo por la condición del ejercicio. Como $n$ ha dejar resto $2$ entre $3$, sea $n = 3m+2$, si $m = 0, m = 1$ ya lo analicé en el paso 1. Podemos reescribir la condición del ejercicio como que se cumple para $0 \leq k \leq \sqrt{m}$, y hay que demostrarlo para $0 \leq k \leq 3m$. 
+
+\textbf{Paso 3:} Notar que $n = 3m+2 $ es primo:
+
+Usar la condición del ejercicio para $k = 0$.
+
+\textbf{Paso 4:} Sea $a$ fijo tal que $a$ es el menor número tal que $a^2+a+(3m+2)$ es compuesto, sabemos que $\sqrt{m} < a$ y asumiré que $\leq 3m$. Voy a demostrar que todos los divisores de $a^2+a+(3m+2)$ son mayores que $a$:
+
+En efecto si $a^2+a+(3m+2) = dx$, donde $d$ es el menor divisor de $a^2+a+(3m+2)$ y asumo que $d <= a$, entonces $x > a$, pero además:
+
+$a = d*e+r$, $e > 0$:
+
+$$dx = a^2+a+(3m+2) = (d*e+r)^2+(d*e+r) + (3m+2)$$
+
+$$x = de^2 +2er +e + \frac{(r^2+r+3m+2)}{d} = e(de+r) + er+e + \frac{(r^2+r+3m+2)}{d}$$
+
+Que implica que $r < d <= a$, cumple que $r^2+r+(3m+2)$ es divisible por $d$, esto implica para no contradecir el hecho de que $k = a$ es el menor número tal que $k^2+k+(3m+2)$ es compuesto que $r^2+r+(3m+2) = d$, que es una contradicción con que $3m+2< d <= a <= 3m$.
+
+\textbf{Paso 5:}
+Notar que para cualquier $k$ entero positivo se cumple que:
+
+\begin{align}
+    \left( a^2+a+(3m+2), k^2+k+(3m+2)    \right) &= \left( a^2+a+(3m+2), (a^2-k^2)+(a-k) \right)  \\
+    &= \left( a^2+a+(3m+2), (a-k)(a+k+1) \right) 
+\end{align}
+
+\textbf{Paso 6:} El resto de dividir $a$ entre cualquier divisor $d > 1$ de $a^2+a+(3m+2)$ es mayor que $\sqrt{m}$:
+
+Asumamos lo contrario sea $r$ dicho resto, y además $0 \leq r \leq \sqrt{m}$, tomando $k = r$, se cumple que $d$ divide a $a-r = a-k$, lo que implica que este $d$ divide a $r^2+r+(3m+2)$, por la condición del ejercicio sabemos que es un número primo, esto en particular indica que $d = r^2+r+(3m+2)$, podemos escribir $a = d*e +r$, para algún entero $e \geq 0$, recordemos que $a < 3m$, lo que fuerza a que $e = 0$ (por ser $d > 3m$), por lo que $a = r$. lo que significa que $a \leq \sqrt{m}$, que es absurdo porque $\sqrt{m} < a \leq 3m$.
+
+\textbf{Paso 6:} El paso $5$ usó el factor $a-k$ en la expresión del máximo cómun divisor, ahora usaré el factor de $a+k+1$:
+
+Sea $d$ un divisor $>1$ de $a^2+a+(3m+2)$ y $r$ el resto de dividir $a$ entre $d$, entonces $d-r -1 > \sqrt{m} \geq 0$, de no serlo tomando $k = d-r-1$, obtenemos que:
+
+$$d = (d-r-1)^2 + (d-r-1) + (3m+2)$$
+
+Porque $d$ divide a $a+(d-r-1) + 1 = (a-r)$: lo que implica por la condición de ejercicio que $(d-r-1)^2 + (d-r-1) + (3m+2)$ es primo y a la vez divisible por $d$. Análogamente sucede que $a = r$ (porque $d > 3m$).
+
+Sustituyendo:
+
+$$d = (d-a-1)^2 + (d-a-1) + (3m+2)$$
+$$a = (d-a-1)^2 + (3m+1)$$
+
+Que contradice que $a \leq 3m$. 
+
+\textbf{Como conclusión:} para todo divisor $d$ de $a^2+a+(3m+2)$, si $r$ es el resto de dividir $a$ entre $d$ obtenemos que dicho resto $r$ cumple:
+
+\begin{enumerate}
+    \item $r > \sqrt{m}$
+    \item $d > \sqrt{m} + r + 1$
+\end{enumerate}
+
+\textbf{Paso 7:} Sea $a^2+a+(3m+2) = ce$, por el paso $4$ sabemos que  $c,e$ son ambos mayores que $a$, obtenemos que $r = a$ para cada uno de ellos respectivamente, pero entonces $c > \sqrt{m}+a+1$, $e > \sqrt{m}+a+1$, por lo que: $$ce > (\sqrt{m}+a+1)^2 = ((a+1)+ \sqrt{m})^2 = (a+1)^2+m + 2*(a+1)\sqrt{m}$$
+
+Notemos que:
+$$
+a+m+2(a+1)\sqrt{m} > 3m+2
+$$
+
+$$
+a+2(a+1)\sqrt{m} > 2(m+1)
+$$
+
+Porque $a > \sqrt{m}$, esto último implica que no podemos escribir a $a^2+a+(3m+2)$ como el producto de dos enteros positivos $>1$, o sea que es primo.
+
+\end{document}

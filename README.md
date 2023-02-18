@@ -6,6 +6,8 @@ Contiene los siguientes proyectos, algunos no están revisados, ni siquiera term
 
 - El archivo *Template.tex* es un template para hacer artículos en Latex.
 
+- Un ejercicio de Teoría de Números donde es esencial la aplicación del principio del buen orden.
+
 - Un resultado básico de Análisis Real demostrado con Lógica de Predicados.
 
 - Algunas Integrales Resueltas.
