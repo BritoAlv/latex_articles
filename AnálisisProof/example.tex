@@ -1,0 +1,79 @@
+% add --shell-escape to pdflatex arguments.
+% add following key to have keyboard shortcuts
+%{
+%    "key": "shift+b",
+%    "command": "commandId",
+%    "when": "editorTextFocus"
+%},
+%{
+%"key": "shift+B",
+%"command": "editor.action.insertSnippet",
+%"when": "editorLangId == latex && editorTextFocus",
+%"args": {
+%    "snippet": "\\textbf{${TM_SELECTED_TEXT}$0}"
+%}
+%}
+
+\documentclass[14pt]{extarticle}
+\usepackage[left=2cm , right = 2cm, top=2cm]{geometry}
+\usepackage{helvet}
+\usepackage{parskip}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage[spanish]{babel}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{tcolorbox} % above of the svg package
+\usepackage{svg} 
+\usepackage{hyperref}
+\usepackage{minted}
+\renewcommand{\sfdefault}{lmss}  % este activa la letra lmss
+\renewcommand{\familydefault}{\sfdefault} % este activa la letra lmss
+\sffamily % este activa la letra lmss
+%\hyperlink{page.2}{Go to page 2}
+%\newpage
+%text on page 2
+%\begin{figure}[htbp]
+%  \centering
+%  \includesvg{plot.svg}
+%  \caption{svg image}
+%\end{figure}
+
+%\begin{minted}{csharp}
+%    // single comment
+%    \end{minted}
+
+%\begin{align}
+%    \frac{d}{dx} \ln x &= \lim_{h\to 0} \frac{\ln(x+h) - \ln x}{h} \\
+%    &= \ln e^{1/x} &&\text{How this follows is left as an exercise.}\\
+%    &= \frac{1}{x} &&\text{Using the definition of ln as inverse function}
+%   \end{align}
+
+
+\begin{document}
+
+
+
+@BritoAlv
+
+
+
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black, title = Inf Grande]
+
+Probar que si $\vert a \vert > 1$, entonces la sucesión $a^n$ es infinitamente grande.
+
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=red!5!white,colframe=red!75!black, title = Solución]
+
+    Paso 1: Para todo $A > 0$ hay que encontrar un $N_A$ tal que $\forall n \geq N_A$ se cumple que:
+    $$\vert a^n \vert > A$$
+
+    Paso 2: Demostrar que $\vert a^n \vert = \vert a \vert^n $.
+
+    Paso 3: Probar que $N_A = \lceil \log_{\vert a \vert } A \rceil +1 $, satisface las condiciones de $1$.
+
+\end{tcolorbox}
+
+\end{document}
+

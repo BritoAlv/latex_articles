@@ -15,3 +15,5 @@ Contiene los siguientes proyectos, algunos no están revisados, ni siquiera term
 - Algunos Árboles Para Representar recursión.
 
 - Un análisis de la rotación y translación de las curvas de segundo grado en el plano, y una representación en geogebra de algunas de las superficies cuádricas.
+
+- Una demostración de análisis junto a el gráfico.
