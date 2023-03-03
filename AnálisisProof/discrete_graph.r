@@ -30,7 +30,7 @@ my_plot <- function(a, A, upper_bound_function) {
             linetype = "dashed"
         ) +
         scale_color_manual(
-            name = "Legenda", 
+            name = "Leyenda", 
             values = c("A" = "blue", "log_a A" = "red")) +
         scale_x_continuous(
             breaks = c(original_start_number,x_values), 
