@@ -1,0 +1,112 @@
+% add --shell-escape to pdflatex arguments.
+% add following key to have keyboard shortcuts
+%{
+%    "key": "shift+b",
+%    "command": "commandId",
+%    "when": "editorTextFocus"
+%},
+%{
+%"key": "shift+B",
+%"command": "editor.action.insertSnippet",
+%"when": "editorLangId == latex && editorTextFocus",
+%"args": {
+%    "snippet": "\\textbf{${TM_SELECTED_TEXT}$0}"
+%}
+%}
+
+\documentclass[14pt]{extarticle}
+\usepackage[left=2cm , right = 2cm, top=2cm]{geometry}
+\usepackage{helvet}
+\usepackage{parskip}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage[spanish]{babel}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{tcolorbox} % above of the svg package
+\usepackage{svg} 
+\usepackage{hyperref}
+\usepackage{minted}
+\renewcommand{\sfdefault}{lmss}  % este activa la letra lmss
+\renewcommand{\familydefault}{\sfdefault} % este activa la letra lmss
+\sffamily % este activa la letra lmss
+%\hyperlink{page.2}{Go to page 2}
+%\newpage
+%text on page 2
+%\begin{figure}[htbp]
+%  \centering
+%  \includesvg{plot.svg}
+%  \caption{svg image}
+%\end{figure}
+
+%\begin{minted}{csharp}
+%    // single comment
+%    \end{minted}
+
+%\begin{align}
+%    \frac{d}{dx} \ln x &= \lim_{h\to 0} \frac{\ln(x+h) - \ln x}{h} \\
+%    &= \ln e^{1/x} &&\text{How this follows is left as an exercise.}\\
+%    &= \frac{1}{x} &&\text{Using the definition of ln as inverse function}
+%   \end{align}
+
+
+\begin{document}
+
+
+
+@BritoAlv
+
+
+
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black, title = IMO2021P1]
+
+    Let $n >= 100$  be an integer. The numbers $n, n+1, . . . , 2n$ are written on $n+1$ cards,
+    one number per card. The cards are divided into two piles. Prove that one of the
+    piles contains two cards such that the sum of their numbers is a perfect square.
+
+\end{tcolorbox}
+
+Viendo el problema desde el punto de vista de un grafo donde dos números están conectados si suman cuadrado perfecto, es suficiente probar que en $[n,2n]$ hay un ciclo de longitud impar.
+
+La condición del problema puede ser aflojada demostrando que existe un ciclo de longitud 3 siempre. Por lo que hace falta hallar tres enteros que sumen cuadrado perfecto dos a dos:
+
+$$a+b = p^2, b+c = q^2, c+a = r^2$$
+
+La condición del problema nuevamente puede ser aflojada demostrando que para $n \geq 100$ se puede escoger como $(p,q,r) = (x-1, x , x+1 )$. Demostraré lo último.
+
+Queda que
+$$
+    a = \frac{(x-1)^2 + (x)^2 - (x+1)^2}{2} = \frac{x^2-4x}{2}$$
+$$
+    b  = \frac{(x-1)^2 + (x+1)^2 - (x)^2}{2} = \frac{x^2+2}{2}$$
+$$
+    c =\frac{(x+1)^2 + (x)^2 - (x-1)^2}{2} = \frac{x^2+4x}{2}
+$$
+
+Por lo que queda hallar los $x$ para los cuales:
+
+$$\frac{x^2-4x}{2} \geq n $$
+$$\frac{x^2+4x}{2} \leq 2n $$
+
+Obtenemos que:
+$$
+    \sqrt{2n+4}+2 < x < \sqrt{4n+4}-2
+$$
+
+Para $x \geq 100$ hay al menos dos valores que satisfacen lo anterior, escogemos el par, para que $a,b,c$ sean enteros y listo.
+
+\newpage
+
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black, title = ?]
+
+    Let $f$ be a polynomial with integer coefficients, of degree $n > 1$. What's the maximal number of consecutive integers belonging to the sequence $f(1), f(2), ... ?$.
+
+
+\end{tcolorbox}
+
+How do we use the fact that the degree is not $1$, how to ensure that integer coefficients imply absolute difference between any two value greater than $1$, indeed $a-b \vert f(a) - f(b)$, so if we have for example 
+
+
+
+\end{document}
+

@@ -1,0 +1,123 @@
+% add --shell-escape to pdflatex arguments.
+% add following key to have keyboard shortcuts
+%{
+%    "key": "shift+b",
+%    "command": "commandId",
+%    "when": "editorTextFocus"
+%},
+%{
+%"key": "shift+B",
+%"command": "editor.action.insertSnippet",
+%"when": "editorLangId == latex && editorTextFocus",
+%"args": {
+%    "snippet": "\\textbf{${TM_SELECTED_TEXT}$0}"
+%}
+%}
+
+\documentclass[14pt]{extarticle}
+\usepackage[left=2cm , right = 2cm, top=2cm]{geometry}
+\usepackage{helvet}
+\usepackage{parskip}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage[spanish]{babel}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{tcolorbox} % above of the svg package
+\usepackage{svg} 
+\usepackage{hyperref}
+\usepackage{minted}
+\renewcommand{\sfdefault}{lmss}  % este activa la letra lmss
+\renewcommand{\familydefault}{\sfdefault} % este activa la letra lmss
+\sffamily % este activa la letra lmss
+%\hyperlink{page.2}{Go to page 2}
+%\newpage
+%text on page 2
+%\begin{figure}[htbp]
+%  \centering
+%  \includesvg{plot.svg}
+%  \caption{svg image}
+%\end{figure}
+
+%\begin{minted}{csharp}
+%    // single comment
+%    \end{minted}
+
+%\begin{align}
+%    \frac{d}{dx} \ln x &= \lim_{h\to 0} \frac{\ln(x+h) - \ln x}{h} \\
+%    &= \ln e^{1/x} &&\text{How this follows is left as an exercise.}\\
+%    &= \frac{1}{x} &&\text{Using the definition of ln as inverse function}
+%   \end{align}
+
+
+\begin{document}
+
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black, title =Extreme-Value-Theorem-Weiestrass]
+
+    Probar que una función continua en el intervalo $[a,b]$, está acotada en este intervalo, posee ínfimo y supremo y los alcanza. 
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black, title = Intermediate-Value-Theorem-Bolzano]
+
+    Y toma cualquier valor comprendido entre el ínfimo y el supremo.
+\end{tcolorbox}
+
+
+\textbf{Parte 1: Toda función continua en el intervalo $[a,b]$ está acotada:} 
+
+Voy a demostrar que está acotada Si $f$ está acotada entonces:
+
+$$\exists M: \forall x   \vert f(x) \vert \leq M$$
+
+Asumir lo contrario (no está acotada) para llegar a una contradicción.La negación de lo anterior (ley 43) es:
+
+$$\forall M \exists x: \vert f(x) \vert > M$$
+
+En particular existen $x_1, x_2, ....$ en $[a,b]$ tales que: $\vert f(x_i) \vert > i$. (la idea es escoger una secuencia de $x_i$ tales que $f(x_i)$ sea infinitamente grande). 
+
+Por otro lado, la secuencia $x_1, ..., $ es acotada en $[a,b]$ por tanto posee una subsucesión convergente (la idea de esto es que como está acotada posee un punto de acumulación, la subsucesión convergente, convergerá a él). Digamos que es: $x_{j_1}, x_{j_2}, ... $ y que converge a $L$, debido a que los $a \leq x_j  ,    \leq b$ el límite de esa sucesión también está en ese intervalo, o sea, $a \leq L \leq b$ 
+
+$$f(L) \stackrel{continuidad}{=}  \lim_{x \to L} f(x) \stackrel{Heine}{=}  \lim_{n \to \infty} f(y_n)$$
+
+Donde $y_n$ es cualquier sucesión que converge a $L$, (Heine), en particular si tomamos como sucesión la que obtuvimos se tiene que cumplir:
+
+$$f(L) =  \lim_{x \to L} f(x) =  \lim_{n \to \infty} f(x_{j_n})$$
+
+Lo anterior es absurdo porque la secuencia: $f(x_{j_n}) $ no es convergente puesto que:
+
+$\vert f(x_{j_n}) \vert > j_n$, por definición, por tanto no posee un límite finito $ = f(L)$.
+
+Como obtuvimos un absurdo al asumir que no estaba acotada, ha de estar acotada.
+
+\textbf{Parte 2: Posee infimo y supremo en el intervalo $[a,b]$ y los alcanza:}
+
+Como la sucesión está acotada superior e inferior, posee supremo e ínfimo ( un conjunto de números reales acotado superiormente (inferiormente) posee supremo (ínfimo)), quedaría demostrar que los alcanza, sea $M$ el supremo quiero probar que existe un $x$ en $[a,b]$ tal que $f(x) = M$. 
+
+Como $M$ es supremo (punto de acumulación) significa que existe una sucesión de $x_i$ en $[a,b]$ tales que $f(x_i)$ converge a él, análogamente a el razonamiento anterior, como la secuencia de los $x_i$ está acotada posee una subsucesión convergente, digamos que converge a el número $L$, como $a \leq L \leq b$, probaré que $f(L) = M$, notar que:
+
+$$f(L) \stackrel{continuidad}{=}  \lim_{x \to L} f(x) \stackrel{Heine}{=}  \lim_{n \to \infty} f(y_n)$$
+
+Como la función es continua por la definición de Heine el valor de $f(L)$ independiente de que sucesión convergente se escoja para hallar el límite, en particular vamos a usar la de los $x_i$ entonces:
+
+$$f(L) \stackrel{continuidad}{=}  \lim_{x \to L} f(x) \stackrel{Heine}{=}  \lim_{n \to \infty} f(y_n) \stackrel{Heine}{=} \lim_{n \to \infty} f(x_n) \stackrel{definicion}{=} M $$
+
+Por tanto alcanza supremo, análogamente se demuestra que alcanza el ínfimo. Es llamado teorema del valor extremo porque garantiza que está acotada por ambos lados y alcanza estos valores extremos.
+
+\textbf{Alcanza todos los valores entre el supremo e ínfimo (Teorema de Bolzano)}
+
+Voy a demostrar el teorema de Bolzano, y después lo voy a usar para demostrar que alcanza todos los valores entre el ínfimo y el supremo. 
+
+Teorema de Bolzano: ...
+
+Sean $m$ el ínfimo y $M$ el supremo. Por el resultado anterior existen $n,N \in [a,b]$ tales que $f(n) = m, f(N) = M$. Sea $y$ tal que:  $m \leq y \leq M$, quiero encontrar un $x \in [a,b]$ tal que $f(x) =y$ 
+
+Consideremos la función $g(x) = f(x)- y$, notar que:
+
+$$g(n) = f(n) - y \leq 0 $$
+
+$$g(N) = f(N) - y \geq 0 $$
+
+Por tanto como $g$ es continua en el intervalo $[n,N] \in [a,b]$ por el teorema de Bolzano hay un $x \in [n,N]$ tal que $g(x) = 0$, esto para $f$ significa que $f(x) = y$, que es el $x$ que quería encontrar. El teorema se llama valor intermedio porque garantiza que $f$ alcanza cualquier valor intermedio comprendido entre el supremo y el ínfimo.
+
+\end{document}
+
