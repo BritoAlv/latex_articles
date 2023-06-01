@@ -1,0 +1,59 @@
+Una función es convexa en [a,b] si para cualesquiera dos puntos c in [a,b], d in [a,b] distintos la línea que los une está por encima del gráfico de la función.
+
+Demostrar que si la segunda derivada de una función es >= 0 en [a,b] entonces la función es convexa en [a,b]:
+
+Me voy a apoyar del teorema de Lagrange para hacer la demostración: 
+
+Lagrange: Si f es continua en [a,b] y derivable en (a,b) entonces existe un c in (a,b) tal que f'(c) = ( f(a)-f(b) ) / (a-b). 
+
+Haré la demostración por contrarecíproco, se enunciaría de la siguiente forma: 
+
+Si f no es convexa en [a,b] entonces la segunda derivada de f no es >= 0 en [a,b]. 
+
+Si f no es convexa en [a,b] entonces existen dos puntos c, d en [a,b] distintos tales que al trazar la línea que los une existe otro punto e, tal que f(e) está por encima de la línea que une a [c,d]. 
+
+El siguiente paso es demostrar que la pendiente m1 que une a los puntos [(c, f(c)), (e, f(e))] es mayor que la pendiente m2 de la línea que une a los puntos [(e, f(e), (d, f(d))] 
+
+Para ver esto notemos que la pendiente de esa recta se obtiene de rotar un ángulo positivo en contra de las manecillas del reloj la pendiente de la recta que une a [(c,f(c)),(d,f(d))], por tanto es mayor que esa pendiente, por otro lado la segunda pendiente se obtiene rotando un ángulo positivo a favor de las manecillas del reloj por tanto la pendiente disminuye. 
+
+Por el teorema de Lagrange en (c,e) existe un punto x1 tal que f'(x1) = m1, x1 in (c,e), análogamente x2 in (e,d) tal que f'(x2) = m2, ahora si aplicamos el teorema de Lagrange a f'(x) tomando como puntos x1,x2 existe otro punto x3 tal que f''(x3) = (f'(x1)-f'(x2))/(x1-x2) pero el numerador es positivo y el denominador negativo por tanto el resultado es negativo, como este x3 in [a,b], encontramos un punto donde la segunda derivada no es positiva que es lo que queríamos demostrar.
+
+Por tanto aplicando contrarrecíproco se cumple que si la segunda derivada es >= 0 entonces la función es convexa en [a,b].
+
+Análogamente podemos concluir que si la segunda derivada es menor o igual que 0, entonces la función es concáva, por lo que restaría analizar los puntos donde no existe la segunda derivada o esta es igual a 0, para poder hacer un análisis completo de la convexidad / concavidad.
+
+Los puntos donde la segunda derivada se hace 0 significan que la primera derivada dejó de crecer, si hay un cambio de signo entonces esto significa que cambia la concavidad, en caso de que el signo se mantenga no hay cambio de concavidad, los puntos donde no esté definida no nos permiten sacar ninguna concluión, por tanto habría que ver el signo de la segunda derivada a la izquierda y a la derecha del punto. 
+
+La pregunta que quedaría por responder sería: 
+
+Si f es convexa en [a,b] entonces f''(x) en [a,b] >= 0, 
+
+Sería demostrar que la primera derivada crece en [a,b], entonces la pendiente de la línea tangente a la curva en el punto (a, f(a)) sería:
+
+lim_{h => 0+} [f(a+h)-f(a)]/h, donde h tiende a 0 positivamente, 
+
+Porque estamos calculando la derivada lateral derecha, la pendiente de la recta que une a los puntos a, b es f(a)-f(b) / (a-b),
+
+Entonces demostraré que se cumple que :
+
+lim_{h => 0+} [f(a+h)-f(a)]/h <= [f(b)-f(a)]/(b-a)
+
+O sea primero la derivada en "a" es menor que la pendiente de la recta que es menor que la derivada en "b", esto por transitividad implica que la derivada en "a" es menor que la derivada en "b".
+
+La línea que une a los puntos [(a, f(a)), (b, f(b))] sería: 
+
+y = (f(b)-f(a))/(b-a)x + [ f(b) - b(f(b)-f(a))/ (b-a) ]
+
+Porque f(a+h) <= la imagen de (a+h) en la línea que une a "a", "b".
+
+[f(a+h) - f(a)]/h 
+<= [(a+h)(f(b)-f(a))/(b-a) + [ f(b) - b(f(b)-f(a))/ (b-a) ] - f(a)]/h
+
+Sería probar que :
+
+[(a+h)(f(b)-f(a))/(b-a) + [ f(b) - b(f(b)-f(a))/ (b-a) ] - f(a)]/h <= [f(b)-f(a)]/(b-a)
+[(a+h)/(b-a) - b/(b-a)]/h <= 1/(b-a)
+[(a+h-b)/h <= 1]
+ 1+(a-b)/h <= 1 xq a <= b.
+ 
+Esto garantiza que la pendiente de la línea que une a los puntos (a, f(a)) y (b, f(b)) es mayor que la pendiente en a y menor que la pendiente en b.

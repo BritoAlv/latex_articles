@@ -1,0 +1,68 @@
+La factorización prima de un entero positivo m es la única forma de escribirlo como 
+
+m = p1^e1*...*pk^ek 
+
+donde p1,p2, ..., pk son números primos tales que: 
+
+p1 < p2 < ... < pk y
+e1 < e2 < ... < ek 
+
+Para cada entero m, sea f(m) el multiset formado por todos los números {p1, p2, ..., pk, e1, e2, ..., ek}
+
+Dada una lista que contiene 2n enteros a1, a2, ..., a_{2n}. Contar cuantos enteros positivos m satisfacen que f(m) = multiset formado por los 2n enteros positivos.
+
+Por ejemplo:
+
+2
+2 2 3 5
+
+23 => 2
+35 => 1
+25 => 2
+
+la respuesta es 5.
+
+1
+1 4
+
+la respuesta es 0.
+
+La entrada de nuestro problema son 2*n números, digamos que son x1, x2, ..., xM distintos todos, de forma que la suma de sus sizes = 2n, algunos están marcados como primos, entonces la pregunta es para cada subconjunto de tamaño n formado por elementos marcados como primos, cuantas cadenas de tamaño n se pueden hacer con los números que no integran el conjunto.
+
+Por ejemplo: 
+
+n = 3
+
+2, 2, 3, 5, 4, 4 => {2,3,5,4}
+
+subconjuntos de tamaño 3 de primos => {2,3,5}
+
+números restantes para ese subconjunto {2,4,4}
+
+cuantas cadenas distintas se pueden hacer: 3!/(1!*2!)
+
+n = 4
+
+2,3,5,7,11,3,3,5 => {2,3,5,7,11}
+
+subconjuntos de tamaño 4 de primos: serían C(5,4) = 5,
+
+{2,3,5, 7}, quedarían 11,3,3,5 => 4!/1!2!1!
+{2,3,5,11}, quedarían 7,3,3,5  => 4!/1!2!1!
+{2,3,7,11}, quedarían 5,5,3,3  => 4!/2!2!
+{3,5,7,11}, quedarían 2,3,5,3  => 4!/1!2!1!
+{2,5,7,11}, quedarían 3,3,3,5  => 4!/3!1!
+
+Dado un entero positivo n y un conjunto de m >= n primos {p1, p2, ..., pm} para cada subconjunto C de m - n primos {a1, a2, ..., a_{m-n}} definimos 
+n = 4, {2,3,5,7,11,13}, m = 6, {11, 13} sería lo restante para completar 8.
+f(C) = 1/a1*a2*...*a_{m-n}
+
+Necesitamos hallar la suma de los valores de f(C) over all the subsets, llamemos a esa suma S, la respuesta al ejercicio es:
+
+n! * 1/(producto de los factoriales de los sizes de los números que no son primos)*1/(producto de los factoriales de los sizes de los números que son primos disminuidos en 1) * S
+
+Ahora como hallamos S usando programación dinámica, tenemos que C(n,k) = C(n-1, k) + C(n-1, k-1). so esto nos permite afirmar que  la suma que se obtiene al escoger (m-n) primos es igual a 1/a1* la suma de C(n-1, k-1) + la suma de C(n-1, k).
+
+Ahora sucede que los factoriales no son calculables dado que son muy grandes, por eso todos los cálculos se hacen respecto a un módulo que es primo, además un cálculo como este n! / k1! se hace multiplicando a n! por el inverso multiplicativo de (k1!) mod ese primo.
+
+Entonces habría que tener un método que diga si un número es primo, usaré la criba de Erastostenes, el método que usaré para calcular el inverso de a mod p, es hallar a^{p-2} mod p, pero para hacer es necesario usar fast_exponentiation, otra alternativa es calcular el inverso mod p a través del algoritmo de Euclides resolviendo la ecuación diofántica ax-py = 1. 

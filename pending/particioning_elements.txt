@@ -1,0 +1,61 @@
+De cuántas formas se puede particionar un conjunto de tamaño n en una cantidad de subconjuntos fija de subconjuntos de un tamaño fijo, por ejemplo:
+
+a) n = 10, 2 subconjuntos de tamaño 4, 1 de tamaño 2.
+b) n = 10, 5 subconjuntos de tamaño 2.
+c) n = 10, 10 subconjuntos de tamaño 1.
+
+a) sería distribuir 10 elementos entre tres tipo a,b,c de forma que hayan 4 a's, 4 b's, 2 c's, pero las dos reparticiones serían:
+
+aaaabbbbcc
+bbbbaaaacc
+
+Notar que como lo que interesan es que hayan subconjuntos de tamaño 4, debemos dividir la respuesta entre 2! porque hay 2 conjuntos de tamaño 4, y entre 1! porqu hay un subconjunto de tamaño 1. Esto es interesante porque exprime aún más la fórmula de combinaciones con repetición.
+
+a) sería 10! / (4!*4!*2!) / 2!*1!.
+
+b) Ahora de cuantas formas se puede particionar un conjunto de tamaño n en conjuntos de tamaño i, con 1 <= i <= n.
+
+: n primo la respuesta sería 2.
+
+: n primo al cuadrado: para n = 4, serían:
+
+1,2,3,4
+12, 34
+13, 24
+14, 23
+1234,
+
+De cuantas formas se pueden distribuir los números del 1 al 9 en 3 subconjuntos, serían 9!/ (3!)*(3!)*(3!) / 3! formas.
+
+1*2*3*4*5*6*7*8*9 / (1*2*3)*(1*2*3)*(1*2*3)*(1*2*3)
+= 4*5*2
+= 40
+
+La respuesta para 9  es 42 que es 1+1+40.
+La respuesta para 4  es  5 que es 1+1+3.
+
+Para cada n, la suma sería n!/(d!)^(n/d)*(n/d)!, porque queremos particionar a n en subconjuntos de tamaño d, serían n/d subconjuntos, pero tenemos que dividirlo entre el factorial de la cnatidad de subconjuntos para no contar los repetidos, pero esta fórmula no tiene pinta de que se cancele ni nada.
+
+Es más interesante la fórmula de dado un n, particionar en x1 subconjuntos de tamaño 1, x2 subconjuntos de tamaño 2, ...., x_n subconjuntos de tamaño n, si :
+
+x1+2x2+...+nx_n = n, asumiendo que los xi son >= 0 satisfaciendo esa ecuación, la respuesta es:
+
+n!/ (1!)^x1 * (2!)^x2 * ... * (n!)^xn / (x1)!...(xn)!
+
+De cuántas formas se puede particionar un subconjunto de tamaño n?. 
+
+Claim (unlock): La función que empareja a cada partición de tamaño n con el par (C, P) donde C es el conjunto de la partición que contiene a el elemento n, y P es la partición que se obtiene al eliminar a el conjunto C de la partición es biyectiva.
+
+Bien Definida: el elemento n tiene que estar en un conjunto y en exactamente uno, y al eliminar a un conjunto de una partición obtenemos una de menor tamaño.
+
+Inyectividad: si poseen el mismo conjunto que contiene al elemento n-ésimo, y la misma partición de menor tamaño, ha de ser la misma partición.
+
+Sobreyectividad: a partir de cualquier conjunto de tamaño 1 <= x <= n, con el elemento "n" y una partición de tamaño (n-x) con elementos distintos se define una partición de tamaño n válida.
+
+Por tanto la cantidad de particiones de tamaño n, es equivalente a la cantidad de formas de hacer al conjunto C, multiplicada por la cantidad de particiones que se pueden hacer para cada conjunto C, para cada tamaño x de el conjunto C ( obviando a elemento n-ésimo fijado), hay A_{n-1-k} particiones posibles, por tanto: 
+
+A_n = sum^{n-1}_{k = 0} C(n-1, k)*A_{n-1-k}
+    = sum^{n-1}_{k = 0} C(n-1, n-1-k)*A_{k}
+    = sum^{n-1}_{k = 0} C(n-1, k)*A_{k}      
+    
+Los A_n son llamados los números de Bell.    

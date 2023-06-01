@@ -1,0 +1,12 @@
+Easy: Sean n,k enteros positivos tales que |A| = n, calcular el # de k-tuplas <A1,A2, ..., AK> de subconjuntos de A tales que:
+
+1) A1 C_ A2 C_ ... C_ AK 
+2) A1 int A2 int ... int AK = vacio
+
+En ambos casos hay que enfocar el problema a los elementos de el conjunto A y no en los subsets A1, A2, ... 
+
+1) para cada elemento x de A, hay k+1 opciones donde ubicarlo por lo que serían un total de (k+1)^n opciones.
+
+2) para cada elemento x de A tenemos (2^k-1) opciones para ubicarlo, entonces como son n la respuesta sería (2^k-1)^n.
+
+

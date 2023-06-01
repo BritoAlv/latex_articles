@@ -1,0 +1,30 @@
+Sea A un conjunto de n elementos, calcular cuantas relaciones binarias se pueden definir sobre A tales que:
+
+a) es reflexiva
+b) es simétrica
+c) es asimétrica
+d) es antisimétrica
+
+Una relación binaria sobre los conjuntos X, and Y es un nuevo conjunto de pares ordenados (x,y) consistiendo de elementos "x en X", y "y en Y".
+
+Esta debería ser la primera pregunta: ¿ cuántas relaciones binarias se pueden definir sobre los conjuntos X, Y: la cantidad total de pares posibles que se pueden hacer es |X| * |Y|, una relación binaria es un subconjunto de eso entonces serían un total de 2^(|X||Y|), asumo que se considera una relación binaria una que es vacía.  
+
+Una relación binaria definida sobre A es reflexiva si para todo elemento x de A, el par (x,x) está en la relación.
+
+Claim ( unlock ) : La cantidad de relaciones binarias reflexivas es la misma que la cantidad de relaciones binarias que no contienen ningún par reflexivo.
+
+Contar la cantidad de relaciones binarias sin pares reflexivos: Hay n formas de escoger el primer elemento, como el segundo ha de ser diferente serían (n-1) opciones, por tanto n(n-1) pares, como una relación binaria es un subconjunto de estos pares, habrían 2^{n(n-1)} pares. 
+
+b) Claim ( unlock) : Notar que la cantidad de relaciones simétricas que se pueden formar con n elementos es 2^n * cantidad de relaciones simétricas que se pueden formar con (n-1) elementos, porque un nuevo elemento posee n opciones para emparejarse.
+
+2^n * 2^(n-1) * .... *2^1 = 2^(n(n+1)/2)
+
+b++) Cuantas relaciones simétricas se pueden formar a partir de n elementos  sin pares reflexivos: si sabemos la respuesta para (n-1) la respuesta para n sería 2^(n-1)*a_{n-1}, porque el nuevo elemento tiene 2^(n-1) opciones de ser matcheado ya que no puede ser matcheado con sigo mismo.
+
+Serían: a_n = 2^(n(n-1)/2)
+
+c) Asimétrica:    La idea es notar que hay (n(n-1))/2 pares sin orden donde <x,y> donde x distinto de y,  entonces para cada par de esos tenemos tres opciones: no cogerlo, coger a <x,y> o coger a <y,x>, por tanto la respuesta sería 3^(n(n-1)/2).
+
+d) Antisimétrica: Consideremos una relación asimétrica, podemos construir a partir de ella 2^n relaciones antisimétricas, escoger un subconjunto de los n elementos, y añadir esos pares reflexivos.  es esa la respuesta ? 2^n * 3^(n(n-1)/2). 
+
+Notemos que cada relación antisimétrica se puede descomponer en una relación asimétrica y algunos pares reflexivos sin importar uno respecto al otro. 

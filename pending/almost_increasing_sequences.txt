@@ -1,0 +1,88 @@
+Problema 1: Dado un n, hallar el número de permutaciones casi crecientes de el conjunto {1,2, ..., n} Una permutación de n números diferentes es casi creciente si existe un único k, tal que:
+
+1 - k < n
+2 - a_k > a_{k+1}
+
+n = 1
+{}
+n = 2
+{2,1}
+n = 3
+{1,3,2} 3 > 2
+{2,1,3} 2 > 1
+{3,1,2} 3 > 1
+{2,3,1} 3 > 1
+
+Notas: 
+
+hay una sola permutación donde no hay peaks, digase la ordenada de menor a mayor.
+
+la estructura sería un pedazo ordenado de menor a mayor, un peak, otro pedazo ordenado de menor a mayor, esto implica que si se escogen como elementos para hacer al peak, por ejemplo al 5,3
+
+entonces a la izquierda del 5 deben ir todos los numeros menores que 3, serían 1,2 , los números que están entre los elementos del peak donde irían a la izquierda o a la derecha, porque creo que en ningún lugar estorban, as long as se pongan ordenados, 
+
+12 345 678
+
+12 63  78 
+
+notar que cualquier permutación excepto la de ordenar los números de menor a mayor tiene al menos un peak, consideremos todas esas permutaciones, paremonos en el primer peak que posean, digamos que en la posición i:
+
+entonces a1, a2, ..., ai están ordenados de menor a mayor, por ser el primer peak, ahora en la posición a_{i+1} 
+
+claim si de cada permutación válida movemos los primeros i números donde ai es donde hay un peak, esto determina la permutación, digamos que a1,a2,..., ai, notar que a_{i+1} puede ser cualquier número menor que ai y distinto de los primeros i-1 valores escogidos, en particular a_{i+1} será el menor número que a_{i+1} no escogido, pero lo importante es que esto nos da una forma de contar las permutaciones casi crecientes, es equivalente a para cada i entre 
+
+for i in range(1 , n-1):
+	# cuantos subconjuntos de tamaño i se pueden hacer a partir de {1,2, ... , n}
+	# evitando el subconjunto {1, 2, ... , i}
+		
+A_n = ( subconj tamaño 1 - 1 ) + (subconj tamaño 2 - 1) + ... + (subconj tamaño(n-1) - 1 )
+A_n + (n-1) + subconj tamaño 0 + subconj tamaño n = 2^n
+
+A_n = 2^n - (n+1)
+
+A_3 = 8 - (4) = 4
+A_2 = 4 - 3 = 1  		
+A_1 = 0
+
+Problema 2: Cuántas permutaciones de los números de [1, ... , k] tienen exactamente todos los números mal posicionados ? notar que este problema es equivalente a de cuantas fromas se puede hacer un intercambio de regalos.
+
+Claim ( unlock) : Sea A_n la respuesta para n, entonces A_{n+1} = n*(A_n + A_{n-1})
+
+Podemos dividir a las permutaciones válidas en dos grupos a partir del siguiente criterio:
+
+Sea i = P[n]:
+
+1) P[i] = n
+2) P[i] != n
+
+La biyección se establece entre los siguientes conjuntos: las permutaciones válidas de tamaño n, y las permutaciones válidas de tamaño n-1, o n-2, y además cada una de esas permutaciones posee un número 1 <= i <= n-1 como pivote.
+
+La respuesta sería la suma de los elementos del primer grupo + los del segundo, primero contaré los del primer grupo:
+
+Dada un array tal que hay un i fijo con 1 <= i <= n-1 y P[i]  = n, P[n] = i, por ejemplo para n = 7, i = 4 sería:
+
+---7--4
+
+tomamos cualquier permutación válida de tamaño n-2, pondremos los primeros (i-1) elementos de esta en la permutación que queremos formar, y los restantes a la derecha de i, además a todos los elementos de esta permutación que son >= i, le sumaré 1. 
+
+esto nos da una permutación válida, pues notemos que a la izquierda de i, si había un elemento < que i no fue afectado, si había uno >= i se le aumentó en 1, como P[j] > i y j < i, no hay problema, los que están a la derecha de i cumplián que P'[i] != i, por tanto al aumentarlos en uno y correrlos una posición más a la derecha, eso no se afecta. Para ver que es una biyección revertimos el proceso, y listo, serían un total de :
+
+21453, i = 2.
+21453 => 321564 => 3715642.
+(n-1)A_{n-2} elementos.
+
+La que P[i] != n son más sencillas, swapear posiciones i con n nos da una permutación válida de tamaño n-1. Serían (n-1)A_{n-2} elementos.
+
+El problema puede ser interpetado de la siguiente forma de cuantas formas un profesor puede distribuir los exámenes a los estudiantes de forma que ningún estudiante se revise su propio examen, o de cuantas formas se puede hacer un intercambio de regalos de forma que nadie se reglae a si mismo.
+
+Notar que la respuesta no es (n-1)! porque no hay ciclos y pueden haberlos.
+
+Problema 3: LLamamos a una permutación de tamaño n casi idéntica si existen al menos n-k índices tales que P[i] = i, Dados n, k cuantas permutaciones casi idénticas hay ?  
+
+Es equivalente a contar la cantidad de permutaciones donde hay a lo más k posiciones mal, que es equivalente a:
+
+Notar que la cantidad de permutaciones de los números de 1 a n con exactamente i números mal es exactamente a escoger de los n elementos, los i que van a estar mal, y entre esos i mal de cuantas formas se pueden poner mal esos i, por tanto la respuesta sería:
+
+answer = 0
+for i in range [0, k]:
+	answer += C(n,i)*cant_todos_mal(i)

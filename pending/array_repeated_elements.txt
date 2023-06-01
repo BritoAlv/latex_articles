@@ -1,0 +1,27 @@
+Calcular la cantidad de arreglos de tamaño n, ordenados de M a m, o de m a M con los elementos de 1, ... , n.
+
+La respuesta es 2*[C(2n-1,n-1) - n]+n
+
+Notar que cualquier solución a s1+s2+ ... +sn = n, dará exactamente dos soluciones, excepto las soluciones donde uno de s1, s2, ..., sn es igual a n, por tanto la cantidad de soluciones Por tanto la respuesta sería: 2*[C(n+(n-1), (n-1)) - n] + n.
+
+A_1 = 2*[C(1,0)-1]+1 = 1.
+A_2 = 2*[C(3,1]-2]+2 = 4.
+A_3 = 2*[C(5,2)-3]+3 = 17.
+
+111
+112
+113
+122
+123
+133
+222
+223
+233
+333
+332
+331
+322
+321
+311
+221
+211

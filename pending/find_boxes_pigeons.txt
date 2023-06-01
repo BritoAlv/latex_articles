@@ -1,0 +1,10 @@
+1 - Determine whether exist a number less than 10^9 that can be expressed as sum of three squares in more than 1000 distinct ways ? 
+
+Yes, it exist, por el principio de las palomas, primero identifiquemos las palomas y las cajas, 
+
+Consideremos todos los números x tales que x^2 <= 10^9/3, estos son un total de floor( sqrt ( 10^9/3)), digamos que M 
+
+Los subconjuntos de tamaño 3 que son posible formar a partir de estos números son nuestras palomas, serían un total de: C(M,3) palomas, las queremos distribuir en 10^9 cajas, por tanto por el principio del palomar hay una caja que donde ponemos al menos:
+
+C(M,3) / 10^9 palomas, haciendo el cálculo obtenemos 1014 por tanto el número ha de existir. 
+

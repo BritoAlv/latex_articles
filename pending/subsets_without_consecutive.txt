@@ -1,0 +1,91 @@
+La idea esencial de todo esto es resolver el problema de distribuir entre n niños N galletas, hace falta hallarle una biyección a ese problema con uno que sepamos contar, esto nos aportará una forma distinta de comprender el mismo problema, la biyección que se hará es la siguiente:
+
+Hay N + (n-1) lugares, y queremos poner (n-1) separadores porque (n-1) separadores determinarían N pedazos cada uno de los cuales determina una forma de distribuir las galletas, esta biyección nos permite contar el problema, ya que serían [N+(n-1)][n-1] opciones, o sea los separadores dan un límite a la cantidad de galletas que recibe el primer niño, la cantidad de galletas que recibe el segundo niño, and so o después de poner los separadores acabaremos con una secuencia de longitud N+(n-1) donde se habrán puesto (n-1) separadores, por tanto podemos contar nuestro problema inicial a través de este.  
+
+Easy : Determinar el número de subconjuntos del conjunto {1, 2, ... , n} donde no hay números consecutivos
+
+Medium : Determine el # de subconjuntos de tamaño k del conjunto {1, 2 ,..., n} donde no existan dos elementos consecutivos.
+
+Hard? : Determinar el número de  subconjuntos de tamaño k del conjunto { 1, 2, ... , n} donde hay a lo más una pareja de números consecutivos.
+
+Easy: Podemos dividir la respuesta en dos grupos los que contienen a el número "n" y los que no, si R_n es la respuesta entonces notar que R_n = R_{n-1} + R_{n-2} porque los que no contienen al número n son la respuesta para n-1 y los que lo contienen no contienen al número "n-1" por tanto es la respuesta para n-1, faltaría por determinar los valores inciales.
+
+R_1 = 2
+R_2 = 3
+R_n = F_{n+2}
+
+Medium: Primero hay que ver el problema desde cierto punto de vista, en este caso sería hacer una cadena de n bits donde hay k bits encendidos y no hay dos bits encendidos consecutivos, notar que los bits encendidos van delante de los apagados o al final, por lo que el problema es equivalente a escoger k posiciones de n-k+1 posiciones para insertar los 1's, escoger estas posiciones es equivalente a resolver lo siguiente:
+
+x1+x2+... + x_{n-k+1} = k donde 0 <= xi <= 1
+
+el 1 como cota superior es porque no pueden haber dos unos consecutivos, en el caso de que se permitan por ejemplo a lo más una pareja de números consecutivos, sería <= 2, ahora como se cuenta eso. En el caso de que a cota superior es 1 es equivalente a cuantos subconjuntos de tamaño k hay de un total de n-k+1, la respuesta sería (n-k+1)(k), la pregunta es hay algún razonamiento distinto para llegar a ese resultado de forma más general porque esta vía solamente funciona en el caso de que la cota superior es 1. 
+
+Hard: La versión díficil es análoga, sería dadas N galletas distribuirlas entre n niños donde cada niño reciba a lo más m galletas.
+
+Primero ignorando la condición de las m galletas a lo más, la respuesta es (N+n-1)(n-1), por otro lado, la cantidad de soluciones donde x1 > m es equivalente a resolver:
+
+(x1 - m-1) + x2+ ... + xn = N, que lo podemos contar:
+
+análogamente calculamos los casos en que x2 > m, and so on, finalmente la respuesta no es restar al total estos casos porque cuando decimos que x1 > m y x2 > m estamos restando dos veces los casos en que ambos x1 > m y x2 > m entonces habría que sumarlos, pero entonces los casos en que 3 de los xi son mayores que m son contados dos veces, por tanto hay que restarlos, el proceso continua indefinidamente, la respuesta sería:
+
+para cada k, faltaría hallar la respuesta, 
+
+k = 0, sería [ ( N ) + (n-1) ] [n-1]
+k = 1, sería [ ( N - (r+1) ) + (n-1) ] [n-1]
+
+...
+
+para k = 0 serían N galletas para n niños, la respuesta es [ N + (n-1) ] [ n-1 ]
+para k = 1 serían N -(r+1) galletas para n niños, la respuesta sería [N - (r+1) + (n-1)][n-1].
+
+para k = 2 serían N-2(r+1) galletas para n niños, la respuesta sería [N - 2(r+1) + (n-1)][n-1]
+
+recall that en cada paso hay k niños que van a recibir al menos (r+1) galletas por tanto se hará el principio de inclusión-exclusión [N / (r+1)] veces porque después daría 0 la división y ya no habría nada contandose dos veces.
+
+o sea todo parte de que es posible calcular como distribuir N galletas entre n niños que es equivalente a hacer una cadena de N+n-1 places y poner n-1, porque una vez que ponemos n-1 *, la dividimos en N partes que determinan una solución al problema inicial.  
+
+La fórmula final sería la suma desde k = 0 hasta la parte entera de N/(r+1) y lo que se sumaría (-1)^k * (n, k) * [N - k(r+1) + (n-1)][n-1]. 
+
+Porque distribuir N-k(r+1) galletas entre n niños se pude hacer de 
+[N - k(r+1) + (n-1)][n-1] formas.
+
+El problema inicial puede ser interpretado de la forma de los niños y las galletas, diciendo que tenemos n-k ceros y deseamos insertar k 1's entre ellos, de forma que en cada uno de los posibles (n-k+1) lugares posibles, haya a lo más un 1, esto sería combinaciones de C[(n-k+1), k]. 
+
+De cuantas formas se puede hacer una cadena de tamaño 17 donde hayan 8 a's, 4 b's, 5 c's pero que no hayan dos a's consecutivas. ?
+
+Sería de cuántas formas se puede hacer una cadena de tamaño 9 con 4 b's y 5 c's y para cada forma de cuantas formas se le pueden insertar 8 a's en los posibles 9 espacios, la respuesta seria: C(9,4)*C(10,8).
+
+Cuántos subconjuntos de un conjunto de tamaño 2n son tales que no contienen dos elementos cuya distancia es 2 ?
+
+1, 2, 3, 4, 5, 6
+ 
+1,          5, 6
+ , 2,       5, 6
+1, 2,       5, 6
+ ,  ,       5, 6
+
+n = 0, [] => 1.
+n = 1, [1,2] => [], [1], [2], [1,2], 4.
+n = 2, [1,2,3,4] => [], [1], [2], [3], [4], [1,2], [1,4], [2,3], [3,4], 9
+
+La respuesta para n se divide en cuatro casos:
+
+- contiene exactamente a 2n, 2n-1. A_{n-2}
+- no contiene a ninguno. A_{n-1}
+- contiene solamente a 2n.   A_{n-2} + [ A_{n-1} - A_{n-3} - A_{n-2}]  
+- contiene solamente a 2n-1. A_{n-2} + 
+   
+Consideremos una respuesta válida para uno de los dos últimos casos, notar que las respuestas válidas para n-2 satisfacen 3 y 4, en otro caso al menos uno de los dos de 2n-2, o 2n-3 ha de estar escogido, pero no pueden ser ambos, 
+
+La recurrencia sería: 
+
+A_n = A_{n-2}  + A_{n-1} + 2*A_{n-2} + A_{n-1} - A_{n-3} - A_{n-2}
+    = 2A_{n-1} + 2A_{n-2} - A_{n-3}
+    
+Solo que no hay forma de resolver esto, por lo que necesitamos una key-observation.
+
+Respuesta del yutu: Primera observación es que si los elementos difieren en exactamente dos poseen la misma paridad, por tanto podemos dividir el conjunto de tamaño 2n en dos conjuntos, pares e impares. Ahora la cosa se reduce a cuantos subconjunto de pueden hacer de un conjunto de tamaño n de forma que no hay números consecutivos, como demostrado anteriormente la respuesta es F_{n+2}, por tanto la respuesta es por el principio del producto F^2_{n+2}. Notar que esta secuencia satisface la secuencia descrita anteriormente.
+
+Ejemplo de que obtuve la recurrencia correctamente, pero no nos dice nada.
+
+    

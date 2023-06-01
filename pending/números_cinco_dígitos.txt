@@ -1,0 +1,9 @@
+Calcular el # de enteros positivos tales que:
+
+1 - tienen 5 dígitos.
+2 - que contienen al número 9.
+3 - 3 divide al número.
+ 
+Es más fácil calcular los números de cinco dígitos que no contienen al 9 y son divisibles por 3, la cosa es que el primer dígito puede ser escogido de 8 formas, el segundo de 9, el tercero, cuarto de 9 y el quinto quedarían 3 formas ( esto fue casualidad ), 0/3/6 o 1/4/7, o 2/5/8.
+
+

@@ -1,0 +1,35 @@
+Calcular la cantidad de subconjuntos de los números de {1, 2, ..., n} de tamaño k tal que la distancia entre cualesquiera dos elementos es >= 3.
+
+Easy: 	Cual es el mayor valor de k para el cual existe un subconjunto with such conditions ? 
+
+ceil(n/3) es la respuesta, notar que si k > (n/3) entonces entre los números escogidos por el principio del palomar hay dos números en el mismo grupo mod 3, por tanto su diferencia es < 3, absurdo.
+
+Es equivalente a ver de cuantas formas se pueden hacer k+1 subconjuntos de tamaño >= 2, excepto el primero y el último de forma que sus cardinalidades sumen (n-k), por ejemplo 
+
+n = 10, k = 3 
+
+4 subconjuntos que sus cardinalidad sumen (10-7), por ejemplo:
+
+1, 2, 4 , 0 => 2 5 10
+
+de ser así la respuesta es calculable solamente quedaría por demostrar la biyección, 
+
+0, 3, 3, 1 => 1 5 10
+
+entonces de ser así la respuesta sería resolver:
+
+x1 + x2 + .... + x_{k+1} = n-k, x2, ... , x_k >= 2
+
+por tanto 
+
+x1 + x2 + ... + x_{k+1} = n-k-2(k-1),  x_i >= 0
+x1 + x2 + ... + x_{k+1} = n-k-2k+2,    x_i >= 0
+			= n-3k+2,      x_i >= 0
+
+Las soluciones de esa ecuación serían:
+
+C(n-2k+2, k )
+n = 10, k = 3
+C(10-6+2, 3) = C(6,3) = 6!/(3!3!) = 4*5*6/3*2*1 = 4*5 = 20			
+			
+  

@@ -1,0 +1,22 @@
+1 - 12 bombillos alineados en una fila, inicialmente están solamente encendidos los bombillos 3,7,11. En cada paso se puede encender un bombillo pero solo si está al lado de uno ya encendido. Calcule de cuantas formas se pueden encender todos los bombillos.
+
+12 bombillos
+3 encendidos
+
+Separamos la respuesta al problema en 3+1 grupos:
+[1,3], [3,7], [7,11]
+
+los grupos se clasifican en dos tipos: un bombillo encendido o dos bombillos encendidos, en dependencia de sus extremos, los que poseen los dos bombillos encendidos aportan 2^{cantidad de bombillos en el interior -1}, los que poseen un solo bombillo encendido aportan 1, 
+
+3,7,11
+1 - de 1 a 3    1  forma.
+2 - de 3 a 7, 2^2  formas.
+3 - de 7 a 11, 2^2 formas. 
+4 - de 11 a 12, 1  forma.
+
+1 2 3 4 5 6 7 8 9 10 11 12
+    x       x         x 
+- - x 1 2 3 x 3 2  1  x  -
+
+En el primer tramo hay que encender 2 bombillos, en el segundo hay que encender 3 bombillos, en el tercero 3 bombillos, en el último tramo un solo bombillo, ya sabemos en que orden los vamos a encender, quedaría por saber en que momento en el tiempo los vamos a encender, por tanto sería distribuir 9 momentos en el tiempo en 4 grupos, donde al primer grupo le caen 2 momentos, al segundo 3 momentos, al tercero 3 momentos, y al cuarto 1 momento, por tanto sería 9!/(2!*3!*3!*1!) multiplicado por 1*(2^2)*(2^2)*1.
+    

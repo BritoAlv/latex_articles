@@ -1,0 +1,110 @@
+0 - factorial expansion:  C(n,k) = n! /k!(n-k)!
+
+0.0001 - sum^n_{k = 0} C(n,k) = 2^n
+
+0.001 - symmetry: C(n,k) = C(n, n-k)
+
+0.002 - monotonía: n >= 0, 0 <= i < j <= floor(n/2)  C(n,i) < C(n,j)
+
+0.1   - identidad de Pascal: C(n,k) = C(n, k-1) + C(n-1, k-1)
+
+1 - even and odd subsets: sum^n_{k = 0} (-1)^k C(n,k) = 0
+
+2 - sum of squares: sum^n_{k = 0} C(n,k)^2 = C(2n,n) 
+
+3 - choosing a lider: sum^n_{k = 0} kC(n,k) = n*2^{n-1}
+
+4 - absorción / extracción: C(n,k) = n/k*C(n-1,k-1)
+
+0 - De cuántas formas de un grupo de n elementos se puede hacer un subconjunto de tamaño k, escogemos los k elementos de:
+
+n*(n-1)*...*(n-k+1) formas, y lo dividimos entre k! para quitar los subconjuntos contados doble.
+
+0.0001: cuenta todos los subconjuntos de n elementos. 
+
+0.001 - Esto se debe a que escoger un subconjunto de tamaño k determina un único conjunto de tamaño (n-k) y viceversa. 
+
+0.002 - Dos cosas:
+
+- Traducido a demostrar que la cantidad de subconjuntos de tamaño i es menor que la cantidad de tamaño i+1, as long as i+1 <= floor(n/2).
+
+Sea X la cantidad de subconjuntos de tamaño i, sea Y la cantidad de subconjunto de tamaño i+1.
+
+De cada subconjunto de tamaño i, tenemos n - i opciones para formar un subconjunto de tamaño i+1, por tanto se generarían (n-i)X subconjuntos de tamaño i+1. 
+
+Necesito una cota superior de cuantas veces fue contado el mismo conjunto de tamaño (i+1) al realizar este proceso, notar que ese subconjunto tiene tamaño (i+1) hay (i+1) formas de escoger el conjunto de tamaño i que lo parió, por tanto : 
+
+(n-i)X = (i+1)Y
+
+De esa identidad como (n-i) > (i+1) si i < floor(n/2), puedo deducir que X < Y.
+ 
+- Además entender porque esto se deja de cumplir si i > floor(n/2): notar que la desigualdad en la identidad deja de cumplirse debido al n-i.
+
+0.1 - Para demostrar esto haré un conteo doble: 
+
+Consideremos un tablero cuadriculado de mxn:  De cuantas formas se puede ir de la esquina inferior izquierda de un tablero de m*n a la esquina superior derecha de el tablero solamente dando pasos cuadricula en cuadricula hacia arriba o hacia la derecha:
+
+Vía 1: Notar que ocurren (m+n) pasos en total, de los cuales m deben ser en una dirección, y n en la otra, o sea sería a ver de cuantas formas en un string de tamaño (m+n), se pueden insertar dos carácteres distintos, donde el primer carácter ocurre m veces y el segundo n veces, la respuesta sería: C(m+n, m)
+
+Vía 2: Otra forma de ver el problema es que a la posición final solamente se puede llegar a través de las dos esquinas adyacentes a ella, por tanto la cantidad de formas de llegar a la posición final es igual a la suma de la cantidad de formas de llegar a cada esquina, como ya sabemos contar eso podemos usarlo para establecer la identidad siguiente:
+
+C(m+n, m) = C(m+n-1, m-1) + C(m+n-1, m)
+
+Donde tomando s = m+n-1, sería: C(s+1, m) = C(s,m) + C(s, m-1), lo que demuestra la identidad, ahora notar que esto permite hacer el triángulo de Pascal.
+
+s = 0          1
+s = 1         1 1
+s = 2        1 2 1
+s = 4       1 3 3 1
+s = 5      1 4 6 4 1
+s = 6    1 5 10 10 5 1
+s = 7   1 6 15 20 15 6 1
+
+Lo que significa es que el elemento en la (s+1)-ésima fila en la posición m-ésima puede ser calculado sumando los elementos en la s-ésima fila en la posición m y m-1.
+
+Notar que podemos considerar el tablero como el triángulo de Pascal 
+
+Esta identidad se puede demostrar de la siguiente forma: 
+
+C(n,k) = C(n-1, k-1) + C(n-1, k)
+
+En términos de subconjuntos se puede demostrar así: el miembro izquierdo se refiere a la cantidad de subconjuntos de tamaño k, distinguir dos tipos de subconjuntos, los que contienen a un elemento en específico que son C(n-1, k-1), y los que no lo tienen que serían las combinaciones de C(n-1, k).
+
+1 - Los sumandos pueden ser acomodados de forma que lo que se pide demostrar se interprete como demostrar que la cantidad de subconjuntos de tamaño par es la misma que la cantidad de subconjuntos de tamaño impar, como hay un total de 2^n subconjuntos habrían dos opciones:
+
+a) biyección entre los conjuntos de tamaño par y los de tamaño impar.
+b) demostrar que hay 2^{n-1} subconjuntos de tamaño par y 2^{n-1} subconjuntos de tamaño impar.
+
+a) Consideremos los subconjuntos X donde no aparece a_1, son 2^{n-1},  cada uno lo podemos emparejar con X U {a1}, entonces tendríamos 2^{n-1} con dos elementos cada una, notar que cada pareja posee un subconjunto de tamaño par y otro de tamaño impar, Done. Esta biyección es interesante porque agrupa a los objetos en grupos y en cada grupo tiene un existe, o sea en el grupo se sabe que habrían objetos que cumplen la propiedad, pero no cuales, eso es potente.
+
+b) Notar que una vez que se determina si escoger o no los primeros n-1 elementos el elemento n-ésimo ya está fijado.
+
+2 - Notar que C(n,k)^2 = C(n,k)*C(n, n-k) = Digamos que tenemos 2n elementos y queremos hallar todos los subconjuntos de tamaño n, un approach distinto es separarlos en dos grupos de n elementos, y para cada k entre 0, n escoger k elementos del primer grupo y n-k elementos del segundo grupo. 
+
+3 - Cantidad de formas distintas de hacer un subconjunto y escoger un representante, o que es lo mismo a escoger entre (n-1) gentes el subconjunto y después escoger el representante.
+
+4 - kC(n,k) = n*C(n-1, k-1), hacer un subconjunto de tamaño k donde uno es el líder. Notar que esto es un caso más particular de la suma 3.
+
+5 - trinomial_revision: C(n,m)*C(m,k) = C(n,k)*C(n-k, m-k)
+
+Notar que esta propiedad son los coeficientes de (a+b+c)^3, por eso se llama trinomial revision.  Para demostrarlo combinatorialmente consideremos el siguiente problema: 
+
+Ese problema sería de un grupo de n personas separarlas en tres grupos de tamaños: n-m, k, m-k . 
+
+6 - Parallel summation: 
+
+sum^{m}_{k = 0}C(n+k,k) = C(n+m+1,m)
+
+Que significa la suma: para m = 1, sería:
+
+m = 1: C(n,0) + C(n+1,1) = C(n+2, 1)
+m = 2: C(n,0) + C(n+1,1) + C(n+2, 2) = C(n+3, 2)
+...
+
+Esta suma es una generalización de la identidad de pascal,
+C(n,0) + C(n+1,1) + C(n+2, 2)
+= C(n+2, 1) + C(n+2,2)
+= C(n+3, 2)
+
+Como sin saber eso se podría demostrar, in lights of la identidad de Pascal consideremos un tablero de (n+1)x m, la cantidad de caminos como fueron descritos anteriormente serían C( (n+1)+m,m ), ahora notar que cada camino que llega a a la esquina superior derecha ha de pasar por al menos una diagonal del tablero ( empiezan en una), si a cada uno de los caminos le asociamos la mayor diagonal por la que pasó, sería contar cuantos caminos poseen como mayor diagonal a esa en específico, notar que ese es el miembro izquierdo de la igualdad.
+

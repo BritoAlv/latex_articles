@@ -1,0 +1,12 @@
+Sea |X| = n, hallar la cantidad de pares de subconjuntos no ordenados (A,B) de X no vacios y con intersección nula.
+
+Es equivalente a contar de cuantas formas se puede formar una palabra con 3 letras a,b,c de forma que las letras a,b aparezcan al menos una vez. 
+
+palabras con solamente b,c => 2^n
+palabras con solamente a,c => 2^n 
+
+
+3^n - ( 2^n + 2^n - 1) , palabras donde hay al menos una "a", y hay al menos una "b" 
+
+Como las tuplas no están ordenadas dividir esa respuesta entre 2.  
+
