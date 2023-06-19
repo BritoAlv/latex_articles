@@ -1,0 +1,35 @@
+Determine el número de formas de repartir 2n+1 pelotas iguales a 3 niños de forma tal que siempre el #sumado de pelotas que reciben dos cualesquiera de los tres niños, supere a la cantidad de pelotas recibido por el otro.
+
+n = 1, (1,1,1)
+n = 2, (1,2,2)
+n = 3, (1,3,3), (2,2,3)
+
+Notar que las tres variables cumplen que son <= n, y esto es suficiente para resolver el ejercicio, sería resolver:
+
+x1 + x2 + x3 = (2n+1), con los xi <= n.
+
+Para hacerlo podemos al total de soluciones sin restricciones: C(2n+1+2, 2), restarle las que al menos una variable cumple que xi > n, o sea xi >= n+1, pero notar que exactamente una de las variables puede cumplir eso, por tanto sería contar la cantidad de soluciones en las que x1 >= n+1, y restarselo al total multiplicado por 3.
+
+[x1 - (n+1)] + x2 + x3 = 2n+1 - (n+1) = n
+
+seŕian un total de C(n+2,2) soluciones.
+
+Por tanto la respuesta sería C(2n+3,2)-3*C(n+2,2)
+
+1 - C(2n+3 , 2) - 3*C(n+2,2)
+
+Otra forma de verlo es escribir la ecuación como :
+
+(n-x1) + (n-x2) + (n-x3) = 3n - (2n+1)
+y1 + y2 + y3 = n-1, yi >= 0.
+
+Que posee C(n-1+2, 2) soluciones o C(n+1,2)
+
+2 - C(n+1, 2) = (n+1)*n/2
+
+Finalmente la pregunta es porque son iguales esas dos respuestas:
+
+Demostrar sin usar la fórmula de los factoriales que:
+C(n+1, 2) = C(2n+3,2) - 3*C(n+2,2)
+2*C(n+2,2) = (n+2)*(n+1)
+Es una consecuencia del siguiente resultado: C(a+b, 2) = C(a,2) + C(b,2) + a*b.

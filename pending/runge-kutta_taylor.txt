@@ -1,0 +1,96 @@
+Derivación del método de Runge-Kutta para el segundo orden:
+
+Dada una ecuación diferencial:
+
+dy/dx = f(x, y) , con y(0) = y0 un valor inicial.
+
+El objetivo es hacer un plot de la curva solución aproximado, esto es lo que permite hacer el método de Runge-Kutta, está basado en tricky applications of the Taylor Series expansion.
+
+Por ejemplo si tenemos:
+
+f( xi + p_1h, yi + q_{11}k_1h) la expansión de Taylor alrededor de (xi, yi) es:
+
+= 
+f( xi, yi )
++ p_1h delta f / delta x (xi, yi) 
++ q_{11}k_1 h delta f / delta y (xi, yi) 
++ 1/2 delta f / delta xy (p_1h)*(q_{11}k_1h) 
++ 1/2 delta f / delta yx (p_1h)*(q_{11}k_1h)
+
+= f( xi, yi )
++ p_1h delta f / delta x (xi, yi) 
++ q_{11}k_1 h delta f / delta y (xi, yi)
++ O(h^2)
+
+Toda la ventaja de Runge-Kutta es evitar tener que hallar la derivada de f'(x,y) símbolicamente.
+
+La cosa es que esta aproximación de Taylor nos da una combinación linear de las derivadas parciales de f respecto a x, y respecto a y. Que queda determinada por los coeficientes q_{11}, p_1, k_1. 
+
+Ahora empieza la explicación: tenemos un valor inicial y(0) = y0, y queremos plotear la función y, a partir de la ecuación:
+
+dy / dx = f(x, y)
+
+Dado un step-size h, definimos x_{i+1} = x_i + h, usando la expansión de Taylor se cumple que:
+
+y_{i+1} = y_i + dy/dx * h + 1/2! (d^2y/d^2x) *h^2 + O(h^3) ***
+y_{i+1} = y_i + f(xi, yi)*h + 1/2! f'(xi,yi)h^2 +O(h^3)
+
+Ahora por la regla de la cadena se cumple que:
+
+f'(xi, yi) = Df(x,y)/Dx * dx / dx + Df(x,y)/Dy * dy/dx
+
+Entonces:
+
+y_{i+1} 
+= y_i +
+f(xi, yi)*h +
+1/2*h^2*Df(x,y)/Dx +
+1/2*h^2*Df(x,y)/Dy * f(xi, yi) +
+O(h^3)
+
+Lo que no podemos determinar en esta ecuación es:
+
+Df(x,y)/Dx (xi, yi)
+Df(x,y)/Dy (xi, yi)
+
+Recall que obtuvimos una combinación linear de las dos derivadas anteriores a partir de la expansión de Taylor de :
+
+k2 := f( xi + p_1h, yi + q_{11}k_1h) 
+    = f(xi,yi) + p1h Df/Dx (xi,yi) + q_{11}k1h Df/Dy (xi,yi) + O(h^2)
+    
+SO, k2*h = f(xi, yi)h + h^2 ( p1Df/Dx(xi,yi) + q_{11}k1 Df/Dy) + O(h^3)
+
+Para poder escribir:
+
+y_{i+1} = y_i + (a1k1 + a2k2)h, donde 
+
+k1 := f(xi,yi)
+k2 := f(xi + p1h, yi + q_{11}k1h)
+
+Se tiene que cumplir que a1 + a2 = 1, a2p2 = 1/2, a2q_{11} = 1/2.
+
+Overview, primero se plantea lo que debería dar utilizando el polinomio de Taylor que es ***, el problema surge porque no es posible hallar f'(xi,yi) símbolicamente, entonces para eso se utiliza otra aplicación de Taylor en la función f, lo que da una combinación linear donde aparecen las derivadas parciales que son necesarias para calcular f'(xi, yi), finalmente para que los coeficientes de la segunda aplicación de Taylor ( tricky ) coincidan con lo que se espera que de se debe cumplir un sistema de ecuaciones, obteniéndose finalmente:
+
+y_{i+1} = y_i + (a1k1 + a2k2)h, donde :
+
+a1+a2 = 1
+a2p2 = 1/2
+a2q_11 = 1/2
+k1 = f(xi, yi)
+k2 = f(xi + p1h, yi + q_{11}k1h)
+
+Para extenderlo a Runge-Kutta de orden 4 que es el más usado se utiliza prácticamente la misma idea, un ejemplo con los coeficientes ya determinados:
+
+K1 = hf(xn, yn)
+K2 = hf(xn + h/2, yn + K1/2)
+K3 = hf(xn + h/2, yn + K2/2)
+K4 = hf(xn + h, yn + K3)
+y_{n+1} = y_n + K1/6 + K2/3 + K3/3 + K4/6 + O(h^5)
+
+Para usar lo anterior es necesario darle un step-size h, un valor inicial y cuantos valores va a generar, empezando en y(x0) = y0, generaría dado un N, hasta x0 + N*h.
+
+
+
+
+
+ 

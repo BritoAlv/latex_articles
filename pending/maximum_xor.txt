@@ -1,0 +1,20 @@
+Dados dos enteros l, r hallar el mayor valor que puede tomar a xor b donde a,b son enteros tales que l <= a <= b <= r.
+
+https://codeforces.com/problemset/problem/276/D
+
+Recall that la entrada del problema es entre 1 y 10^18, por tanto la respuesta no puede siuiera recorrer todos los elementos entre 1 y 10^18, porque el tiempo es un segundo, por tanto debe haber un algoritmo que no necesite recorrer todos los elementos, o sea que sea en tiempo logarítmico, ( divide y vencerás) o en tiempo cte. Más aún la complejidad de la respuesta debe ser en función de la cantidad de bits de la entrada. 
+
+Claim( Unlock by Pichardo ): En este caso se puede dar la respuesta en 0(cant bits de r) sería llevar a binario el left y el right ver la primera posición donde difieren digamos que la i-ésima, el right ha de ser uno mientras que el left va a ser 0, entonces podemos considerar el número:
+
+1000000000 con i-1 0's
+0111111111 con i-1 1's
+
+Ese es el mayor xor que es posible hacer entre esos dos números.
+
+Consideremos este otro problema: Dada una lista de enteros hallar el mayor xor que se puede hacer entre ellos.
+
+En este caso si hay que recorrer todos los elementos de la lista pues no tenemos ningún dato ni relación entre ellos, pero podemos agruparlos en un Trie ya que lo que me interesa recorrer es el número en binario y esa longitud está acotada. Se puede usar un Trie de la siguiente forma, pero la complejidad del algoritmo sería n*(cantidad de bits mayor número). Insertamos todos los números en un trie pero antes de insertar un número nuevo lo comparamos con los que ya están en el trie para ver si obtenemos un xor mayor que el que teníamos, la cosa es que esta comparación se hace en tiempo (cantidad de bits mayor número) independiente de cuantos números hayan en el trie, por eso el trie ayuda a reducirlo de cuadrático (double for entre todos los pares) a linear * log(mayor número).
+
+El trie reduce la complejidad del segundo for a linear porque permite en log(mayor número) comparar el nuevo a insertar con todos los que están. Solamente notar que la cosa es que la entrada está acotada.
+
+

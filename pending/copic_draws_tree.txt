@@ -1,0 +1,73 @@
+Copil Copac posee una lista de (n-1) aristas que describen un árbol de n vértices. El decide dibujarlo utilizando el siguiente algoritmo:
+
+0: Dibuja el primer vértices y va pal paso 1.
+
+1: Para cada arista en la entrada, en orden, si la arista contiene un vértice ya dibujado u y otro no dibujado v entonces dibuja el vértice v y la arista. Después de hacer esto para cada arista de la lista ir al paso 2.
+
+2: Si todos los vértices están dibujados se acaba el algoritmo, en otro caso ir al paso 1.
+
+Hallar la cantidad de veces que Copil Copac pasa por el paso 1 para dibujar el árbol.
+
+6
+
+4 5
+1 3
+1 2
+3 4
+1 6
+
+en la primera pasada dibuja los vértices 1,2,3,4,6 y en la segunda pasada el vértice 5.
+
+7
+
+5 6
+2 4
+2 7
+1 3
+1 2
+4 5
+
+en la primera pasada dibuja los vértices 1,3,2, en la segunda pasada dibuja los vértices 4,7,5, y en la tercera pasada el 6.
+
+La pregunta es hacer un algoritmo para contar la cantidad de pasadas no en O(n^2), como pasaría en la implementación de fuerza bruta:
+
+6 5
+5 4
+4 3
+3 2
+2 1
+
+Una mejor idea es diseñar una estructura de datos con las siguiente interfaz:
+
+colorear (vertice x, prioridad p): para cada vertice no coloreado "y" conectado a "x" que posee una arista de prioridad "pr" mayor a "p", coloreamos el vértice y llamamos el método colorear( y, pr). ahora nos quedaría ver como podemos realizar este proceso de forma eficiente a través de una estructura de datos, colorear va a devoler una lista con los vértices que no fue posible colorear en cierto punto , después habría que eliminar los que fueron coloreados después como en el ejemplo:
+
+2 3
+1 2
+1 3
+
+o sea después que el 3 no es posible colorearlo a partir del 2, pero como el 3 es coloreado después ambos vértices el 2 y el 3 quedan coloreados, por tanto es suficiente con una pasada.
+
+readings = 0
+Lista = {1}
+while Lista not empty
+	para cada vértice coloreado de la lista: colorear ( vertice x, prioridad la que tiene en el par que no se puedo colorear en la vez pasada)
+	reading ++
+	
+return readings.	
+
+por ejemplo en 
+3 4
+2 3
+1 2
+
+en la primera pasada se devuelve el 2 con prioridad 3 para que solamente se pueda pntar al 3 en la segunda pasada.
+
+usé las interfaces desde afuera se llama al método paint, el cual hace el while de cada reading, el método reading, toma la lista de vértices y hace la operación colorear a cad uno y finalmente devuelve los pendientes, después de haber llamado al método de colorear en cada vértice de la lista, el método colorear es el que interactua con la estructura de datos la cual posee la siguiente interfaz:
+
+is_colored ( vertice): devuelve si el vertice está coloreado.
+edges( vertice) : devuelve todas las aristas conectadas a ese vértice que no están pintadas. una arista es un par que contiene la prioridad y el otro entero al cual ese vértice está conectado. 
+colorear(vertice) : marca ese vértice como coloreado
+
+entonces el método colorear obtiene una por una las aristas de ese vértice, es importante que si se desea eliminar una en específico debe poderse hacer en O(1), la estructura de datos que guarda la arista tiene que tener eliminar en O(1), saber cuantos elementos tiene y recorrer la arista en algún orden, teniendo en cuenta que durante el proceso se le borren elementos, por eso usé una cola, puedo borrar el elemento, para obtenerlo y si no lo quiero borrar lo vuelvo a añadir.
+
+Para hacer un análisis de la complejidad de este algoritmo notar que vez que una arista es analizada si es borrada, no hay problema, si no lo es, se queda guindada para la próxima vuelta, pero como fue analizada significa que uno de sus nodos ya está coloreado por tanto en el próximo caso va a ser borrada, por tanto una arista es tomada a lo más dos veces, esto garantiza que la complejidad del algoritmo es linear respecto a la cantidad de aristas asumiendo que el trabajo que se hace con cada una de ellas es constante. Inicialmente lo que se hace para construir la estructura de datos es en tiempo linear, y usando la cola todas las operaciones son en O(1), por tanto el algoritmo es linear respecto a la cantidad de aristas como son n-1, es linear respecto a la entrada.

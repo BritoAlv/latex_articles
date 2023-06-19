@@ -1,0 +1,23 @@
+Calcular el # de enteros positivos tales que:
+
+1 - tienen 5 dígitos.
+2 - que contienen al número 9.
+3 - 3 divide al número.
+ 
+Es más fácil calcular los números de cinco dígitos que no contienen al 9 y son divisibles por 3, la cosa es que el primer dígito puede ser escogido de 8 formas, el segundo de 9, el tercero, cuarto de 9 y el quinto quedarían 3 formas ( esto fue casualidad ), 0/3/6 o 1/4/7, o 2/5/8.
+
+
+Sea n entero positivo primo relativo con 10, Probar que para cualquier dígito > 0 existen infinitos múltiplos de n formados con ese dígito.
+
+Consideremos los números:
+d
+dd
+ddd
+dddd
+...
+
+ddd...d (n+1) d's
+
+Como hay n+1 números hay dos que dejan el mismo resto entre n, su diferencia es un número de la forma:
+
+ddd0000 con k < n d's y alguna cantidad de 0's, notar que entonces n por ser primo relativo con 10 divide a ddd.. k d's. Como k < n listo. Para demostrar que son infinitos consideremos los números que poseen una cantidad de dígitos múltiplo de k. Son divisibles por n también, porque si n divide a j, n divide a jj.

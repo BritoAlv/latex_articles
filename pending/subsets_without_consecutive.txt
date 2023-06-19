@@ -18,35 +18,50 @@ Medium: Primero hay que ver el problema desde cierto punto de vista, en este cas
 
 x1+x2+... + x_{n-k+1} = k donde 0 <= xi <= 1
 
-el 1 como cota superior es porque no pueden haber dos unos consecutivos, en el caso de que se permitan por ejemplo a lo más una pareja de números consecutivos, sería <= 2, ahora como se cuenta eso. En el caso de que a cota superior es 1 es equivalente a cuantos subconjuntos de tamaño k hay de un total de n-k+1, la respuesta sería (n-k+1)(k), la pregunta es hay algún razonamiento distinto para llegar a ese resultado de forma más general porque esta vía solamente funciona en el caso de que la cota superior es 1. 
+el 1 como cota superior es porque no pueden haber dos unos consecutivos, en el caso de que se permitan por ejemplo a lo más una pareja de números consecutivos, sería <= 2, ahora como se cuenta eso. En el caso de que la cota superior es 1 es equivalente a cuantos subconjuntos de tamaño k hay de un total de n-k+1, la respuesta sería (n-k+1)(k), la pregunta es hay algún razonamiento distinto para llegar a ese resultado de forma más general porque esta vía solamente funciona en el caso de que la cota superior es 1. 
 
 Hard: La versión díficil es análoga, sería dadas N galletas distribuirlas entre n niños donde cada niño reciba a lo más m galletas.
 
-Primero ignorando la condición de las m galletas a lo más, la respuesta es (N+n-1)(n-1), por otro lado, la cantidad de soluciones donde x1 > m es equivalente a resolver:
+Consideremos como universo la cantidad de formas de distribuir las N galletas a los n niños ignorando la condición de a lo más m galletas.
 
-(x1 - m-1) + x2+ ... + xn = N, que lo podemos contar:
+Propiedad 1: niño 1 recibe al menos m+1 galletas.
+Propiedad 2: niño 2 recibe al menos m+1 galletas.
+...
+Propiedad n: niño n recibe al menos m+1 galletas.
 
-análogamente calculamos los casos en que x2 > m, and so on, finalmente la respuesta no es restar al total estos casos porque cuando decimos que x1 > m y x2 > m estamos restando dos veces los casos en que ambos x1 > m y x2 > m entonces habría que sumarlos, pero entonces los casos en que 3 de los xi son mayores que m son contados dos veces, por tanto hay que restarlos, el proceso continua indefinidamente, la respuesta sería:
+Queremos contar la cantidad de soluciones que no cumplen ninguna de las n propiedes. Por el principio de inclusión-exclusión, esto sería:
 
-para cada k, faltaría hallar la respuesta, 
+Ignorando la condición de las m galletas a lo más, la respuesta es (N+n-1)(n-1), por otro lado, la cantidad de soluciones donde x1 > m es equivalente a resolver:
 
-k = 0, sería [ ( N ) + (n-1) ] [n-1]
-k = 1, sería [ ( N - (r+1) ) + (n-1) ] [n-1]
+( x1 -(m+1) ) + x2+ ... + xn = N, que sería:
+
+y1 + x2 + ... + xn = N-(m+1) => C(N-(m+1)+(n-1), n-1)
+
+Análogamente podemos calcular los casos en que x2 > m, and so on. Después de que calculamos los casos en los que x2 > m, x3 > m, (cumplen propiedad 1),  la respuesta no sería restarle esto al total porque los casos en los que x1 > m y x2 > m ( cumplen dos propiedades al menos) se restarían dos veces, por lo que habría que sumarlos. Entonces la idea es todos los casos en los que al menos uno es > m, menos todos los casos en que al menos 2 son mayores que m + todos los casos en los que al menos tres son mayores que m, y así hasta que N/(cant>m)(n-1) = 0.
+
+Finalmente la respuesta no es restar al total estos casos porque cuando decimos que x1 > m y x2 > m,  estamos restando dos veces los casos en que ambos x1 > m y x2 > m entonces habría que sumarlos, pero entonces los casos en los que 3 de los xi son mayores que m son contados dos veces, por tanto hay que restarlos, el proceso continua indefinidamente, la respuesta sería:
+
+para cada k, faltaría hallar la respuesta:
+
+k = 0, sería [ ( N ) + (n-1) ] [n-1] (universo)
+k = 1, sería [ ( N - (m+1) ) + (n-1) ] [n-1] (al menos un niño)
 
 ...
 
 para k = 0 serían N galletas para n niños, la respuesta es [ N + (n-1) ] [ n-1 ]
-para k = 1 serían N -(r+1) galletas para n niños, la respuesta sería [N - (r+1) + (n-1)][n-1].
+para k = 1 serían N -(m+1) galletas para n niños, la respuesta sería [N - (m+1) + (n-1)][n-1].
 
-para k = 2 serían N-2(r+1) galletas para n niños, la respuesta sería [N - 2(r+1) + (n-1)][n-1]
+para k = 2 serían N-2(m+1) galletas para n niños, la respuesta sería [N - 2(m+1) + (n-1)][n-1]
 
-recall that en cada paso hay k niños que van a recibir al menos (r+1) galletas por tanto se hará el principio de inclusión-exclusión [N / (r+1)] veces porque después daría 0 la división y ya no habría nada contandose dos veces.
+recall that en cada paso hay al menos k niños que van a recibir al menos (r+1) galletas por tanto se hará el principio de inclusión-exclusión [N / (m+1)] veces porque después daría 0 la división y ya no habría nada contandose dos veces.
 
-o sea todo parte de que es posible calcular como distribuir N galletas entre n niños que es equivalente a hacer una cadena de N+n-1 places y poner n-1, porque una vez que ponemos n-1 *, la dividimos en N partes que determinan una solución al problema inicial.  
+O sea todo parte de que es posible calcular como distribuir N galletas entre n niños que es equivalente a hacer una cadena de N+n-1 places y poner n-1, porque una vez que ponemos n-1 *, la dividimos en N partes que determinan una solución al problema inicial.  
 
-La fórmula final sería la suma desde k = 0 hasta la parte entera de N/(r+1) y lo que se sumaría (-1)^k * (n, k) * [N - k(r+1) + (n-1)][n-1]. 
+La fórmula final sería la suma desde k = 0 hasta la parte entera de N/(m+1) y lo que se sumaría es (-1)^k * (n, k) * [N - k(m+1) + (n-1)][n-1]. 
 
-Porque distribuir N-k(r+1) galletas entre n niños se pude hacer de 
+Las combinaciones de C(n,k) porque si queremos que k niños tengan más de m galletas hay C(n,k) formas de escoger esos niños.
+
+Distribuir N-k(r+1) galletas entre n niños se pude hacer de 
 [N - k(r+1) + (n-1)][n-1] formas.
 
 El problema inicial puede ser interpretado de la forma de los niños y las galletas, diciendo que tenemos n-k ceros y deseamos insertar k 1's entre ellos, de forma que en cada uno de los posibles (n-k+1) lugares posibles, haya a lo más un 1, esto sería combinaciones de C[(n-k+1), k]. 
@@ -88,4 +103,33 @@ Respuesta del yutu: Primera observación es que si los elementos difieren en exa
 
 Ejemplo de que obtuve la recurrencia correctamente, pero no nos dice nada.
 
-    
+Hallar el número de soluciones enteras a la ecuacón:
+
+x1+x2+x3+x4 = 21 donde:
+
+2 <= x1 <= 5
+3 <= x2 <= 7
+0 <= x3 <= 6
+2 <= x4 <= 10
+
+Sería resolver:
+
+x1+x2+x3+x4 = 14
+
+0 <= x1 <= 3
+0 <= x2 <= 4
+0 <= x3 <= 6
+0 <= x4 <= 8
+
+Sea T el total de soluciones ignorando las upper-bound constraints. 
+
+propiedad 1: x1 >= 4
+propiedad 2: x2 >= 5
+propiedad 3: x3 >= 7
+propiedad 4: x4 >= 9
+
+Queremos hallar el número de soluciones que no cumplen ninguna de esas propiedades, que sería N(0)
+
+= universo - intersecciones de tamaño 1 + intersecciones de tamaño 2 - intersecciones de tamaño 3 - intersecciones de tamaño 4.
+
+ 

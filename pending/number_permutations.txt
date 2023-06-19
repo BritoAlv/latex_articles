@@ -1,0 +1,13 @@
+Una secuencia de n pares de enteros (a1, b1), (a2, b2), ..., (an,  bn) es mala si está la secuencia a1, a2, ..., ordenada de menor a mayor o está la secuencia b1, b2, ..., ordenada de menor a mayor.
+
+Dada una secuencia s de pares de enteros (a1, b1), (a2, b2), ..., (an,  bn) hallar la cantidad de permutaciones de tamaño n, tales que después de aplicarle esta permutación a la secuencia s se obtiene una secuencia s' que es buena (no mala).
+
+Si se le aplica la permutación p1, p2, ..., on a la secuencia s1, s2, ..., sn se obtiene la secuencia s_p1, s_p2, ..., s_pn.
+
+https://codeforces.com/problemset/problem/1207/D
+
+De las n! permutaciones de los números  de 1 a n hay que saber la cantidad tales que si se le aplican a la secuencia de pares dada se obtiene una secuencia buena.
+
+La idea es contar la cantidad de permutaciones malas y restarselo a n!, como son un or halle el complemento y apliqué inclusión-exclusión, la solución es una naive implementation, 
+
+La idea es hacer un multiset con los pares, después ordenar de menor a mayor la primera y la segunda secuencia, hacer un for a la secuencia de pares ordenada, por cada par ahí  debe de haber estado en la original, y debemos tener en cuenta cuantas veces se repite porque eso es lo que genera las combinaciones, si algun par no aparece devolver 0, else multiplicar los factoriales de las apariencias de cada par en la ordenada. 

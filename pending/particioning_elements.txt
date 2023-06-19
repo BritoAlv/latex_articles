@@ -4,12 +4,12 @@ a) n = 10, 2 subconjuntos de tamaño 4, 1 de tamaño 2.
 b) n = 10, 5 subconjuntos de tamaño 2.
 c) n = 10, 10 subconjuntos de tamaño 1.
 
-a) sería distribuir 10 elementos entre tres tipo a,b,c de forma que hayan 4 a's, 4 b's, 2 c's, pero las dos reparticiones serían:
+a) sería distribuir 10 elementos entre tres tipo a,b,c de forma que hayan 4 a's, 4 b's, 2 c's, pero estas dos reparticiones:
 
 aaaabbbbcc
 bbbbaaaacc
 
-Notar que como lo que interesan es que hayan subconjuntos de tamaño 4, debemos dividir la respuesta entre 2! porque hay 2 conjuntos de tamaño 4, y entre 1! porqu hay un subconjunto de tamaño 1. Esto es interesante porque exprime aún más la fórmula de combinaciones con repetición.
+Representan la misma partición, por lo que como lo que nos interesa es que hayan subconjuntos de tamaño 4, debemos dividir la respuesta entre 2! porque hay 2 conjuntos de tamaño 4, y entre 1! porqu hay un subconjunto de tamaño 1. Esto es interesante porque exprime aún más la fórmula de combinaciones con repetición.
 
 a) sería 10! / (4!*4!*2!) / 2!*1!.
 
@@ -34,7 +34,7 @@ De cuantas formas se pueden distribuir los números del 1 al 9 en 3 subconjuntos
 La respuesta para 9  es 42 que es 1+1+40.
 La respuesta para 4  es  5 que es 1+1+3.
 
-Para cada n, la suma sería n!/(d!)^(n/d)*(n/d)!, porque queremos particionar a n en subconjuntos de tamaño d, serían n/d subconjuntos, pero tenemos que dividirlo entre el factorial de la cnatidad de subconjuntos para no contar los repetidos, pero esta fórmula no tiene pinta de que se cancele ni nada.
+Para cada n, la suma sería n!/(d!)^(n/d)*(n/d)!, porque queremos particionar a n en subconjuntos de tamaño d, serían n/d subconjuntos, pero tenemos que dividirlo entre el factorial de la cantidad de subconjuntos para no contar los repetidos, pero esta fórmula no tiene pinta de que se cancele ni nada.
 
 Es más interesante la fórmula de dado un n, particionar en x1 subconjuntos de tamaño 1, x2 subconjuntos de tamaño 2, ...., x_n subconjuntos de tamaño n, si :
 
@@ -42,7 +42,7 @@ x1+2x2+...+nx_n = n, asumiendo que los xi son >= 0 satisfaciendo esa ecuación, 
 
 n!/ (1!)^x1 * (2!)^x2 * ... * (n!)^xn / (x1)!...(xn)!
 
-De cuántas formas se puede particionar un subconjunto de tamaño n?. 
+De cuántas formas se puede particionar un conjunto de tamaño n?. 
 
 Claim (unlock): La función que empareja a cada partición de tamaño n con el par (C, P) donde C es el conjunto de la partición que contiene a el elemento n, y P es la partición que se obtiene al eliminar a el conjunto C de la partición es biyectiva.
 

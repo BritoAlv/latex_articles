@@ -1,4 +1,4 @@
-Easy: Sean n,k enteros positivos tales que |A| = n, calcular el # de k-tuplas <A1,A2, ..., AK> de subconjuntos de A tales que:
+Sean n,k enteros positivos tales que |A| = n, calcular el # de k-tuplas <A1,A2, ..., AK> de subconjuntos de A tales que:
 
 1) A1 C_ A2 C_ ... C_ AK 
 2) A1 int A2 int ... int AK = vacio

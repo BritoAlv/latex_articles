@@ -108,3 +108,19 @@ C(n,0) + C(n+1,1) + C(n+2, 2)
 
 Como sin saber eso se podría demostrar, in lights of la identidad de Pascal consideremos un tablero de (n+1)x m, la cantidad de caminos como fueron descritos anteriormente serían C( (n+1)+m,m ), ahora notar que cada camino que llega a a la esquina superior derecha ha de pasar por al menos una diagonal del tablero ( empiezan en una), si a cada uno de los caminos le asociamos la mayor diagonal por la que pasó, sería contar cuantos caminos poseen como mayor diagonal a esa en específico, notar que ese es el miembro izquierdo de la igualdad.
 
+
+Sumar todos los coeficientes binomiales alternados da 0, pero y si los alternamos, pero no los sumamos todos, por ejemplo:
+
+C(5,0) - C(5,1) + C(5,2) - C(5,3)
+   
+s = 0          1
+s = 1         1 1
+s = 2        1 2 1
+s = 4       1 3 3 1
+s = 5      1 4 6 4 1
+s = 6    1 5 10 10 5 1
+s = 7   1 6 15 20 15 6 1
+
+lo podemos deducir a través del triángulo de Pascal mirando observando cuantas veces es contado cada número de la fila de arriba, notar que excepto el primer sumando que es C(5,0) el cual cuenta en uno el 1 de arriba, los demás usan un número de arriba y lo quita después el siguiente, por tanto la respuesta de:
+
+C(5,0) - C(5,1) + C(5,2) - C(5,3) = 1 - (1+4) + (4+6) - (6+4) = 4 = C(4, 3)

@@ -1,0 +1,88 @@
+Dados cinco enteros n, i, j, x, y. Hallar el número de permutaciones bitonicas B de los números de 1 a n de forma que B_i = x y B_j = y, i < j y x distinto de y. módulo 10⁹+7
+
+Una permutación es bitónica si los elementos crecen hasta cierto índice k y después disminuyen hasta el final.
+
+https://codeforces.com/contest/1763/problem/D
+
+Easy : Cuantas permutaciones bitonicas hay ?
+Medium: Cuantas permutaciones bitonicas hay con B_i = x
+
+n = 1 => 1
+n = 2 => 12,   21
+n = 3 => 123,  321,  132,  231
+n = 4 => 1234, 1243, 1342, 1432, 2341, 2431, 3421, 4321
+
+Notar que el pico es la posición donde está el elemento n-ésimo. Notar que si a cada número de 1, ..., n-1 le asignamos izquierda o derecha del peak, tenemos 2^{n-1} opciones y cada forma determina una única permutación bitonica por tanto son 2^{n-1}.
+
+Ahora cuantas hay, que tienen el número x en la posición i, eso es una pregunta más complicada: 
+
+Lo voy a dividir en casos a ver si capto el patrón:
+
+Si x == n cuantas permutaciones bitonicas tienen a x en la posición i, eso significa que hay (i-1) elementos a su izquierda, de cuantas formas se pueden escoger a esos i-1 elementos de C(n-1, i-1) formas.
+
+Lo que significa lo anterior es que si queremos hacer las permutaciones bitonicas de tamaño 8 poniéndo al 8 en la tercera posición tenemos C(7,2) opciones. 
+
+Para poner al número x en la i-ésima posición lo dividimos en dos branches, n está a la izquierda, n está a la derecha.
+
+Si n está a la derecha, en las primeras (i-1) posiciones van números menores que x, por tanto habrían C(x-1, i-1) formas de escoger esos números, ahora si n está pegado a x la permutación está determinada, después para cada posición j de n que iría de i+1, i+2, ..., n hay C( n-(x+1), j-(i+1)) formas de seleccionar los números que van de por medio, 
+
+i+1, j-1   j-1 - (i+1) + 1 posiciones
+
+aka sería dado el i, x, j > i, C(x-1, i-1)* C(n - (x+1), j-(i+1) ) formas. 
+
+
+ahora si n está a la izquierda significa que en las últimas n-i posiciones van números menores que x, se pueden escoger de C(x-1, n-i) formas, análogamente las posiciones que puede tomar n van de 1 a i-1, para cada posición j, hay que desde j+1, j+2, ..., i-1, sería un total de i-1 - (j+1) +1 posiciones,  números menores que n y mayores que x, que serían de n-1, ... , x+1, o sea n-1 - (x+1)+1 números C(n-(x+1), i-(j+1)) formas. 
+
+aka sería dado el i, x, j < i, C(x-1, n-i)*C(n-(x+1), i-(j+1)) formas.
+
+Eso debe dar la respuesta a resolver cuantas permutaciones bitonicas tienen una posición fija, pero parece brute force approach, de hecho por ejemplo la j va a recorrer desde 1 hasta n excepto en i,
+
+de hecho la fórmula funciona si n fuese igual a j, porque la fórmula dice algo interesante:
+sum = 0
+for j in [1,n]
+	if j >= i:
+		sum += C(x-1, i-1)* C(n-(x+1), j-(i+1) )
+	else:
+		sum += C(x-1, n-i)*C(n-(x+1), i-(j+1))
+return sum
+
+por ejemplo para x = 3, i = 3, n = 7
+
+sum = 0
+for j in [1,7]
+	if j > i:
+		sum += C(2, 2)*C(3, j-4 )
+	if j < i:
+		sum += C(2, 4)*C(3, 4-j )
+return sum
+
+eso daría la cantidad de permutaciones bitonicas con una posición fija pero ahora que recuerdo el ejercicio pide las que tienen dos posiciones fijadas que me hago ): esto es useful en el ejercicio original si n es una de las posiciones fijadas, else tenemos que hacer lo siguiente:
+
+La idea para resolverlo cuando hay dos posiciones fijadas es lo mismo tenemos tres casos en dependencia si el n-ésimo elemento está a la izquierda, derecha o medio respecto a i,j.
+
+Si el n-ésimo elemento es uno de i,j la respuesta es lo que resolví arriba.
+
+Si está a la izquierda en una posición m:
+
+--n--------x---------y--
+  m        i         j 
+asumiendo que x < y:  
+Sería C(y-1, n-j)*C(x-y-1, j-i-1)*C(n-x-1, i-m-1) 
+
+los elementos se dividen en tres grupos disjuntos: los menores que y, los que están entre y,x y los que están entre n,x. Los restantes elementos quedan determinados, porque tienen que estar ordenados de menor a mayor hasta llegar a n.
+
+Si está a la derecha en una posición m, se forman tres grupos disjuntos igualemente, sería:
+C(x-1, i-1)*C(y-x-1, j-i-1)*C(n-y-1, m-j-1)
+
+El caso tricky es cuando la posición del n-ésimo elemento cae en el medio porque no se forman los grupos disjuntos :
+
+entonces tenemos que dividirlo en dos casos:
+
+x < y
+--x--------n---------y--
+  i        m         j  
+
+primero escogo los i-1 elementos que son menores que x, entonces a la derecha de y irían los elementos restantes que no se escogieron de ese grupo, junto con algunos de los elementos que son mayores que x menores que y, sería: C(y-x-1, n-j-(x-1-(i-1))) porque en vez de poner n-j elementos como hacíamos antes ya tenemos fijados los restantes de escoger (i-1) de (x-1) a la izquierda, finalmente quedarían por ubicar los mayores que y menores que n, que sería: C(n-y-1, j-m-1). La respuesta sería el producto de esas tres combinaciones.
+
+análogamente sería x > y
+ 
