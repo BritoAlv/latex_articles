@@ -1,0 +1,183 @@
+A string is just an array / secuence of letters, any letter can be obtained in constant time like in an array. 
+
+Any number of first letters is a prefix, like any number of last letters is a suffix, every other subarray is called a substring.
+
+- prefix of any prefix is a prefix. 
+- suffix of any suffix is a suffix.
+
+Any substring is a suffix of some prefix, like a prefix of some suffix.
+
+Given a text T and a string S we want to find a substring of T equals S.
+
+T: --------------------- n
+            i
+S: ------ m
+
+find an i such that: T[ i .... i+m-1 ] = S
+
+Naive / Brute Force Approach:
+
+for i = 0 ... n-m:  O(n)
+	if T[ i ... i+m-1 ] = S: O(m)
+		return i
+return -1 		
+
+Complexity is O(mn), goal is to reduce the work inside the for:
+
+Approach: en vez de comparar los substrings directamente, se comparan sus hashes y solamente en el caso de que los hashes dan iguales se comparan los strings, porque pueden dar igual por una cuestión de colisión o porque realmente son iguales.
+
+hs = hash(S)
+for i = 0 to n-m:
+	if hash( T[i ... i+m-1] ) = hs ):
+		if T[i ... i+m-1] = S:
+			return i
+			
+return -1
+			
+This approach have two issues, el cálculo de la hash function si se calcula para cada substrings no resuelve nada, es necesario que se pueda actualizar al actualizar al pasar de iteración en tiempo constante. 	
+
+s = s0s1...s_{n-1}
+
+hash(s) = ( s0*x^{n-1} + s1*x^{n-2} + ... + s_{n-1}*x^0 ) % M
+
+M = random big prime
+x = random ( 0 ... M-1)
+
+Number of collisions is small: probability of A != B, P( hash(A) == hash(B) )
+
+(a0 - b0)x^{m-1} + (a1-b1)x^{m-2} + ... + (a_{n-1} - b_{n-1})x^0 = 0
+
+A lo más m raíces, por tanto la probabilidad es a lo más m / M.
+
+Second issue is how update hash function when we move from i to i+1, we have computed:
+
+H  = hash( T[ i ... i+m-1] )
+H' = hash( T[ i+1 ... i+m] )
+
+H  = T[i]*x^{m-1} + ... + T[i+m-1]x^0
+H' = T[i+1]x^{m-1} + ... + T[i+m]x^0
+
+H' = H*x - T[i]x^m + T[i+m]
+
+HS = hash(S) O(m)
+for i = 0 to n-m: O(n)
+	if H( T[i ... i+m-1] ) = HS: O(1)
+		if T[ i ... i+m-1 ] = S O(m)
+			return i
+	H = (H*x - T[i]x^m + T[i+m]) % M O(1)
+	
+return -1
+
+La complejidad de este algoritmo es linear si se escoge el M bastante grande ( no entendí bien esta parte ), porque la probabilidad de que dos diferentes strings tengan el mismo hash es muy pequeña.
+
+Calcular el hash function de cualquier substring en tiempo constante, o sea: 
+
+hash(l, r) = hash(s[l ... l + r-1]) calcular en O(1),
+
+si se precalcula P[i] = hash(S[0 ... i-1]), 
+
+ahora P[i+1] = P[i]*x + S[i], 
+
+la cosa es que si se precalcula el hash de cualquier prefijo del string se puede calcular el hash de cualquier substring,  
+
+hash(l,r) = P[r] - P[l]*x^{r-l}
+
+Permite instead of poner los strings en el set, poner los hashes del string en el set, dado un set de string, se calculan sus hashes, se ponen en el set y la cardinalidad del set vendría siendo la cantidad de strings diferentes, pero sucede que puede que los hashes den colisiones, cual es la probabilidad de que eso suceda ?
+
+En el set hay k^2 pares de string, cada par puede dar colisión o no, por lo que la probabilidad ???
+
+KMP: core idea is to use some prefix function
+
+Prefix-Function: dado un string S hallar el mayor substring que es prefijo y a la vez sufijo,
+
+pref( abbab )  = ab
+pref( ababa )  = aba
+pref( aabb ) = ""
+pref("") = not defined. because can not be equal to itself.
+
+Given a string find all possible strings that are both preffix and suffix:
+
+primero usar pref(s) nos va a dar el mayor string que es a la vez prefijo y sufijo, notar que ningún string mayor que ese cumple la condición del ejercicio porque el es el mayor, de forma que los otrs que buscamos han de ser prefijos de pref(s). 
+
+     s : alvaroalvaaaalv
+pref(s): alv         alv
+
+Siguiente: Notar que ahora el siguiente string válido es pref(pref(s)) waos!! y así hasta que ends prefix = not defined.
+
+Ahora dado un string calculamos su prefix-function para cada uno de sus prefijos, kmp , pero lo que se guarda es la longitud, porque como sabemos el índice del prefijo es suficiente para identificar el prefijo, 
+
+Dado un string S queremos hallar el prefix-function de todos los strings de S, P[i] = prefix-function of S[0 ... i-1]
+
+S = abbaabbab
+
+P[0] = -1 ( is not defined)
+P[1] = 0
+P[2] = 0
+P[3] = 0
+P[4] = 1
+P[5] = 1
+P[6] = 2
+P[7] = 3
+P[8] = 4
+P[9] = 2
+
+El objetivo es calcular ese array en tiempo linear, sería ver como al avanzar en una iteración se puede calcular el siguiente valor de P en función de los anteriores.
+
+calcular la prefix-function en la posición i: mayor prefijo que es sufijo de el prefijo del string desde 0 hasta i.
+
+Digamos que en la posición i está el carácter x so that:
+       
+                  i
+s: ---------------x----
+   '''''      '''''
+   ttttx      tttt
+   
+Quedaría así la respuesta para p[i] sería un prefijo que es sufijo para i-1, concatenado con el carácter x, por tanto lo que habría que hacer sería, 
+
+hallar P[i-1], verificar si le sigue el carácter x, en ese caso lo encontramos, sino revisamos en P[P[i-1]], and so on ...  la idea es porque hay que buscar un prefijo que es sufijo de P[i-1], y que después le siga el carácter x, la forma de obtener todos los string que son prefijos y sufijos sería 
+
+P[0] = -1
+for i = 1 ... n:
+	k = p[i-1]
+	while ( k >= 0 and S[k] != S[i-1] ):
+		k = p[k]
+	p[i] = k+1 // this makes sense with P[0] = -1
+	
+It turns out time complexity is linear, except the while. it's enough to prove that the number of iterations in the while loop is linear, 
+
+La cosa es que el while disminuye estrictamente el valor de k, mientras que en la próxima iteración el valor de k sería el disminuido aumentado en 1, or tanto k podría aumentar en a lo más n, 
+
+Para usarlo para substring search, concatenar P + T
+
+ -------# -----------------
+P        T
+
+en los valores en que P[i] = len(P), el substring se ha encontrado. 
+
+z-algorithm : z[i] longest common prefix of S and the suffix starting at i.
+
+for i = 1 ... n-1:
+	z[i] = 0
+	while s[z[i]] = s[ i + z[i]]:
+		z[i]++
+	
+naive brute force approach, se empieza en 0 y mientras que los carácteres coincidan nos ovemos hacia adelante. la idea es guardar el mayor común prefijo obtenido que va a la derecha lo más posible.
+
+l: l + z[l] => max
+from all 1 ... i-1,
+
+s: -----------------------
+   ......     ......
+              l  i
+   == ==         ==
+      
+z[i] = min( z[i-l], l+z[l]-i)
+while s[z[i]] = s[ i + z[i]]
+	z[i]++
+if i+z[i] > l + z[l]:
+	l = i
+	
+La idea es guardar el l para el cual l+z[l] es máximo, so that si se analiza un i tal que l < i < l+z[l] notar que si z[i] avanza t posiciones, las que están dentro después de i y antes o en l+z[l] son las mismas que avanzó z[i-l], porque de 0 a z[l] el prefijo es el mismo que de l a l+z[l] como i está dentro de ese intervalo, pues nada.
+	
+	
+	               

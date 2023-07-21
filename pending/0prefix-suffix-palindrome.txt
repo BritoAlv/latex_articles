@@ -1,0 +1,85 @@
+Less-Less-Hard: Dado un string saber cuales de sus prefijos son palíndromos en tiempo linear respecto a la longitud del string.
+
+new approach: determinar a partir de comparar el string virado con el original, yendo desde la última posición del virado hasta la 0, mientras que el original va desde la 0 hasta la última, es una kind of slicing window. 
+
+                abbcbcb
+patrón = abbcbcb
+
+p[i] va a guardar que tanto del patrón se puede mover a la derecha empezando en la posición i
+
+
+
+Less-Hard: Hacer un algoritmo que dada una cadena S, tal que |S| = n, devuelva todas las formas posibles de dividir a S en dos cadenas A, B tales que A+B = S y A, B sean cadenas palindromas. La complejidad del algoritmo debe ser O(n).
+
+O(n) no significa que se recorre S una vez, sino una cantidad constante de veces, por lo que eso es, a lo mejor con recorrerlo 2 veces basta.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Dado un string s con letras del ingles en minúsculas, Hallar el mayor string t que satisface las condiciones:
+
+- la longitud de t no excede la longitud de s.
+- t es palindromo.
+- existen dos strings a,b ( posiblemente emptys) tales que t = a+b, donde a es prefijo de s y b es sufijo de s. 
+
+https://codeforces.com/contest/1326/problem/D1
+
+Tengo que hallar el mayor string resultante de concatenar un prefijo y un sufijo, de un string dado, que no se overlap each other y que además sea palindromo.
+
+Naive Implementation: 
+
+- sería recorrer todos los prefijos del string, para cada uno de esos prefijos, verificar todos los sufijos que se le pueden poner y ver cuales lo hacen palíndromo y guardar el máximo que haya obtenido. ( no hay necesidad de recorrer los sufijos porque cada uno de ellos está emparejado de un prefijo ) 
+
+imprimir el máximo.
+
+- como podemos mejorar la naive implementation ya que funciona.
+
+entonces la estructura de un string candidato a devolver es:
+
+a = prefijo = c1 + p1, posiblemente vacios.
+b = sufijo  = p2 + R(c1), posiblemente vacios.
+
+y se tiene que cumplir que p1, p2 son palindromos.
+
+alvaraooa
+aooaravla
+
+matchean en la primera posición solamente por tanto solamente hay que recorrer los prefijos que van hasta la "a"
+
+a+l
+""+a
+
+""+""
+aooa + ""
+
+entonces la solución que tengo es cúbica, como la hago linear ? o sea que solamente dependa de recorrer el string una cantidad constante de veces.
+
+Primera optimización es que solamente hay que recorrer en los prefijos que machean en las primeras posiciones. esto es una poda, porque si el string es palíndromo sigue siendo n cúbico.
+
+So maybe si yo recorro el string inicialmente y guardo una información que incluya algo más que saber hasta que índice dejan de ser palíndromos. algo que me ayude a optimizar si es palíndromo o no.
+
+

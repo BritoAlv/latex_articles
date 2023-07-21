@@ -1,0 +1,37 @@
+Demostrar que:
+
+mcm(a, b, c) = abc / mcd(ab, ac, bc)
+
+Claim: mcm(a, b, c) = mcm ( mcm(a, b), c)
+
+Demostrar que el conjunto formado por los múltiplos comunes de [a,b,c] es el mismo que el de los múltiplos comunes a [mcd(a,b), c].
+
+Si a | K, b | K, c | K, entonces mcm(a,b) | K, again (mcm(a,b), c) | K, por otro lado si
+
+Si mcm(a, b) | K, c | K entonces a | K, b | K, c | K 
+
+Ahora que tenemos un bridge sería demostrar que:
+
+mcm( mcm(a, b), c)     = abc/mcd( ab, ac, bc)
+
+
+				       = abc/mcd( c*mcd(a,b), ab)
+Pero mcm( mcm(a,b), c) = mcm(a,b)*c/mcd ( mcm(a,b), c)
+			           = (ab)*c/[ mcd(a,b) * mcd( mcm(a,b), c)]
+				       = (abc)/[ mcd(a,b) * mcd( ab / mcd(a,b), c)]
+			           = (abc)/mcd( ab, c*mcd(a,b) )
+			           = (abc)/mcd( ab, bc, ca)
+Usando: 
+1 - mcd(a,b,c) = mcd( a, mcd(b,c)) . Análogamente ahora sería demostrar que son divisores comunes.
+
+2 - mcd(ka, kb) = k*mcd(a,b) . Escribir al mcd(a,b) como la menor combinación linear positiva. 
+
+La solución anterior se apoyó del álgebra, habrá alguna más visible ?.  
+					   
+			
+
+
+
+
+
+

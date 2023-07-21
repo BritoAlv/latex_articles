@@ -12,7 +12,8 @@ Claim 1: Dado un conjunto infinito T tal que p(T) es finito, entonces podemos en
 
 Demostración: Sean los elementos de p(T): p1, p2, ...., pk. Entonces para cada elemento de T podemos definir una cadena binaria de tamaño k donde el k-ésimo bit representa si el elemento es divisible por p_k. Como hay a lo más 2^k-1 cadenas binarias distintas posibles, e infinitos números en T entonces han de haber infinitos elementos en T con la misma cadena binaria.
 
-Entre esos infinitos números en T con la misma cadena binaria ( divisibles por los mismos primos de p(T) ) , como son finitos los primos e infinitos los números, dado uno de esos números (elemento de T) a0, pueden haber finitos números cuyos exponentes sean menores o iguales que los de ese a0, ( mismo argumento de la cadena binaria), por tanto hay infinitos números cuyos exponentes son mayores que los de ese a0, tomemos dos cualesquiera de esos: a1, a2. Esto garantiza que:
+Entre esos infinitos números en T con la misma cadena binaria ( divisibles por los mismos primos de p(T) ) , si escogemos uno, llamemosle a0, entonces 
+pueden haber finitos números cuyos exponentes sean menores o iguales que los de ese a0, ( mismo argumento de la cadena binaria), por tanto hay infinitos números cuyos exponentes son mayores que los de ese a0, tomemos dos cualesquiera de esos: a1, a2. Esto garantiza que:
 
 (a1, a0) = a0, los exponentes de a1 son > que los de a0.
 (a2, a0) = a0, los exponentes de a2 son > que los de a0.

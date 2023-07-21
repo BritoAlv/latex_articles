@@ -1,0 +1,59 @@
+Sea n un entero positivo, Hallar el número de permutaciones a1, a2, ..., an de la sequencia 1, 2, ..., n que satisfacen:
+
+a1 <= 2a2 <= 3a3 <= ... <= na_n
+
+Claim 1: Sea a_n la respuesta para n, entonces:
+
+a_n >= a_{n-1} + a_{n-2}
+
+Cualquier permutación que sea respuesta para (n-1) si le añadimos n al final obtenemos una de tamaño n que funciona.
+
+Cualquier permutación que sea respuesta para (n-2) si le añadimos n y n-1 al final obtenemos una de tamaño n que funciona.
+
+n = 1, 1
+n = 2, 12,    21
+n = 3, 123,   213,   132
+n = 4, 1234,  2134,  1324,  1243,  2143,
+n = 5, 12345, 21345, 13245, 12435, 21435, 12354, 21354, 13254
+
+Caso 1: En la posición n está el número n, entonces hay a_{n-1} permutaciones válidas.
+
+Caso 2: En la posición n está el número t < n, y en la posición t está el número n.
+
+Voy a demostrar que t = n-1:
+
+----n----t
+    t    n  
+
+Notar que en la posición t+1, estando el número l se tendría que cumplir que:
+
+(t+1)*l = t*n, de donde t+1 = n, por una cuestión de divisibilidad. Lo que implica que en la última posición está el número n-1, y en la penúltima el número n. Que sería la respuesta para (n-2).
+
+Caso 3: En la posición n está el número t < n, y en la posición t no está el número n.
+
+Voy a llegar a una contradicción:
+
+Notar que el número n tiene que ir en una posición < que t, porque si el número n está en la posición t+k, entonces n*(t+k) <= t*n, implicando que k tiene que ser 0, k = 0 es el caso 2, que ya analizamos.
+
+-------  n  --t
+    t   t+k   n  
+
+
+Por tanto n está en una posición menor que t, digamos que en la posición (t-i) donde 0 < i < t. 
+
+----  n  -------t
+    (t-i)  t    n
+    
+Ahora notar que al menos uno de los números de [ 1 ... (t-i) ] , ha de estar a la derecha de la posición (t-i) porque solamente hay (t-i-1) posiciones a la izquierda donde sería posible ubicarlos. 
+
+Notar que esto no es posible porque dicho número, lo denoto por x, sería <= (t-i) y está en una posición menor que n, por tanto no se cumpliría que: 
+
+(t-i)*n <= x*( posición)  porque posición < n.
+
+Por tanto llegamos a un absurdo, la respuesta del ejercicio serían los números de Fibonacci corridos una posición a la derecha.
+
+
+
+      
+
+

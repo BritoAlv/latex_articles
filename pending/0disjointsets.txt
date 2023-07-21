@@ -1,0 +1,147 @@
+Disjint Sets or Union-Find
+
+Let's say we have n objexts, each object belongs to exactly one set, two type of operations, union and find
+
+Union: dados dos argumentos x, y une a los conjuntos que contienen a "x", y a "y".
+
+Find: obtener el conjunto que contiene al elemento x.
+
+Hace falta una clase que represente al conjunto de elementos y una clase que represente a los elementos.
+
+Instead of Find return el conjunto que contiene el elemento dado, para cada conjunto marcaremos un elemento que llamaremos representativo de ese conjunto y lo devolveremos cuando se asks por ese conjunto. So that si se hace Find a dos elementos en el mismo set obtendremos el mismo resultado.
+
+Implementation: Hacer array P de tamaño n, donde estará el representativo de el elemento x, 
+
+find(x) : RETURN p[x]
+
+union(x,y): 
+	x = find(x)
+	y = find(y)
+	
+escoger el representativo de el set resultante después de unir, recorrer todo el array en busca de y como representativo y actualizarlo a x.	
+
+find(x) es O(1)
+union(x,y) es O(n)
+
+Notar que a lo más se pueden hacer n-1 operaciones de unión. En algoritmos o estructuras de datos en las que se conoce beforehand el tiempo de vida del algoritmo, como en este, en que se sabe que se van a hacer a lo más (n-1) operaciones de unión y después la estructura doesn't make sense, se analiza la complejidad respecto a el total de operaciones que se harían, no respecto a una por separado.
+
+en esta implementación el tiempo total de las operaciones sería O(n²), 
+
+primera optimización: tratar de hallar los elementos sin necesidad de scanear el array completo, para cada representativo tendremos la lista de elementos que belongs to the same set. teniendo una lista vacía, para los representativos que no están en otros sets, so that there are n lists.
+
+union( x,y ):
+	x = find(x)
+	y = find(y)
+	concatenar las listas. además de esta forma se puede escoger la de menor tamaño para que sea menos.
+	hacer empty la list que fue movida.
+	
+esto anterior no ayuda, example:
+
+1 2 3 4 5 6 7 8
+
+union(1,2)
+
+12 3 4 5 6 7 8
+union(2, 3)
+
+si se escoge a el 2 como el que se va a mover se hace un trabajo still cuadrático en tiempo total, so la conclusión que permite que este cambio ayude es escoger el set que tiene menos elementos siempre, de esta forma un elemento va a ser unido a lo más log n veces, reduciendo el tiempo total a nlgn.
+
+La demostración es que cada vez que un elemento es movido el tamaño del set resultante es al menos dos veces el tamaño de donde estaba ese elemento, entonces un elemento se puede ver envuelto en a lo más log n movidas, porque si no después estaría en un set de tamaño > n.
+
+Still time complexity of one operation is linear, overall es linear*logn. 
+
+As consejo siempre tratar de merge el de menor tamaño con el de mayor tamaño.
+
+Otra forma de implementar el DSU, es con árboles, un árbol para cada set, donde el representativo es la raíz, y cada elemento debe tener un puntero a su padre, que sería otro elemento del set.
+
+Es necesario tener un array P donde P[x] sería el padre de X, los representativos de cada set se tienen de padre a si mismos. 
+
+Find(x): hasta arriba que lleguemos a un elemento que se tenga de padre a si mismo.
+
+Union(x,y):
+	hallar los representativos de x,y, y combinar los dos árboles en uno, sería hacer al puntero de el padre de x, digamos apuntar a y
+	x = find(x)
+	y = find(y)
+	p[x] = y
+	
+Complexity of Union is the Same of Find, so la complejidad del find puede ser linear porque pueden acabar todos los elementos en un solo árbol, la idea es balancear el árbol, hay diferentes formas.
+
+Rank: para cada elemento mantenemos su rango, que es el mayor camino en el árbol que parte de él. rango de una hoja es 0, so that siempre unimos el árbol de menor rango con el de mayor rango. como actualizar los rangos después de una unión.
+
+rg(x) < rg(y), el mayor camino en el árbol de x, tendría longitud rg(x)+1, y en y sería rg(y)
+
+rg(x)+1 <= rg(y), so no cambia, si se unen dos árboles con el mismo rango, el rango entonces el rango aumentará en 1.
+
+La implementación sería:
+
+find(x):
+	while p[x] != x:
+		x = p[x]
+	return x
+union(x,y)
+	x = find(x,y)
+	y = find(y)
+	if r[x] > r[y]:
+		swap(x,y)
+	p[x] = y
+	if r[x] = r[y]:
+		r[y]++
+		
+Claim: notar que un tree rooted at x posee al menos 2^rank(x) elementos, eso es porque inicialmente los rangos son 0, y cada vez que aumenta el rank se une con uno que posee la misma cantidad de elementos.
+
+Lo anterior implica que r(x) <= log(n), porque 2^rank(x) <= n so la complejidad de find es logarítmica. cuando se quiere probar que un algoritmo es logarítmico se puede invertir la situación y demostrar que lo otro es exponencial. 2^r + 2^r = 2^{r+1}. so the claim can be proven using induction.
+
+Mantener los ranks de todos los elementos es una heurística para tener los trees balanceados.
+
+Second Heuristics ( path compressing): la cosa es cuando se llama find desde un elemento x, se va a actualizar el parent de todos los elementos en el recorrido para que la próxima vez no haya que volverlos a recorrer si ya sabemos quien va a ser el padre. 
+
+find(x):
+	y = x
+	while  p[y] != y:
+		y  = p[y]
+	while p[x] != x
+		z = p[x]
+		p[x] = y
+		x = z
+
+Si se usa path compression sin rank-heuristics, el tiempo amortizado será logarítmico.
+
+Si se usa path compression and rank-heuristic o algo que mantenga los trees balanceado la complejidad sería proporcional al inverso de la función de Hackerman en (m,n), n es el size of the tree, m es el número de finds que se han hecho. Y la complejidad disminuye a medida que se hagan operaciones. En el peor caso que es m = n, se vuelve el logaritmo iterado, que no es más que aplicar logaritmo hasta que se convierta 1.
+
+Demostrar que la complejidad amortizada del Find usando ambas heurísticas es O(log*n) ? tarea pa la casa. 
+
+Problema: Dado un grafo con n nodos, obtener la cantidad de componentes conexas en ese grafo.
+
+La entrada es una lista de la forma (vi, vj) que indica que hay una arista entre los vértices vi, vj. Entonces podemos considerar cada vértice como un elemento de un disjoint set, entonces para cada arista unimos la arista formada por esos dos vértices, después de hacer esa operación para todas las aristas, tendremos algunos disjoint-sets resultantes, si find(a) == find(b) entonces estarán en la misma componente conexa.
+
+Problema: Dado un árbol con n nodos, a cada arista le es asignado un peso, f(x, y) = max ( peso de las aristas del camino que va de x a y ), hallar la suma de f(vi, vj) donde vi, vj son dos vértices distintos del árbol.
+
+Entrada: < vi, vj , p> serían dos vértices conectados por una arista de peso p.
+
+Primero ordenar todas las aristas por peso, entonces análogamente al caso anterior unir los dos vértices que forman cada arista, notar que unir un vértice a una componente conexa, siempre la arista que lo une será la que más peso posee porque están ordenados, y si posee N vértices se formarán N nuevos caminos porque en un árbol no hay ciclos. Por tanto cada ve que se hace una unión se actualiza la suma obtenida hasta ahora. (producto de los sizes de cada componente conexa)
+
+Problema: Dado un árbol T de n nodos donde cada arista posee uno de dos colores ( azul o rojo ), determinar la cantidad de caminos simples que poseen al menos una arista roja en su composición.
+
+Este problema puede ser extrapolado al anterior solo que f(u, v) = 1 si el camino que va de u, v posee una arista roja, 0 else. Una arista roja digamos que tiene peso 1, entonces se ordenan las aristas por peso, y se repite lo anterior la complejidad sería nlgn ordenar, + nlgn disjoint set operations.
+
+Problema: Se quiere pintar un array, entonces se hacen queries de la forma (start, end, color) sería las posiciones del array desde start hasta end darles el color indicado, devolver el array final. El ejercicio es offline.
+
+La idea de el DSU es que una vez que lo unimos ya eso será parte de la solución y no se puede deshacer, entonces es posible que pintemos un segmento, y después nos manden a pintar un sub_segmento de él, la idea de usar los DSU es garantizar que el algoritmo no sea cuadrático ( se mande a pintar el segmento entero varias veces), so, porque por alguna razón el problema es offline si se procesan las queries invertidamente va a suceder que una vez que se rellene un segmento con un color no va a cambiar más, esto es lo que precisamente necesito para que el DSU, funcione, el padre de cada segmento va a ser la casilla más a la derecha fuera de él, inicialmente todo el mundo apunta a si mismo. De esta forma una vez que haya que pasar sobre un segmento pintado se saltará y no se visitará más de dos veces, Notar que en este algoritmo se puede usar path-compression pero no union_por_rank porque el parent de un set específico tiene significado, es la casilla más a la derecha fuera del segmento.
+
+Problema: Dado un grafo con n vértices, (n-1) aristas, en un día es posible quitarle una arista al grafo y añadirle otra. Hay que hallar la menor cantidad de días necesarios para conectar el grafo. 
+
+La entrada es n y las (n-1) aristas de la forma (vi, vj) hay que imprimir la menor cantidad de días y después día por día ( línea por línea) 
+i j u v
+
+<i, j> es la arista quitada.
+<u, v> es la arista puesta.
+
+Se puede usar DSU inicialmente para tener las componentes del grafo, las aristas de propina son las que al hacer union no sea necesario hacer nada, al final hace falta saber el representativo de cada relación de equivalencia, ( no se puede literalmente recorrer el array de padres), entonces los representativos a1, a2, ..., a_{i+1} devolver
+
+arista de propina aj, a_{j+1}
+
+para cada 1 <= j <= i, el caso en que hay un solo representativo se devuelve 0 porque significa que el grafo está conectado.
+
+(contraejemplo o demostrar queda pendiente) Notar que el grafo tiene N vértices y (N-1) aristas que es la menor cantidad de aristas que puede tener un grafo conexo de n vértices, por tanto cada arista de propina, implicará la existencia de una componente conexa aparte de la componente donde esa arista representa propina ( o I guess). En otras palabras cuando se hace el emparejado es exacto para cada arista de propina hay un par de padres que se pueden conectar. 
+
+

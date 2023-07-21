@@ -1,0 +1,8 @@
+Dado un string s = s1s2...s_|s|, para cada prefijo de s que es un sufijo de s, hallar la cantidad de veces que aparece en  como un substring.
+
+Input: string s de letras en ingles en mayúsculas.
+
+Output: En la primera línea imprimer k, el número de prefijos que matchean un sufijo de s, después imprimir k líneas, en cada una imprimir dos enteros li, ci. li significa que el prefijo de longitud li matchea en el string como sufijo y aparece como substring un total de ci veces. Imprimir los pares lici en orden creciente.
+
+https://codeforces.com/contest/432/problem/D
+

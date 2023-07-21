@@ -1,0 +1,35 @@
+Dada una lista de strings hallar dos distintos tales que al concatenarlos se obtenga un palíndromo.
+
+Dos string A, B pueden dar palíndromos concatenados A+B, pero no B+A 
+:(  abb, a: abba, aabb.
+
+Naive: O(n^2*L)
+
+for i in 1, 2, ..., n: // O(n)
+	for j in i, i+1, ..., n: // O(n)
+		if L[i] + L[j] is palindrome: // O(L)
+			return <i,j>
+for j in n, n-1, ..., 1:
+	for i in j, j-1,..., 1: 
+		if L[j] + L[i] is palindrome:
+			return <j,i>
+			
+Pregunta: Se puede en tiempo linear saber dado un string cuales sufijos palíndromos posee ?
+
+z_function approach: T = r(S) + # + S, queremos ver los sufijos que son palíndromos, sería ver las posiciones de la z-function tal que i > len(S) and z[i] = la cantidad de elementos que hay hasta el final.   
+
+kmp approach: análogamente concatenar, el reverso + # + string, entonces lo que habría que hacer es hallar pref(pref(pref())), cada una de esas va a dar palíndromo.
+   												 
+Algoritmo: O(n*L), el proceso de insertar una cadena en el trie tendrá además la constraint de que voy a añadir, por ejemplo. para insertar lvoro, en los carácteres  v, r, o ( segunda) añado el indice j de esa palabra en la lista.
+
+Ahora el algoritmo es para cada palabra en la lista, si ella invertida es prefijo de alguna palabra ya insertada en el trie O(L) entonces chequear si en esa posición hay algún índice del array, en caso afirmativo encontramos un par, porque, tendríamos : 
+
+S,
+P = r(S) + p
+=> P + S es palíndromo, sería: r(S) + p + S 
+
+ahora notar que esto no encuentra todos los pares posibles porque para cada already inserted chequeamos si el nuevo forma con él palíndromo, pero falta comprobarlo al-revés o sea insertando los elementos del trie pero de atrás para alante.
+
+Hacer el prefix-function es O(L) y la búsqueda en el Trie también por tanto O(n*L). 
+
+

@@ -1,0 +1,7 @@
+1 - Demostrar el pequeño teorema de Fermat usando combinatoria.
+
+El teorema de Fermate dice que si p es primo y a es entero positivo entonces 
+
+p | a^p-a:
+
+Digamos que tenemos a colores y queremos hacer cadenas de tamaño p. Se pueden hacer a^p cadenas, si quitamos las que son de un solo color quedan a^p-a cadenas, ahora si fueramos a hacer collares con ellas, hay p cadenas equivalentes up to rotation si p es primo, porque si p es compuesto digamos divisible por 2, las cadenas se pueden dividir en subgrupos de tamaño 2, implicando que hagan falta menos de p rotaciones para obtener la cadena original.

@@ -1,0 +1,36 @@
+Se define la prefix-function de un string que vendría siendo el mayor substring del string que es prefijo y sufijo a la vez.
+
+pref( abbab )  = ab
+pref( ababa )  = aba
+pref( aabb ) = ""
+pref("") = not defined. because can not be equal to itself.
+
+Ahora dado un string como hallamos todos los strings que son a la vez prefijos y sufijos:
+
+Primero pref(S) nos va a dar el mayor string que es prefijo y a la vez sufijo, por la definición de pref(S), ahora notar que si hay otro string que cumple la condición ha de ser pref( pref(S)), y así so on, 
+
+@@@@@----@@@@@
+###        ###
+
+Ahora dado un string para cada prefijo queremos calcular su prefix-function, pero en vez de guardar el substring como tal guardamos la longitud. 
+P[0] = -1, no está definido, por ejemplo:
+
+S = abbaabbab
+
+P[0] = -1 ( is not defined)
+P[1] = 0
+P[2] = 0
+P[3] = 0
+P[4] = 1
+P[5] = 1
+P[6] = 2
+P[7] = 3
+P[8] = 4
+P[9] = 2
+
+P = abc
+T = aabcca
+
+P#T = abc#aabcca
+
+

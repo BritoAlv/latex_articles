@@ -1,0 +1,37 @@
+------------------------------------------------------------------------------
+a_n = 2a_{n-1} - a_{n-2} + 4*3^n + 4
+a_n = 2a_{n-1} - a_{n-2} + 4*3^n + 4*1^n
+
+Solución Primera Parte No-Homogénea:
+a_n  = A*3^n
+A*3^n = 2*A*3^(n-1) - A*3^{n-2} + 4*3^n
+9A = 6A - A + 4*9
+A = 9
+a_n = 9*3^n
+
+Solución Homogénea:
+a_n = A + Bn   (posee 1 dos veces como raíz)
+
+Solución No-Homogénea Segunda Parte:
+a_n = Cn^2, da C = 2.
+
+So la solución final para buscar coeficientes sería:
+
+a_n = A+Bn+9*3^n + 2n^2
+
+a_0 = 10 implica que A = 1
+a_1 = 35 implica que 1 + B+27+2 = 35 de donde B = 5
+
+a_n = 1 + 5n + 9*3^n + 2n^2
+
+-----------------------------------------------------------------------------
+
+an = 5a_{n-1} - 6a_{n-2} + 8
+c = 5c-6c+8
+c = 4
+
+Sería an = A*2^n + B*3^n + 4
+
+----------------------------------------------------------------------------- 
+
+

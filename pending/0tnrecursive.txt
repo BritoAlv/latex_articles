@@ -1,0 +1,39 @@
+------------------------------------------------------------------------------
+
+T(n) = 4T( \sqrt(n)) + logn
+
+Claim: T(n) <= A*log^2n - Blogn
+
+Es necesario que se cumpla que :
+
+4(A*log^2(n^1/2) - Blog(n^(1/2))) + log n <= A*log^2n - Blogn
+
+(-B/2 +1)log n <= -Blogn
+
+So B = -2.
+
+n = 2, n = 3, n = 4 casos bases, escoger A de forma que se cumpla, para n >= 5 se cumpliría por hipótesis de inducción.
+
+T(2) <= A*1+2, implica que A >= T(2)-2 
+T(4) <= A*2^2 +2*2, implica que A >= (T(4)-4)/4
+
+como T(2), T(4) > 0, A debe ser positivo.
+-----------------------------------------------------------------------------
+T(n) = 4T(n/64) + cbrt(n)
+
+Claim ( unlock):
+
+T(n) <= Alog_64 n * cbrt(n)
+
+Alog_64 n/64 * cbrt(n/64) + cbrt(n) <= Alog_64 n * cbrt(n)
+A( log_64 n - 1) * cbrt(n)/4 + cbrt(n) <= Alog_64 n * cbrt(n)
+cbrt(n) * [ A( log_64 n - 1) + 1  ]
+
+A( log_64 n - 1) + 1 <= Alog_64 n 
+
+Tomando A = 1 se cumple.
+
+Quedaría garantizarlo para los casos bases. Habría que escoger a A > que T(i)/ [log_64 i * cbrt(i)]
+-----------------------------------------------------------------------------
+
+

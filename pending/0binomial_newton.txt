@@ -1,0 +1,20 @@
+How many subsets of {1,2,3, ..., 2000} are such that the sum of its elements is divisible by 5 ?
+
+Find expansion for (x1+x2+...+xk)^n
+
+Para n = 2 sería:
+
+(x1+x2)^n
+= (x1+x2)...(x1+x2) 
+
+Notar que cada sumando del producto final es de la forma x1^a*x2^b con a+b = n, porque empezamos desde el primer factor y en cada paso se decide si multiplicar el número que se tiene por x1, o por x2. Como hay n factores a+b = n. Ahora notar que hay C(n,a) formas de escoger de cuales factores seleccionamos x1, por tanto la respuesta final va a ser:
+
+sum desde i = 0 to n:
+
+x1^i * x2^ (n-i) * C(n,i)
+
+Para generalizarlo es análogo sería:
+
+sum todas las formas de escribir a n como suma de números, para cada forma de cuantas formas es posible hacerlo ( permutaciones con repetición).
+
+O sea cada forma de escribir a n como suma de k enteros >= 0 da un monomio de la suma, cuantas veces es contado ese binomio sería de cuantas formas se puede dividir a n en conjuntos de tamaño cada entero de la partición.

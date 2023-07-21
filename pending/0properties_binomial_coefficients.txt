@@ -124,3 +124,5 @@ s = 7   1 6 15 20 15 6 1
 lo podemos deducir a través del triángulo de Pascal mirando observando cuantas veces es contado cada número de la fila de arriba, notar que excepto el primer sumando que es C(5,0) el cual cuenta en uno el 1 de arriba, los demás usan un número de arriba y lo quita después el siguiente, por tanto la respuesta de:
 
 C(5,0) - C(5,1) + C(5,2) - C(5,3) = 1 - (1+4) + (4+6) - (6+4) = 4 = C(4, 3)
+
+

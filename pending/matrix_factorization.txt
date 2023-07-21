@@ -1,0 +1,34 @@
+LU descompsition is an expanded Gauss Elimination, not use row exchanges mientras se hace el algoritmo, se escribe
+
+A = LU, donde L es una matriz triangular inferior, y U es una matriz triangular superior,
+
+U se obtiene haciendo Gaussian Elimination, L se hace guardando todos los pasos hechos en la eliminación.
+
+Teorema: Cualquier matriz no-singular cuadrada puede ser escrita como el producto de dos de dos matrices triangulares L, U de el mismo orden de forma que L es lower-triangular, U es upper triangular. 
+
+Digamos que queremos resolver un sistema de ecuaciones simultáneo para calcular valores desconocidos de X usando nuestra matriz A y valores conocidos de Y, digamos:
+
+AX = Y
+
+Para hallar los elementos de X necesitaríamos hallar el inverso de A, usando LU podemos escribir el sistema como LUX = Y, multiplicando por la inversa de L tenemos:
+
+L^-1*L*U*X = L^{-1}*Y
+UX = L^{-1}*Y
+
+Z := L^{-1}*Y
+
+UX = Z
+LZ = Y
+
+Se resuelve la segunda ecuación respecto a Z y después respecto a X la primera, que se puede hacer usando back-wards substitution porque son matrices triangulares.
+
+Singular-Value-Descomposition es comunmente usado para data compression o variable-reduction y se usa en machine learning. SVD descomponen a A de mxn en U*D*V^T,
+
+A = mxn
+U = mxn
+D = nxn
+V^T = nxn
+
+Donde U, V son matrices ortogonales, y D es una matriz diagonal.
+
+ 

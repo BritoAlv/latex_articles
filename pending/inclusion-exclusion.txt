@@ -1,4 +1,4 @@
-El principio de inclusión-exclusión plantea que si queremos dado un unvierso y m propiedades que pueden cumplir o no los objetos del universo, podemos hallar los que cumplen al menos una de esas propiedades a partir de:
+El principio de inclusión-exclusión plantea que si queremos dado un universo y m propiedades que pueden cumplir o no los objetos del universo, podemos hallar los que cumplen al menos una de esas propiedades a partir de:
 
 = (al menos 1 propiedad) - (al menos dos propiedades) + (al menos tres propiedades) - ... + (-1)^{m-1} (al menos m propiedades)
 
@@ -13,6 +13,8 @@ porque en los que cumplen al menos t+1 propiedades no aparece.
 viendo a t como C(t,1) esa suma da = 1, por tanto es contado una sola vez. 
 
 Ahora esta fórmula nos sirve para cuando queremos contar los elementos que cumplen exactamente 0 propiedades, pero y si queremos contar los que cumplen todas las propiedades:
+
+en el universo hay m propiedades:
 
 N(m) = A_1 int A_2 int ... A_m
 
@@ -37,7 +39,7 @@ Consideremos todas las intersecciones de tamaño (m-2), si un elemento cumple ex
 = intersecciones de tamaño(m-2) - C(m-1, m-2)*intersecciones de tamaño(m-1) +
 C(m-1,m-2)*C(m, m-1)*N(m) - C(m, m-2)*N(m)
 
-= intersecciones de tamaño(m-2) - C(m-1, m-2)*intersecciones de tamaño(m-1) + C(m,m-2)*intersecciones de tamaño m 
+exactamente (m-2) propiedades = C(m-2, m-2)*intersecciones de tamaño(m-2) - C(m-1, m-2)*intersecciones de tamaño(m-1) + C(m, m-2)*intersecciones de tamaño m.
 
 
   C(m-1, m-2)*C(m, m-1) - C(m, m-2)
@@ -70,13 +72,14 @@ Para demostrar esta fórmula : dividimos en tres casos:
 
 - un elemento del universo cumple t < k propiedades. es contado 0 veces porque las intersecciones tienen al menos k propiedades.
 
-- un elemento del universo cumple t = k propiedades. es contado (-1)^0*C(m, m) = 1 veces. porque aparece en una sola intersección, la de exactamente sus k propiedades y en las de tamalo > k da 0, porque aparece en no más de k propiedades. 
-- un elemento del universo cumple t > k propiedades. es contado en la parte de la suma en la que la j llega hasta t-k, porque las intersecciones serían de tamaño (k+t-k) = t, en las de tamaño mayor no aparece, quedaría demostrar que en esas es cero veces.
+- un elemento del universo cumple t = k propiedades. es contado (-1)^0*C(k, k) = 1 veces. porque aparece en una sola intersección, la de exactamente sus k propiedades y en las de tamalo > k da 0, porque aparece en no más de k propiedades.
+ 
+- un elemento del universo cumple t > k propiedades. es contado en la parte de la suma en la que la j llega hasta t-k, porque las intersecciones serían de tamaño (k+t-k) = t, en las de tamaño mayor no aparece, quedaría demostrar que en las restantes es contado cero veces.
 
 sum desde j = 0 hasta (t-k) de:
 (-1)^j*C(k+j, k)*intersecciones de tamaño(k+j)
 
-entre todas las intersección de tamaño (k+j) si cumple t propiedades el es contado en 
+entre todas las intersecciones de tamaño (k+j) si cumple t propiedades el es contado en 
 C(t, k+j)
 
 Por tanto hay que calcular:
@@ -84,7 +87,7 @@ Por tanto hay que calcular:
 sum desde j = 0 hasta t-k de:
   (-1)^j*C(k+j, k)*C(t,k+j)
 
-recall la identidad: C(a,b)*C(b,c) = C(a,c)*C(a-c, b-c)
+recall la identidad: C(a, b)*C(b, c) = C(a, c)*C(a-c, b-c)
 
 tomando:
 b = k+j
@@ -96,7 +99,7 @@ obtenemos que la suma es equivalente a:
 sum desde j = 0 hasta t-k de:
   (-1)^j*C(t, k)*C(t-k,j)
 
-= C(t,k)* (-1)^j*C(t-k, k)
+= C(t,k)* (-1)^j*C(t-k, j)
 = 0
 
 Ahora y si queremos calcular los que cumplen al menos (m-i) propiedades ? 
@@ -105,7 +108,9 @@ int(K) := intersecciones de tamaño K
 
 los que cumplen al menos m propiedades siguen siendo las intersecciones de tamaño m.
 
-los que cumplen al menos (m-1) propiedades serían : int(m-1) - (C(m,m-1)-1)*int(m) 
+los que cumplen al menos (m-1) propiedades serían : 
+
+int(m-1) - ( C(m, m-1)-1)*int(m) 
 
 Porque los que cumplen exactamente m propiedades son contados C(m,m-1) veces y los queremos contar una sola vez.
 
@@ -120,6 +125,11 @@ N(m-i) = suma de j = 0 hasta i de: (-1)^j*C(m-i+j,m-i)*intersecciones de tamaño
 N(m-2) = 1*int(m-2) - C(m-1, m-2)*int(m-1) + C(m, m-2)*int(m)
 N(m-1) = 0*int(m-2) + C(m-1, m-1)*int(m-1) - C(m, m-1)*int(m)
 N(m-0) = 0*int(m-2) +           0*int(m-1) + C(m, m-0)*int(m)
+
+N(m-2) = +C(m-2, m-2)*int(m-2) - C(m-1, m-2)*int(m-1) + C(m, m-2)*int(m)
+N(m-1) = -C(m-2, m-1)*int(m-2) + C(m-1, m-1)*int(m-1) - C(m, m-1)*int(m)
+N(m-0) = +C(m-2, m)  *int(m-2) + C(m-1, m)*int(m-1)   + C(m, m-0)*int(m)
+
 
 So summing sería:
 
@@ -200,4 +210,12 @@ Queremos hallar las permutaciones que no cumplen ninguna de las n propiedades, s
 
 universo - intersecciones de tamaño 1 + intersecciones de tamaño 2 - intersecciones de tamaño 3 + ...
 
-n! - C(n,1)*(n-1)! + C(n,2)*(n-2)! - C(n,3)*(n-3)! + ... 
+n! - C(n, 1)*(n-1)! + C(n,2)*(n-2)! - C(n,3)*(n-3)! + ... 
+
+Asumamos que hay un mazo con n cartas enumeradas de 1 a n, supongamos que la carta enumerada m está en la posición correcta si es la m-ésima carta en el deck. De cuántas formas se puede shuffle el deck de forma que haya al menos una carta en la posición correcta ?
+
+Sea A_m todos los shufles con la m-ésima carta en la posición correcta, entonces lo que se quiera hallar es la unión de los Ai
+
+Por la sumatoria el primer término representa la cantidad que poseen bien al menos una posición, después los que poseen bien al menos dos posiciones, and so on.
+
+Notar que no importa cuales posiciones son las que están correctas por lo que en la i-esima intersección sería C(n,i) * cantidad de formas de poner a los demás como quiera que sería (n-i)!.

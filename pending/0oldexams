@@ -1,0 +1,39 @@
+existen infintos múlitplos de p de la forma 2^n -n
+ 
+kp = 2^n - n
+
+p = 7
+2^0 = 1
+2^1 = 2
+2^2 = 4
+2^3 = 1
+2^4 = 2
+2^5 = 4
+2^6 = 1
+2^7 = 2
+ord_7 2 = 3
+n deja resto 0 entre 3 sería 1
+n deja resto 1 entre 3 sería 2
+n deja resto 2 entre 3 sería 4
+
+Por tanto si escogemos n = 1 mod 3, n = 2 mod 7 va a cumplir la condición, pero eso nos da una vía de fabricar una solución, todos los k son distintos.
+
+But recall that the orden es un divisor de (p-1), tenemos que escoger uno de los restos de ese orden y que el correspondiente resto respeto a p sea coprimo con el 
+
+O sea hay que escoger un resto entre [0, orden_p {2}) tal que el correspondiente resto sea coprimo con p pero lo va a se porque p es primo.
+
+Probar que p divide a C(2p, p) - 2, 
+
+Es una consecuencia de demostrar que p divide a C(p,a) si 0 < a < p:
+
+C(p,a)*C(a,1) = C(p,1)*C(p-1, a-1)
+
+Como (a,p) = 1, se obtiene que p divide a C(p,a)
+
+Ahora C(2p, p) = sum desde i = 0 to p de C(p,i)^2, quitando C(p,p) y C(p,0) obtenemos el resultado.
+
+Hay 100 personas con una cantidad par de amigos entre ellos, demostrar que hay 3 personas con la misma cantidad de amigos.
+
+Si se agrupa a las personas por la cantidad de amigos que poseen, tenemos 50 posibles valores: 0, 2, 4, ..., 98, suman 100 y menores iguales que 2, la única forma es que todos sean 2, pero esto implicaría qu ehay 2 personas con 0 amigos y una persona con 98 amigos, absurdo.
+
+    

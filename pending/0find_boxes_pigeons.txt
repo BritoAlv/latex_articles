@@ -1,0 +1,59 @@
+1 - Determine whether exist a number less than 10^9 that can be expressed as sum of three squares in more than 1000 distinct ways ? 
+
+Yes, it exist, por el principio de las palomas, primero identifiquemos las palomas y las cajas, 
+
+Consideremos todos los números x tales que x^2 <= 10^9/3, estos son un total de floor( sqrt ( 10^9/3)), digamos que M 
+
+Los subconjuntos de tamaño 3 que son posible formar a partir de estos números son nuestras palomas, serían un total de: C(M,3) palomas, las queremos distribuir en 10^9 cajas, por tanto por el principio del palomar hay una caja que donde ponemos al menos:
+
+C(M,3) / 10^9 palomas, haciendo el cálculo obtenemos 1014 por tanto el número ha de existir. 
+
+2 - Sea S = {1,2, ..., 2n} Demostrar que si se escogen n+1 números de S, entonces existen dos números tales que uno es múltiplo de otro.
+
+Divido a S en {1,3,5,..., 2n-1}, {2,4,6,8,..., 2n}. Notar que cada número posee una parte impar, si se escogen n+1 números hay dos con la misma parte impar, por tanto el menos divisible por 2 divide a el más divisible por 2.
+
+3 - Sea S un conjunto con n+1 enteros. Probar que existen enteros distintos a, b en S tales que a-b es múltiplo de n.
+
+La idea es que si hay n+1 números hay dos que dejan el mismo resto entre n por tanto su diferencia es divisible por n.
+
+Podemos usar el ejercicio anterior para resolver este:
+
+4 - Una compañia de baile practica un total de 11*7 días, cada día practican al menos una vez, pero no más de 12 veces por semana, eso es suficiente para demostrar que hay un intervalo de días donde la compañía practica exactamente 21 veces.
+
+Digamos que hasta el día 1 <= i <= 11*7 la compañia ha practicado xi veces.
+
+0 < x1 < x2 < x3 < ... < x_{11*7}
+
+Tenemos 11*7 números distintos, si los distribuimos por su resto entre 21, tenemos 21 cajas para distribuir 21*3 < 11*7 < 21*4 números, por el principio del palomar hay al menos una caja que recibe 4 números, digamos que:
+
+xi1 < xi2 < xi3 < xi4 todos dejan el mismo resto entre 21 por lo que las diferencias siguientes son divisibles por 21: 
+
+xi2 - xi1 = 21m1
+xi3 - xi2 = 21m2
+xi4 - xi3 = 21m3
+
+Voy a asumir que ninguno de m1, m2, m3 == 1, para llegar a un absurdo: 
+
+Entonces son al menos dos cada uno (no puede ser 0 porque la compañia practica al menos una vez por día), por tanto :
+
+xi2 - xi1 >= 42
+xi3 - xi2 >= 42
+xi4 - xi3 >= 42
+
+=> xi2 >= 42 + xi1
+=> xi3 >= 42 + 42 + xi1
+=> xi4 >= 42 + 42 + 42 + xi1
+
+Pero entonces la compañia practicó al menos un total de 11*12 < 42*3 <11*13 veces, si distribuimos las veces que se practicó entre las semanas, habría una semana donde se practicó al menos 13 veces. Absurdo. 
+
+5 - Demostrar que para cualquier número irracional x y un entero positivo n, existe un número racional p/q con 1 <= q <= n tal que | x - p/q | < 1/(nq).
+
+| qx - p | < 1/n
+
+Para n = 10, x = raíz(2), el único valor de q que lo cumple es q = 5, p = 7. 
+
+6 - Demostrar que en cualquier secuencia de 18 números consecutivos, todos de tres cifras hay al menos uno que es múltiplo de la suma de sus dígitos.
+
+Hay dos divisibles por 9, la suma de los dígitos de esos números puede ser 9, 18, 27. Si es 27 works, por lo que solamente podría ser 9, 18. Si una suma es 9 se cumple, por lo que solamente queda el caso en que ambas sumas dan 18, lo que podría pasar es que ambos números sean impares, pero esto no es posible porque su diferencia es 9 que es un número par.
+
+ 

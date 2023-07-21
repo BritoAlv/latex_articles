@@ -1,0 +1,83 @@
+Sea n un entero positivo, una permutación P: p1p2p3...pn del conjunto {1, 2, ..., n} se llama especial si para todo i: 1 <= i < n existe un j > i tal que | pi - pj | = 1. Hallar el número de permutaciones especiales del conjunto {1, 2, ..., n}.
+
+Sea P(n) la respuesta para n.
+
+n = 2, P(2) = 2 
+12, ok 
+21, ok
+
+312
+132
+123
+
+321
+231
+213
+
+n = 3, P(3) = 4 
+12-3, ok
+13-2, ok
+21-3, no
+23-1, no
+31-2, ok
+32-1, ok
+
+Cuántas permutaciones especiales de tamaño n poseen a n en la ultima posición:
+
+La respuesta es 1 que sería: 123...n, la explicación es que si en la última posición va n, en la penúltima solamente puede ir el número (n-1), análogamente en la antepenúltima solamente podría ir (n-2) and so on.
+
+Notar que si el número (n-i) está en la última posición entonces los números:
+
+n, n-1, n-2, ..., n-i están en ese orden en la permutación especial.
+
+Como estarían ubicados los números 1, 2, ..., n-i-1 ? como quiera ? NO porque el 1 tiene que estar a la izquierda del 2, esto implica que el 2 solamente se podría apoyar del 3, por tanto el 3 estaría a a derecha del 2, and son on. La idea que no fuerza a que la única permutación especial válida sea la ordenada es que la condición no hay que chequearla para el elemento en la última posición,
+
+So recall que fijamos en la última posición al número (n-i) para algún i entre 0 y (n-1), se dividen los números de 1 a n en tres grupos:
+
+de 1 a (n-i-1), n-i, de n-i+1 a n
+
+resolver subproblema: dadas dos listas ordenadas de tamaño m, n de cuantas formas puede mezclarlas de forma que sigan ordenadas, Tengo m elementos a insertar en n posiciones y me da igual cuantos ponga en cada posición. Este es el problema de tengo (m+1) niños distintos y quiero darle n caramelos, de cuantas formas puedo hacerlo , sería hacer eso para cada posible i que puedo poner al final.
+
+Por ejemplo voy a resolver el problema para n = 4
+
+123-4  
+412-3
+142-3 
+124-3 
+431-2
+143-2
+413-2
+432-1
+
+n = 2, 2
+n = 3, 4
+n = 4, 8
+
+Por alguna razón la respuesta para n, parece ser 2*la respuesta del anterior, 
+notar que fijamos un elemento x al fondo y se nos dividen los números en dos grupos de 1 a (x-1) y de (x+1) a n, tendríamos dos listas de tamaño x-1 y n-x
+
+Eso se hace para cada x entre 1 y n, entonces los respectivos tamaños de las listas serían:
+
+x = 1, 0, n-1
+x = 2, 1, n-2
+x = 3, 2, n-3
+.............
+
+Ahora de cuantas formas se pueden merge las listas de forma que se cumpla lo pedido: notar que el problema es equivalente a ver de cuantas formas se puede hacer una cadena de longitud n-1, con dos tipos:
+
+para x = i, sería C(n-1, i-1)*C(n-i, n-i)
+
+Como x va desde 1 hasta n, i iría desde 0 hasta n-1, por tanto esa suma daría 2^{n-1}.
+
+La pregunta habrá alguna forma más clever de demostrar que la respuesta es 2^{n-1}, 
+
+O sea como demostramos que a partir de cualquier permutación especial de tamaño (n-1) se pueden obtener dos de tamaño n, de forma biyectiva.
+
+123-4 
+412-3
+142-3 
+124-3 
+431-2
+143-2
+413-2
+432-1

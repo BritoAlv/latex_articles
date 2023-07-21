@@ -1,0 +1,145 @@
+Una de las más conocidas clases de funciones que mapean el conjunto de los números reales a ellos mismos son los polinomios con coeficientes reales de grado n:
+
+P_n(x) = anx^n + ... + a0, n>= 0, ai in R
+
+Ellos aproximan uniformemente funciones continuas, esto significa que dada cualquier función definida y continua en un intervalo cerrado y acotado, existe un polinomio que está tan pegado a la función como se desee. Este resultado es precisamente el Teorema de Aproximación de Weierstrass.
+
+y = f(x) + e
+y = P(x), aproximación
+y = f(x), función original
+y = f(x) - e
+
+EL objetivo es que P(x) esté comprendido entre la primera y la última función dado un epsilon.
+
+Weierstrass Approximation Theorem: Supongamos que f es definida y continua en [a,b], para cada epsilon > 0, existe un polinomio P(x), con la propiedad de que | f(x) - P(x) | < e, para todo x en [a,b] (este teorema es un bombazo), 
+
+Cualquier función infinitamente diferenciable f: [a,b] => R es arbitrariamente bien aproximada por polinomios de Taylor. 
+
+La derivada y la integral de un polinomio son fáciles de determinar y son también polinomios, los polinomios de Taylor se acercan tan cerca como uno quiera a la función en un punto en específico, pero concentran su accuracy cerca de ese punto, no en el intervalo. Para hacer el polinomio de Taylor toda la información en un punto es usada. Es mejor métodos que usen información de varios puntos.
+
+La interpolación de Lagrange para una función que debe pasar por dos puntos dados sería:
+
+(x0, y0), (x1, y1)
+
+L0(x) = (x-x1)/(x0-x1)
+L1(x) = (x-x0)/(x1-x0)
+
+f(x) = L0(x)f(x0) + L1(x)f(x1)
+la idea es que L1(x1) = 1, L1(x0) = 0, 
+
+Teorema: Supongamos que x0, x1, ..., xn son números distintos en el intervalo [a,b] y f es una función que es (n+1) continua-diferenciable, en [a,b]. Entonces para cada x in [a,b] existe un número €(x) entre x0, x1, ..., xn con 
+
+f(x) = P(x) + f^{n+1}(€(x))/(n+1)!*(x-x0)(x-x1)...(x-xn)
+
+Esto significa que si la función es (n+1) veces diferenciable en ese intervalo entonces se puede acotar el error.
+
+x = xk para k = 0, 1, ... , n entonces f(xk) = P(xk), y escogiendo €(x) como un número en (a,b) se cumple.
+
+x != xk,  consideremos la función g(t) en [a,b]:
+
+g(t) = f(t) - P(t) - [f(x)-P(x)]*(t-x0)(t-x1)...(t-xn)/(x-x0)(x-x1)...(x-xn), aka x es cte, y t es la variable. 
+
+Como f in C^{n+1}[a,b] y P in C^{infinito}[a,b], por lo que sigue que g in C^{n+1}[a,b], para t  = xk, se cumple que: g(xk) = 0, además g(x) = 0, por lo que g es cero en n+2 puntos distintos, por el teorema de Rolle generalizado existe un número €(x) en (a,b) para el cual g^{n+1}(€) = 0. El resultado de substituir eso y despejar conlleva a lo que se quiere demostrar. ( mal hecho no ponerlo aki) página 131 Burden. 
+
+Error Taylor: f^{n+1}(€(x))/(n+1)! * (x-x0)^{n+1}
+Error Lagrange: f^{n+1}(€(x))/(n+1)! * (x-x0)*(x-x1)...(x-xn)
+
+Ejemplo: Aproximar f(x) = 1/x, para x en [2,4], f'(x) = -x^{-2}, f''(x) = 2x^{-3}, f'''(x) = -6x^{-4}.
+
+Como consecuencia el error de la aproximación por el polinomio de Lagrange tiene la forma:
+
+f'''(€(x))/3!*(x-x0)(x-x1)(x-x2) = -(€(x))^-4(x-2)(x-2.75)(x-4) para €(x) en (2,4)
+
+el mayor valor que puede tomar ese número en ese intervalo es 2^-4, faltaría hallar el mayor valor de el polinomio en ese intervalo que es posible hacer hallando los puntos críticos de la derivada, por tanto el mayor error sería el producto de estos dos máximos valores.
+
+Ejemplo: Supongamos que una tabla es preparada para la función f(x) = e^x, para x en [0,1], asumiendo que el número de decimal places por entrada es d >= 8, y que la diferencia entre valores de x adyacentes, el step-size es h. 
+
+Qué valor de h se debe escoger para asegurar que la interpolación linear de un error absoluto de a lo más 10^{-6} para todo x en [0,1] ?
+
+Sean x0, x1, .... los números en los cuales f es evaluada, con x en [0,1] supongamos que j satisface que xj <= x <= x_{j+1}, la ecuación implica que el error en la interpolación linear es a lo más:
+
+| f(x) - P(x) | = |f^(2)(€)/2!*(x-xj)(x-x_{j+1})|
+
+Como el step-size es h, xj = jh, x_{j+1} = (j+1)h y
+
+|f(x)-P(x)| <= |f^(2)(€)/2!*(x-jh)(x-(j+1)h)|
+
+Por lo que: 
+
+|f(x)-P(x)| <= mayor valor que pueda tomar la segunda derivada en ese intervalo que digamos que ese factor es a lo más e/2! * mayor valor del polinoio en ese intervalo, análogamente resolver usando derivadas para hallar puntos críticos.
+
+De donde se obtiene que eh^2/8 <= 10^-6 funcionaría.			 
+
+Interpolación por tramos:  si hay 4 puntos de la forma (x1, y1), (x2, y2), (x3, y3), (x4, y4) se tendría una función definida de la forma:
+
+s(x) = 
+
+s1(x) para x1 <= x < x2
+s2(x) para x2 <= x < x3
+s3(x) para x3 <= x <= x4
+
+en caso de que las funciones si(x) sean polinomios a la función s(x) se le llama spline polinomial, y el grado de ese spline polinomial depende del grado de las funcions si(x).
+
+Las splines de grado 1 es unir con rectas los puntos, usando parábolas, eso significa que cada si(x) = ai*x^2 + bi*x + ci.
+
+Cubic Spline Interpolation: la sección anterior trata sobre la aproximación de funciones arbitrarias en intervalos cerrados usando un single-polynomial, pero puede pasar que un polinomio oscile erratically, o sea una pequeña fluctuation over a small portion of the interval can induce large fluctuations over the entire range, la idea de las splines es dividir el intervalo de aproximación en una colección de subintervalos y construir un generalmente diferente polinomio de aproximación en cada subintervalo. 
+
+La más simple aproximación es la linear, consiste en unir los puntos con lineas rectas, la desventaja de esto es que es probable que no haya diferenciabilidad en los endpoints de los subintervalos, o sea la interpolating function no es smooth.
+
+Otra idea es hacer un polinomio cuadrático que pase por los puntos [x0, x1], notar que pasar por los puntos determina dos coeficientes, el tercero se puede escoger de forma que la función sea diferenciable en el end de cada subintervalo. La dificultad arises cuando se necesitan especificar condiciones sobre la derivada de el interpolante en los endpoints x0 y xn, porque no hay un número suficiente de constantes para garantizar que esas condiciones se van a satisfacer.
+
+Cubic Splines: la más común piecewise polynomial approximation usa polinomios cúbicos entre cada par sucesivo de nodos y es llamada cubic spline interpolation, necesita 4 constantes, lo que es suficiente para garantizar segunda derivada en el intervalo.
+
+Dada una función f definida en [a,b] y un conjunto de nodos a = x0 < x1 < ... < xn = b, una cubic spline interpolante S para f es una función que satisface las siguintes condiciones:
+
+a) S(x) es un polinomio cúbico, denotado S_j(x) en el subintervalo [xj, xj+1] para cada j = 0, 1, ..., n-1
+b) Sj(xj) = f(xj) y Sj(xj+1) = f(xj+1) para cada j = 0,1, ..., n-1
+c) Sj+1(xj+1) = Sj(xj+1)
+d) S'j+1(xj+1) = S'j(xj+1) for each j = 0, 1, ... , n − 2;
+e) S''j+1(xj+1) = S''j (xj+1) for each j = 0, 1, ... , n − 2;
+
+Una de las siguientes condiciones de boundary deben satisfacerse:
+S''(x0) = S''(xn) = 0 
+S'(x0) = f'(x0) and S'(xn) = f'(xn)
+
+Cubic Splines are function approximations that are continuous at mergin points, they also have continuous first and second derivates where they join.
+
+O sea aparte de ser continuas en los puntos donde se unen las funciones, son derivables en esos puntos. natural cubic spline que posee segunda derivada igual a 0 en los end points.
+
+Como los polinomios de Lagrange cada punto en la línea no cambia la línea entera, como se calcula:
+
+dados tres puntos (x1, y1), (x2, y2), (x3, y3) sería hacer dos curvas una que conecta a el primer punto con el segundo y una del segundo para el tercero. y garantizar las condiciones de derivabilidad, continuidad.
+
+el problema de los polinomios es que mientras más crece el grado más picos de oscilación posee.
+
+Ejemplo: usar un polinomio para aproximar 1/(1+x²) de grado 26 forma la desagradable,  
+
+Spline Interpolation: Si se usa linear es conectar los puntos con líneas como  dibujar pero no hay smoothness, si se usa cuadrático no hay suficientes constantes para garantizar derivadas, linear splines, quadratic splines, conectar dos puntos con un polinomios.
+
+Desventajas del método de interpolación de Lagrange: 
+
+- cada evaluación del polinomio requiere O(n²) operaciones.
+- agregar un par de datos x_{n+1}, f(x_{n+1}) requiere hacer todos los polinomio del principio.
+
+Como alternativa está el método de las diferencias divididas de Newton:
+
+Esta fórmula nos permite agregar un punto más y aumentar el grado del polinomio en forma sencilla porque se puede emplear el polinomio obtenido anteriormente.
+
+Supongamos que Pn(x) es el n-ésimo polinomio de Lagrange que coincid econ la función en los distintos números x0,x1,x2,...,xn, Digamos que expresamos a P de la forma:
+
+Pn(x) = a0 + a1(x-x0) + ... + an(x-x0)(x-x1)...(x-x_{n-1}) para constantes a0, a1, ..., an. 
+
+x = x0, da que a0 = f(x0)
+
+x = x1, da que Pn(x1) = f(x1) = f(x0)(x1-x0) + a1(x1-x0) de donde:
+
+a = (f(x1)-f(x0))/(x1-x0)
+
+Esto se generaliza a:
+
+f[xi] = f(xi)
+f[xi, xi+1] = (f[xi+1] - f[xi])/(xi+1 - xi)
+f[xi, xi+1, xi+2] = (f[xi+1, xi+2] - f[xi, xi+1])/(xi+2- xi)
+
+
+

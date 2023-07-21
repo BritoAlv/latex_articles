@@ -9,6 +9,8 @@ a) sería distribuir 10 elementos entre tres tipo a,b,c de forma que hayan 4 a's
 aaaabbbbcc
 bbbbaaaacc
 
+10! / (4!*4!*2!)/ 2!
+
 Representan la misma partición, por lo que como lo que nos interesa es que hayan subconjuntos de tamaño 4, debemos dividir la respuesta entre 2! porque hay 2 conjuntos de tamaño 4, y entre 1! porqu hay un subconjunto de tamaño 1. Esto es interesante porque exprime aún más la fórmula de combinaciones con repetición.
 
 a) sería 10! / (4!*4!*2!) / 2!*1!.

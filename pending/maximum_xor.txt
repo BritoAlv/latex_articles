@@ -16,5 +16,3 @@ Consideremos este otro problema: Dada una lista de enteros hallar el mayor xor q
 En este caso si hay que recorrer todos los elementos de la lista pues no tenemos ningún dato ni relación entre ellos, pero podemos agruparlos en un Trie ya que lo que me interesa recorrer es el número en binario y esa longitud está acotada. Se puede usar un Trie de la siguiente forma, pero la complejidad del algoritmo sería n*(cantidad de bits mayor número). Insertamos todos los números en un trie pero antes de insertar un número nuevo lo comparamos con los que ya están en el trie para ver si obtenemos un xor mayor que el que teníamos, la cosa es que esta comparación se hace en tiempo (cantidad de bits mayor número) independiente de cuantos números hayan en el trie, por eso el trie ayuda a reducirlo de cuadrático (double for entre todos los pares) a linear * log(mayor número).
 
 El trie reduce la complejidad del segundo for a linear porque permite en log(mayor número) comparar el nuevo a insertar con todos los que están. Solamente notar que la cosa es que la entrada está acotada.
-
-

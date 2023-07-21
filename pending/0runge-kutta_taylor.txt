@@ -90,7 +90,3 @@ y_{n+1} = y_n + K1/6 + K2/3 + K3/3 + K4/6 + O(h^5)
 Para usar lo anterior es necesario darle un step-size h, un valor inicial y cuantos valores va a generar, empezando en y(x0) = y0, generaría dado un N, hasta x0 + N*h.
 
 
-
-
-
- 

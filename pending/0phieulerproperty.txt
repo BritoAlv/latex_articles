@@ -1,0 +1,158 @@
+Problema: Demostrar que si n >= 1 entonces la suma de phi(d) = n, donde d es un divisor de n.
+
+Claim (unlock): Cada número 1 <= x <= n, se puede escribir de forma única como d*(un número primo relativo a n/d) donde d es un divisor de n.
+
+mcd(n, x) = 1, entonces x = 1*x, es única.  
+mcd(n, x) > 1, x = mcd(n,x)*b, notar que b es primo relativo a n/x.
+
+Esto significa que la cantidad de soluciones a la ecuación mcd(n, x) = d con 1 <= x <= n es phi(n/d). So that en el caso d = 1, daría phi(n), la propiedad entonces es que si se suma sobre phi( de los divisores) es lo mismo que sumar sobre la cantidad de soluciones, como cada número es solución de exactamente una de esas ecuaciones habrían n soluciones.
+
+Problema: Demostrar que si n es compuesto entonces phi(n) <= n - raiz(n):
+
+Claim (unlock): Si n es compuesto, sea p el menor divisor que posee, entonces consideremos los números p, 2p, ..., n hay al menos raíz(n) números, por lo que no se contarían como primos relativos a n, so phi(n) <= n - raíz(n).
+
+Definición: a entero positivo es una raíz primitiva módulo n, si ord_n a = phi(n) y (a, n) = 1. 
+
+Notar que esto significa que el ciclo 1, a, a^2, ..., recorre todos los elementos mod n primos relativos a n. Forman un grupo cerrado respecto a la multiplicación. 
+
+Problema: Demostrar que si p es primo > 2, entonces posee raíces primitivas.
+
+Lema 1: Un polinomio f(x) de grado n tiene a lo más n raíces mod ese primo.
+
+Sea r un entero entonces:
+
+f(x) = anx^n + ... + a0
+f(r) = anr^n + ... + a0
+
+f(x) - f(r) = an(x^n - r^n) + ... + a1(x-r)
+f(x) - f(r) = Q(x)(x-r)             Q(x) tiene grado (n-1), coeficientes enteros.
+
+Ahora si se impone la condición de que este r es raíz mod p, entonces mod p se cumple que f(x) - 0 = Q(x)(x-r), 
+
+Lo que significa que las raíces mod p de f(x) son either r o una raíz mod p de Q(x), porque p es primo, por tanto las raíces son la unión de las raíces de ambos factores. Como Q(x) tiene grado a lo más n-1 ( por inducción digamos). Tomemos como caso base ax+b, que no puede tener dos raíces distintas mod p.
+
+Fijemos un divisor d de (p-1), voy a demostrar que si hay elementos con orden d han de ser phi(d) elementos.
+
+Asumamos que hay uno "a", por un lado 1, a, a^2, ..., a^{d-1} son raíces de el polinomio x^d-1 mod p. Como encontré explicitamente d raíces distintas ( por propiedad de orden), el lema anterior me garantiza que estas son todas, por tanto si hay otro elemento "b" que posee a d como orden ha de ser raíz de esa ecuación y por tanto escribirse como una potencia de "a". Finalmente ya sabemos que los candidatos a poseer orden d se escriben como potencias de "a", pero hay exactamente phi(d) potencias que poseen a d como menor exponente para que se repita el ciclo, por el primer ejercicio arriba.  
+
+Ahora hacemos un conteo doble, contemos la cantidad de pares de la forma (i, d) donde i 1 <= i <= (p-1), d es el orden para ese i.
+
+Hay (p-1) pares contándolos respecto a los i, 
+
+Contándolos respecto a los d, sería la suma de los phi(d) donde d es un divisor de (p-1) para el cual existe al menos un i que lo posee como orden.
+
+La suma esa si se cuentan todos los divisores toma como valor p-1, por el primer ejercicio, por tanto ha de existir elementos con orden (p-1), moreover hay phi(p-1) elementos con orden p-1.
+
+Problema: Si n se puede escribir como el producto de dos números primos relativos >= 3 entonces no posee raíces primitivas.
+
+Sea n = ab, entonces si x es primo relativo a n:
+
+x^{phi(a)} = 1 mod n
+x^{phi(b)} = 1 mod n
+
+Por lo que x^{mcm( phi(a), phi(b) )} = 1 mod n, esto significa que el orden es a lo más mcm( phi(a), phi(b) ), por lo que restaría demostrar que este número es estrictamente menor que phi(ab), pero como a, b son coprimos phi(ab) = phi(a)*phi(b)
+
+Para que mcm( phi(a), phi(b) ) < phi(a)*phi(b) es necesario que ambos compartan algún factor en común. Voy a demostrar que ambos son pares.
+
+Lema: Si x >= 3, entonces phi(x) es par. Recall that phi(p^k) = p^{k-1}*(p-1), 
+
+Si x posee un divisor primo impar, se cumple, por ser phi multiplicativa, phi(potencia de ese primo) es par.
+
+Quedaría el caso en que x es una potencia de 2, cuando falla es para x = 1, x = 2, que no los cubrimos en este caso.
+
+Los números que no cubre el teorema son las potencias de un primo, y 2p^k.
+
+Problema: Demostrar que phi es multiplicativa con la tabla.
+
+Todo parte de que existe una biyección entre los números primos relativos a m*n y los pares de la forma (a, b) donde a es un resto entre m primo relativo a m y b es un resto entre n primo relativo a n.
+
+    1,     2, .... ,     n
+1*n+1, 1*n+2, .... , 1*n+n
+..............................
+..............................
+..............................
+(m-1)*n+1, ....    , (m-1)*n+n
+
+Notar que los elementos en la misma columna dejan el mismo resto entre n. 
+
+Por otro lado cada columna posee m números, que forman un sistema residual completo módulo m, porque n es primo relativo a m. 
+
+Por lo que en las columnas en las que el resto es primo relativo a n, podemos escoger phi(m) números cuyos restos son primos relativos a m.  
+
+So hay phi(n)*phi(m) números que cumplen la condición.
+
+Problema: Hallar el menor divisor primo de 1^60 + 2^60 + ... + 33^60.
+
+Step 1: Probar que esa suma no es divisible por 2, 3, 5, 7, 11, 13.
+Step 2: Probar que esa suma es divisible por 17.
+
+Notar que phi( primo <= 13 ) divide a 60, por lo que para evaluar esa suma sería evalularla hasta p, multiplicarla por el cociente de 33 entre p, y hallar a mano el resto.
+
+p = 5
+1^60 + 2^60 + 3^60 + 4^60 + 5^60 = 4 mod 5
+33 = 6*5+3
+6*[1,5] + [31, 33]
+6*4+3
+
+p = 2
+33 = 16*2+1
+16*[1,2] + [33]
+16+1 = 17
+
+Para p = 17, sería comprobar que:
+
+1^60+2^60+...+16^60 
+{1, 2, ..., 16} = {1, g, ..., g^(p-2)} = {1^n, g^n, g^{2n}, ... , g^{(p-2)n} }
+
+Esta última suma es una progresión geométrica con razón g^n, que daría:
+
+(g^{(p-1)n}-1) / (g^n-1) que el numerador es divisible por p, el denominador no por tanto done. 
+
+Demostrar que si n posee al menos una raíz primitiva, entonces posee phi (phi(n)) raíces primitivas:
+
+Si g es una raíz primitiva entonces la longitud de la secuencia g, g^2, ..., es phi(n), o sea el orden ( tamaño de esa secuencia es phi(n)), ahora notar que esa secuencia genera todos los números primos relativos a n, por tanto si hay otra raíz primitiva ha de estar entre esas potencias.
+
+Claim: Las raíces primitivas son los exponentes que son coprimos con phi(n):
+
+Porque si el exponente t no es coprimo con phi(n), entonces poseen un divisor d en común
+
+g^(1*t), ..., g^(t*phi(n))
+
+Pero g^(phi(n)/d*t) es menor que t*phi(n) y provoca que se repita el ciclo.
+
+Por otro lado si x es un número coprimo a phi(n), 
+
+1 <= x < phi(n)
+
+existen enteros a,b tales que:
+
+a*x = 1 + phi(n)*b
+
+Hay que demostrar que la secuencia:
+
+g^x, g^{2x}, ...
+
+genera distintos valores
+
+Si dos fueran iguales:
+
+g^ix, g^jx
+
+elevados a la a obtenemos que:
+
+g^aix = g^ajx
+g^(i + phi(n)*b*i) = g^(j + phi(n)*b*j) 
+
+De donde g^i = g^j que es absurdo, porque g es raíz primitiva.
+
+El teorema de Wilson puede ser demostrado usando raíces primitivas:
+
+Si p = 2 se cumple, para p > 2,
+
+1*2*...*(p-1)
+
+= g*g^2*...g^(p-1)
+
+Quedaría g^((p-1)*p)/2
+
+Esto al cuadrado deja resto 1, por tanto deja resto either 1 o -1, pero g es una raíz primitiva, por lo que no podría repetir restos,  o sea la única forma de que deje resto 1 es elevandolo a la (p-1).

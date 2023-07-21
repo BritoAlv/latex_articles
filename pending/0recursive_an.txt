@@ -1,0 +1,132 @@
+1 - Hallar la cantidad de cadenas de tamaño n, formadas con {0,1,2} donde no hay dos ceros consecutivos, ni dos unos consecutivos.
+
+recurrencia a partir de primera posición donde aparece un 2: ai = a_{i-1} + 2*(a_{i-2} + ... + a_0) 
+
+a0 = 2
+a1 = 3   
+a2 = 7
+
+a3 = 17 
+a4 = 41 
+
+ai - a_{i-1} = 2*(a_{i-2} + ... + a_0) 
+a_{i-1} - a_{i-2} = 2*(a_{i-3} + ... + a_0)
+
+ai - a_{i-1} = 2*a_{i-2} + 2*(a_{i-3} + ... + a_0)
+ai - a_{i-1} = 2*a_{i-2} + a_{i-1} - a_{i-2}
+ai = 2*a_{i-1} + a_{i-2}, i >= 3
+
+Queda por saber como llegar combinatorialmente a esta recurrencia: Notar al final de toda cadena de tamaño n-1 hay al menos dos números para poner al final, los casos en los que hay 3 son las cadenas de tamaño n-1 que acaban en 2, que son a_{n-2}. 
+
+
+Otra vía: Sea b_i = ai + ... + a0,  b_i = ai + b_{i-1}
+
+b_0 = 2
+b_1 = 5
+b_2 = 12
+b_3 = 29
+
+ai = b_{i-1} + b_{i-2}
+b_i - b_{i-1} = b_{i-1} + b_{i-2}
+b_i = 2b_{i-1} + b_{i-2}
+
+La observación anterior permite resolver b_i, y después usando que ai = bi - b_{i-1}, se puede hallar a_i. Queda la pregunta de si es posible expresar a ai como una cantidad fija de valores anteriores.
+
+2 - Hallar la cantidad de formas de escribir a n como suma de enteros positivos ordenada donde cada sumando es >= que 1.
+
+Proof1(recursive): ai = 2^{i-1}, se podría hacer demostrando que a_i = 2*a_{i-1}, a cualquier respuesta para i-1, le podemos añadir 1 a el primer sumando obtenemos una única de tamaño, faltaría por contar las de tamaño n, tales que el primer sumando es 1, estas son precisamente las de tamaño i-1, por tanto eso demuestra que a_i = 2*a_{i-1}.
+
+Proof2(counting + bijection): el problema es equivalente a ver de cuantas formas se puede subir una escalera de n escalones, donde siempre se sube al menos un escalón, sería poner en un string de tamaño n, cierta cantidad de separadores sin poner dos consecutivos, que es 2^{n-1}.
+
+3 - El mismo anterior pero los sumandos >= que 2, sería poner separadores pero no pueden haber dos consecutivos, que sería de un conjunto de tamaño (n-1) hacer subconjuntos sin haber dos elementos consecutivos, la respuesta a eso es f_{n+1},
+
+n = 2, 2, 1
+n = 3, 3, 1
+n = 4, 4, 2+2, 2
+n = 5, 5, 3+2, 2+3, 3
+n = 6, 6, 4+2, 2+2+2, 3+3, 2+4
+
+La cantidad de formas de expresar a n como sumandos >= 2 es que either el primer sumando es 2, a_{n-2}, y si el primer sumando es > 2, se le resta 1 y se obtiene una de tamaño n-1.
+
+4 - Dadas n personas de cuantas formas se puede hacer un intercambio de regalos sin que nadie se regale a si mismo ?
+
+n = 2, 21
+n = 3, 231, 312
+
+El número n está en la posición 1 <= i <= n-1, entonces hay dos posibilidades:
+
+1 - p[n] =  i
+2 - p[n] != i
+
+En el segundo caso si p[n] != i, entonces swapear lo que hay en las posiciones n,i genera una válida de tamaño (n-1), la cantidad de formas en las que esto puede pasar es a_{n-1}*(n-1). Si p[n] = i, entonces esto significa que tenemos un intercambio de regalos, donde hay un ciclo de tamaño 2 con la persona N, por tanto las N-2 personas restantes están formando un intercambio de regalos válido entre ellas. La cantidad de formas en las que esto puede pasar es n-1 igual, por tanto :
+
+a_n = (n-1)[ a_{n-1} + a_{n-2} ]
+
+Notar que se puede llegar a este resultado por el principio de inclusión-exclusión también:
+
+P1: P[1] = 1
+...
+PN: P[n] = n
+
+Queremos hallar las de tamaño n que no cumplen ninguna de las n propiedades, eso sería el tamaño del universo menos las que cumplen al menos una propiedad:
+
+Daría a_n = n! * (sum k = 0 to n (-1)^k / k!)
+
+a_{n-1} = (n-1)!*(sum k = 0 to n-1 (-1)^k / k!)
+a_{n-2} = (n-2)!*(sum k = 0 to n-2 (-1)^k / k!)
+
+Si se suman daría (n-2)![ sum k = 0 to n-2 (-1)^k*[n] / k! ] + (-1)^(n-1)
+
+Multiplicado por (n-1) daría:
+
+  n!*[ sum k = 0 to n-2 (-1)^k / k! ] + (-1)^(n-1)*n!/(n-1)! + (-1)^n*n!/n! 
+= n!*[ sum k = 0 to n (-1)^k / k!]  
+
+5 - Una permutación p1p2...pn se dice especial si para todo i de 1,...,n existe un j > i tal que | pi - pj | = 1. Calcular el número de permutaciones especiales de tamaño n.
+
+Combinatorialmente: Digamos que en la última posición está el número 1 <= j <= n, entonces los números quedan divididos en dos grupos: [1, ... , j-1], [j+1, ..., n], notar que los números en ambos grupos deben ser puestos en orden, un grupo creciente y el otro decreciente, intercalándose con los del otro grupo, pero en orden, el primer grupo tiene j-1 números, y el segundo tiene n-j números, se quiera hacer una cadena de tamaño (n-1) con n-j de un tipo y j-1 del otro tipo, serían C(n-1, n-j) formas, recall that j va desde 1 hasta n, por tanto sería C(n-1, 0) + C(n-1, 1) + ... C(n-1, n-1), que daría 2^(n-1).
+
+Recursivo: 
+
+Claim unlock: una permutación especial either empieza con n o con uno: 
+
+- si n está en la última posición, entonces el 1 ha de estar a la izquierda del 2, el 2 a la izquierda del 3, ..., han de estar ordenados. 
+
+- si no está en la última posición, entonces a su derecha tiene que estar (n-1), a la derecha de (n-1) tiene que estar n-2, and so on, por lo que n ha de estar necesariamente en la primera posición.
+
+Si la permutación especial empieza con 1, entonces las siguientes n-1 posiciones forman una especial de tamaño (n-1) si se les resta 1, si la permutación especial acaba en 1, entonces las primeras (n-1) posiciones análogente forman una válida de tamaño (n-1), so that's the idea.
+
+6 - relación de recurrencia para calcular: 
+
+a) el # de cadenas tamaño n de un alfabeto {a, b, c, d, e}, que no contienen a ee.
+
+a) Si la cadena empieza con {a, b, c, d} lo que sigue puede ser cualquier cosa por lo que sería 4a_{n-1}, si empieza con "e" lo restante ha de ser {a,b,c,d} por lo que sería 4a_{n-2}.
+
+a_n = tamaño_alfabeto ( a_{n-1} + a_{n-2})
+
+b) el # de cadenas tamaño n sobre {a, b, c} con una cantidad impar de c's ?
+
+i_n = 2*i_{n-1} + p_{n-1}
+
+p_{n-1} + i_{n-1} = 3^{n-1}
+
+i_n = i_{n-1} + 3^{n-1}
+i_n - i_{n-1} = 3^{n-1}
+i_{n-1} - i_{n-2} = 3^{n-2}
+
+....
+i_2 - i_1 = 3^1 
+
+i_n - i_0 = 3^{n-1} + .... 3^1
+i_n = (3^n-1)/2
+
+i_1 = 1
+i_2 = 4 = (3^2-1)/2
+
+La cantidad de impares de tamaño n sería escoger las primeras (n-1) posiciones como se desee, ahora para la última depende de la paridad de las c's, si es impar, hay dos opciones y si es par ha de ser c. Por eso la recurrencia es i_n = i_{n-1} + 3^{n-1}, misma idea que el primero.
+
+Nos quedó una recurrencia del tipo: i_n = i_{n-1} + f(n).
+
+Como demostrar combinatorialmente que la respuesta es:  (3^n-1)/2, parece que la respuesta es almost la mitad de cadenas hechas con {a, b, c} o bueno no necesariamente ha de ser eso.
+
+Como in + pn = 3^n, sería suficiente con probar que pn = in+1.s

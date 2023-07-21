@@ -1,0 +1,42 @@
+Se escogen n puntos en un círculo y se unen las líneas entre ellos, asumiendo que no hay 3 concurrentes, cuantas regiones determinan esas líneas dentro del círculo ?
+
+n = 1 => 1
+n = 2 => 2
+n = 3 => 4
+n = 4 => 8
+n = 5 => 16
+n = 6 => 31 ?
+
+Porque para n = 6 la respuesta es 31 ? 
+
+1 - Cuantos puntos de intersección determinan esas líneas ?
+
+Notar que un punto de intersección está determinando por cuatro puntos que se cruzan diagonalmente, por tanto sería C(n,4).
+
+2 - Cuantas aristas determinan esas líneas ? C(n,2) cada una está determinada por un par de puntos donde el orden no importa.
+
+Notar que el grafo resultante es planar, por lo que se puede aplicar la invariante de Euler ( bombazo ), V-E+F = 2, donde los vértices serían las intersecciones + los n puntos:
+
+V = n + C(n,4)
+
+Inicialmente las aristas eran las formadas por los n puntos, después se consideraron como puntos los determinados por las intersecciones.
+
+Claim: La cantidad de aristas ahora es la cantidad de líneas originalmente + 2* cantidad de intersecciones.
+
+Notar que cada línea es separada en una parte más cada vez que se le añade un punto de intersección, pero un punto de intersección separa a dos líneas, por tanto sería cant líneas originales + 2*puntos de intersección.
+
+Lo anterior permite decir que E = C(n,2) + 2C(n,4) + n
+
+C(n,2) líneas originales
+C(n,4) puntos de intersección
+n para añadir las aristas que forman al círculo.
+
+Por tanto la respuesta es gracias al teorema de Euler (bombazo)
+
+F = C(n,0) + C(n, 2) + C(n, 4)
+
+Ese número permite explicar porque para los primeros valores la respuesta es una potencia de 2. Notar que en el triángulo de Pascal, cada número aporta dos copias para hacer la siguiente fila, para n <= 5, la respuesta está contando todos los números de la fila anterior dos veces, por lo que dará una potencia de 2, para n = 6, ya no sucede esto, el 1 no es contado dos veces, porque ya alcanzan, y deja de cumplirse el patrón. 
+
+
+
+

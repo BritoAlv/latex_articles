@@ -1,0 +1,7 @@
+1 - Hay n personas enumeradas de 1 a n, hay dos sitios de competencias y cada persona posee un ranking en cada uno de estos sitios. Devolver un array donde en la i-ésima posición esté la cantidad de personas diferentes que están en mejor ranking en una de las páginas que la persona i. La complejidad del algoritmo ha de ser O(n*logn).
+
+Insertar en un AVL, los elementos de el primer array, donde el key es la posición en ese array, y el value es el número en el array, además añadir un La operación rank en el AVL nos da la cantidad de nodos menores que ese en tiempo logarítmico, y es actualizable independiente de si se haga insertar o borrar, entonces para cada elemento en el segundo array, la cantidad de personas que tiene delante es 0 + el rank_avl de ese nodo, después eliminamos a ese nodo del AVL, entonces la cantidad de personas que tiene por delante esa persona es 1+ rank_nodo del AVL, esta solución es  n*logn, asumiendo que se comprenda porque el rank funciona el tiempo logarítmico  independientemente de si se inserte o no. 
+
+El rank depende de que cada nodo lleve su size que es la cantidad de nodos que son hijos suyos, esto puede ser llevado en tiempo logarítmico.
+
+2- Dado un array de n elementos, se van a hacer dos tipos de consultas, en la primera dado un (i, j) devolver la suma de los elementos desde [i hasta j] en el array, y la segunda es dado un [i, m] cambiar por m el valor que hay en la posición i . Ambas queries deben ser en logn. 
