@@ -1,0 +1,13 @@
+Demostrar que 1^n con n primo no es regular.
+
+Chequar si cumple el pumping lemma:
+	existe p tal que para todo string s tal que:
+		|s| >= p, se cumple que existen x,z,y tales que:
+			xy^iz in L, forall i >= 0
+			y no está vacío.
+	notar que esto implica que para un |s| fijo, la longitud de x + la longitud de z es primo, pero also ese número primo más cualquier múltiplo de la longitud de y es primo, lo que es falso, i = (x+z).
+
+
+	
+
+			

@@ -1,0 +1,91 @@
+% add --shell-escape to pdflatex arguments.
+% add following key to have keyboard shortcuts
+%{
+%    "key": "shift+b",
+%    "command": "commandId",
+%    "when": "editorTextFocus"
+%},
+%{
+%"key": "shift+B",
+%"command": "editor.action.insertSnippet",
+%"when": "editorLangId == latex && editorTextFocus",
+%"args": {
+%    "snippet": "\\textbf{${TM_SELECTED_TEXT}$0}"
+%}
+%}
+
+\documentclass[14pt]{extarticle}
+\usepackage[left=2cm , right = 2cm, top=2cm]{geometry}
+\usepackage{helvet}
+\usepackage{parskip}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage[spanish]{babel}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{tcolorbox} % above of the svg package
+\usepackage{svg} 
+\usepackage{hyperref}
+\usepackage{minted}
+\renewcommand{\sfdefault}{lmss}  % este activa la letra lmss
+\renewcommand{\familydefault}{\sfdefault} % este activa la letra lmss
+\sffamily % este activa la letra lmss
+
+%\hyperlink{page.2}{Go to page 2}
+%\newpage
+%text on page 2
+%\begin{figure}[htbp]
+%  \centering
+%  \includesvg{plot.svg}
+%  \caption{svg image}
+%\end{figure}
+
+%\begin{minted}{csharp}
+%    // single comment
+%    \end{minted}
+
+% f(n) = \begin{cases}
+%    n/2  & n \text{ is even} \\
+%    3n+1 & n \text{ is odd}
+%  \end{cases}
+
+%\begin{align}
+%    \frac{d}{dx} \ln x &= \lim_{h\to 0} \frac{\ln(x+h) - \ln x}{h} \\
+%    &= \ln e^{1/x} &&\text{How this follows is left as an exercise.}\\
+%    &= \frac{1}{x} &&\text{Using the definition of ln as inverse function}
+%   \end{align}
+
+\begin{document}
+
+
+
+@BritoAlv
+
+
+
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black, title = Preguntas]
+
+\begin{enumerate}
+    \item Dados $a,b,c \in  \mathbb{N}$ tales que $(a,b) = 1$ probar que existen infinitos $n \in \mathbb{N}$ tales que:
+    $$(a+bn, c) = 1$$
+
+    \item Probar que la función $\phi(n)$ es multiplicativa usando una vía alternativa a la demostración de rellenar una tabla con los números de $1, mn$.
+
+    \item Marque $V,F$:
+    \begin{itemize}
+        \item Si $p \equiv 5 \mod{8} $ y $p | a^4+b^4$ entonces se cumple que $p | a$ y $p | b$.
+        
+        \item Él número $2^{2^n}-1$ es divisible por al menos $n$ números primos distintos.
+    
+        \item La suma de los elementos de un sistema residual reducido respecto a $n \in \mathbb{N}, n > 2$ es divisible por $n$.  
+    \end{itemize}
+\end{enumerate}   
+
+\end{tcolorbox}
+
+\newpage
+
+
+
+\end{document}
+
