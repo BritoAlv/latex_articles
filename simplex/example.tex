@@ -1,0 +1,209 @@
+% add --shell-escape to pdflatex arguments.
+% add following key to have keyboard shortcuts
+%{
+%    "key": "shift+b",
+%    "command": "commandId",
+%    "when": "editorTextFocus"
+%},
+%{
+%"key": "shift+B",
+%"command": "editor.action.insertSnippet",
+%"when": "editorLangId == latex && editorTextFocus",
+%"args": {
+%    "snippet": "\\textbf{${TM_SELECTED_TEXT}$0}"
+%}
+%}
+
+\documentclass[14pt]{extarticle}
+\usepackage[left=2cm , right = 2cm, top=2cm]{geometry}
+\usepackage{helvet}
+\usepackage{parskip}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage[spanish]{babel}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{tcolorbox} % above of the svg package
+\usepackage{svg} 
+\usepackage{hyperref}
+\usepackage{minted}
+\renewcommand{\sfdefault}{lmss}  % este activa la letra lmss
+\renewcommand{\familydefault}{\sfdefault} % este activa la letra lmss
+\sffamily % este activa la letra lmss
+%\hyperlink{page.2}{Go to page 2}
+%\newpage
+%text on page 2
+%\begin{figure}[htbp]
+%  \centering
+%  \includesvg{plot.svg}
+%  \caption{svg image}
+%\end{figure}
+
+%\begin{minted}{csharp}
+%    // single comment
+%    \end{minted}
+
+% f(n) = \begin{cases}
+%    n/2  & n \text{ is even} \\
+%    3n+1 & n \text{ is odd}
+%  \end{cases}
+
+%\begin{align}
+%    \frac{d}{dx} \ln x &= \lim_{h\to 0} \frac{\ln(x+h) - \ln x}{h} \\
+%    &= \ln e^{1/x} &&\text{How this follows is left as an exercise.}\\
+%    &= \frac{1}{x} &&\text{Using the definition of ln as inverse function}
+%   \end{align}
+
+
+\begin{document}
+
+\section{Teorema Fundamental de PL}
+
+Un problema de optimización lineal en forma estándar se formula como :
+
+Hallar el mínimo de $c^T x$ sujeto a que : $Ax = b$, $x \geq 0$. Donde $x \in \mathbb{R}^n, b \in \mathbb{R}^m$, $A$ es una matriz de orden $m * n$ con $rg(A) = m$. 
+
+Significa que se desea minimzar una expresión del tipo: $a_1 x_1 + ... + a_n x_n$, pero con la condición de que los $x_i \geq 0$ y además $x$ ha de satisfacer $m$ igualdades del tipo $A_{i_1} x_1 + ... + A_{i_n} x_n = b_i$.
+
+Además se asume que las igualdades son linealmente independientes, porque en caso contrario, se pueden eliminar algunas y se obtiene la misma situación pero con $m' < m$.
+
+Si $m = n$, hay una única solución, por tanto el mínimo está determinado, si $m > n$ no hay solución. La idea es que si $m < n$ el sistema posee infinitas soluciones y el objetivo es encontrar las que minimicen la expresión dada.
+
+Como un problema puede no estar, inicialmente, en forma estándar es necesario transformarlo a forma estándar introduciendo variables no negativas adicionales denominadas variables de holgura :
+
+\begin{enumerate}
+	\item $3x_1 + 2x_2 \geq 4$, con $x_1 \geq 0, x_2 \geq 0$ es expresado como $3x_1 + 2x_2 - y_1 = 4$, donde $y_1 \geq 0$.
+	\item $3x_1 + 2x_2 \leq 4$, con $x_1 \geq 0, x_2 \geq 0$ es expresado como $3x_1 + 2x_2 + y_1 = 4$, donde $y_1 \geq 0$.
+	\item $x_1 - x_2 \geq 4$, con $x_2 \geq 0$, es expresado como $(y_1 - y_2) - x_2 - y_3 = 4$, donde $y_1, y_2, y_3 \geq 0$.
+\end{enumerate}
+
+Después de aplicar los pasos anteriores es necesario verificar que las ecuaciones sean li.
+
+Dado que $rg(A) = m$, es posible escoger $m$ columnas de $A$ li para formar una submatriz de orden $m * m$ inversible, Sea $R$ la matriz formada por las restantes columnas de $A$.
+
+Se puede expresar a $Ax$ como $Bx_B + Rx_R$, notar que cada componente de este vector es el resultado de multiplicar la $i$-ésima fila de $A$ por el vector de $x$, las primeras $m$ columnas serán multiplicadas por las primeras $m$ componentes de $x$, o sea $B$, de ahí $Bx_B$.
+
+El objetivo de lo anterior es observar que la ecuación $Bx_B = b$ posee solución única, entonces haciendo $x_R = 0$, se tiene una solución del sistema $Ax = b$.
+
+\textbf{Definiciones}
+
+\begin{enumerate}
+	\item Una submatrix $B$ formada por $m$ columnas linealmente independientes de $A$ es una base.
+	\item La solución $x_B = B^{-1}b, x_R = 0$ es la solución básica del sistema, (porque está asociada a la base $B$).
+	\item $x_B$ es el vector de variables básicas y $x_R$ es el vector de variables no básicas.
+\end{enumerate} 
+
+Se tiene entonces : $Ax = Bx_B + Rx_R = b$, si se multiplica a la izquierda por $B^{-1}$ se obtiene : $x_B + (B^{-1}R)x_R = B^{-1}b$.
+
+Observar que en el miembro izquierdo cada una de las variables básicas aparece en una única ecuación con coeficiente uno, por lo que sus valores en serán exactamente las componentes correspondientes en el vector $B^{-1}b$ ( las primeras $B$ coordenadas son estos valores ). A esto se le denomina forma explícita del sistema $Ax = b$ respecto a la base $B$. 
+
+La idea es que el proceso de multiplicar por la matriz $B^{-1}$ es análogo a realizar transformaciones en el sistema hasta que los coeficientes de las variables de $x_B$ sean $1$.
+
+Notar que los valores de las variables de $x_B$ son los coeficientes obtenidos al expresar a el vector $b$ como combinación linear de las columnas de $B$, o equivalente resolver el sistema $Bx_B = b$.
+
+Observar que en la solución básica pueden haber componentes que sean $0$, en este caso la solución es degenerada.
+
+La condición que falta para ser candidato a solución del problema es la no negatividad de la solución, cuando la solución satisface la no negatividad es factible.
+
+\textbf{Teorema:} Dado el problema general de Optimización Lineal en forma estándar, como se enunció anteriormente.
+
+\begin{enumerate}
+	\item Si existe solución factible entonces existe solución factible básica. Esto significa que si hay una solución que cumple la no-negatividad se puede encontrar otra que cumple la no-negatividad y además está asociada a una base $B$, por lo que posee al menos n-m componentes iguales a $0$.
+
+	\item Si existe una solución factible óptima entonces existe solución factible óptima básica . 
+\end{enumerate}
+
+\subsection{Demostración:}
+
+\textbf{Parte 1: Se asume que existe solución factible}
+
+Sean $A_1, A_2, ..., A_n$ las columnas de la matriz $A$ y $x = (x_1, ... x_n)$ una solución factible. Se cumple que:
+
+$$A_1x_1 + ... + A_nx_n = b$$
+
+Donde $x_i \geq 0$, por ser factible, digamos que hay $p$ tales que son $>0$. Digamos que las $p$ primeras, de forma que:
+
+$$A_1x_1 + ... + A_px_p = b$$
+
+Pueden presentarse dos casos:
+
+\begin{enumerate}
+	\item Los vectores $A_1, ..., A_p$ son li.
+	\item Los vectores $A_1, ..., A_p$ son ld.
+\end{enumerate}
+
+En el primer caso, notar que $p \leq m$, porque el rango de la matriz es $m$.
+
+Si $p = m$ entonces la solución es básica y se tiene la demostración. ( la base sería $A_1, ..., A_p$)
+
+Si $p < m$ como $A$ tiene rango $m$, se pueden encontrar entre las restantes $n - p$ columnas de $A$, $m-p$ columnas que formen un sistema de vectores li junto con las $p$ columnas originales, se obtiene una solución factible básica degenerada y se obtiene la demostración.
+
+En el segundo caso los vectores $A_1, ..., A_p$ son ld, existe una combinación lineal no trivial de dichos vectores que es igual a el vector nulo, o sea existen coeficientes $y_1, ..., y_p$ no todos nulos tales que :
+
+$$A_1y_1 + ... + A_py_p = 0$$
+
+Esta ecuación se puede multiplicar por una constante $e$ y restársela a la ecuación principal y se obtiene que :
+
+$$A_1(x_1 - e*y_1) + ... + A_p(x_p - e*y_p) = 0$$
+
+Sin pérdida de generalidad se puede asumir que al menos para un $i$: $y_i > 0$, porque en otro caso se puede multiplicar la ecuación por $-1$.
+
+Sea $\hat{e} = \min \{ \frac{x_i}{y_i}, y_i > 0 \}$
+
+Escogiendo $e = \hat{e}$ obtenemos una solución con al menos una componente positiva menos ( se hace $0$) , además las componentes positivas no negativas se mantienen siendo no negativas. Por lo que mientras que los vectores sean linealmente dependientes se puede reducir en al menos una la cantidad de componentes positivas de la solución. Como esto no se puede realizar infinitamente, eventualmente serán li, y sería el caso $1$.
+
+Esta parte demuestra que si existe una solución factible entonces se puede encontrar ( no necesariamente la anterior ) una solución factible básica.
+
+\textbf{Parte 2: Se asume que es óptima y que además es factible}
+
+Como en el caso anterior consideramos las componentes mayores que $0$, si los vectores asociados son li, entonces es análogo a el caso anterior.
+
+En el caso que son ld, se procede análogamente, cuando se reemplaza a $x$, por $x - e*y$, el cambio es $c^Tx - e*c^Ty$, se demuestra que $c^Ty = 0$, esto es suficiente porque entonces se procede como en el caso anterior para reducir una componente positiva.
+
+Asumiendo que $c^Ty \neq 0$, entonces para un $\hat{e}$ tal que :
+
+$$\hat{e} \leq \min \{ \frac{x_i}{y_i} ; y_i \neq 0 \}$$
+
+Primero el vector $x - \hat{e}$ es factible porque :
+
+\begin{enumerate}
+	\item Si algún $y_i > 0$ entonces solamente habría que verificar en el caso en que $\hat{e} > 0$, pero $x_i \leq y_i * \frac{x_i}{y_i} \leq y_i * \hat{e}$.
+	\item Si algún $y_i < 0$ entonces habría que verificar en el caso en que $\hat{e} < 0$, sería: $| \frac{x_i}{y_i} | * y_i = -x_i$, entonces $\hat{e} * y_i \leq -(-x_i) = x_i$
+\end{enumerate}
+
+Como este vector es factible escoger a $\hat{e}$ con signo contrario a $c^Ty$, entonces el valor de la solución factible $x - \hat{e}y$ es menor, y por tanto contradice que es óptimo.
+
+\subsection{Aplicación: }
+
+Si hay una solución óptima factible, entonces hay una solución óptima factible básica, esto reduce el problema a una cantidad finita, las formas distintas de escoger una base de $A$ con $m$ componentes.
+
+\section{Simplex}
+
+Hallar el mínimo de $c^T x$ sujeto a que : $Ax = b$, $x \geq 0$. Donde $x \in \mathbb{R}^n, b \in \mathbb{R}^m$, $A$ es una matriz de orden $m * n$ con $rg(A) = m$. 
+
+El sistema en forma explícita respecto a la base $B$ sería:
+
+$$x_B + B^{-1}Rx_R = B^{-1}b = y_0$$
+
+Sustituyendo en la función objetivo se obtiene que esta puede ser expresada en términos de las variables no básicas:
+
+$$c^Tx = c^T_Bx_B + c^T_Rx_R = c^T_B(y_0 - B^{-1}Rx_R) + c^T_Rx_R = c^T_By_0 + x_R(c^T_R - c^T_BB^{-1}R)$$
+
+Donde $c_B, c_R$ denotan los vectores cuyas componentes son los costos de las variables básicas y no-básicas respectivamente.
+
+Notar que se está expresando la función objetivo como una constante que depende de la base sumada a un dot-product en el que un vector son las variables no-básicas.
+
+Si se denota por $z_0 = c^T_By_0$, $z^T_R = c^T_BB^{-1}R$, $r_R = (c_R - z_R)$, la función objetivo se puede escribir de la forma :
+
+$$z = z_0 + \sum_{j \in R} r_j x_j$$
+
+A las componentes del vector $r_R$ se les llama costos reducidos. Notar que si para alguna base se cumple que todos los $r_j \geq 0$ entonces esa solución es óptima. (todos los coeficientes son positivos, haciendo $0$ las variables no-básicas es mínimo).
+
+Si además algún $r_j$ es igual a $0$, entonces el problema tiene óptimos múltiples ( esa variable no está aportando nada independientemente de el valor que tome ).
+
+
+
+
+
+
+\end{document}
